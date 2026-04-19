@@ -3,8 +3,7 @@
   src:
     url("fonts/Phosphor.woff2") format("woff2"),
     url("fonts/Phosphor.woff") format("woff"),
-    url("fonts/Phosphor.ttf") format("truetype"),
-    url("fonts/Phosphor.svg#Phosphor") format("svg");
+    url("fonts/Phosphor.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: block;

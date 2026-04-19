@@ -127,7 +127,7 @@ async function fixPhosphorFonts() {
     if (!fs.existsSync(cssPath)) continue;
 
     let css = fs.readFileSync(cssPath, 'utf8');
-    const fontMatches = [...css.matchAll(/url\(['"]?([^'")\s]+\.(?:ttf|woff2?|eot|svg)[^'")\s]*)['"]?\)/g)];
+    const fontMatches = [...css.matchAll(/url\(['"]?([^'")\s]+\.(?:ttf|woff2?|eot)[^'")\s]*)['"]?\)/g)];
 
     for (const match of fontMatches) {
       const relPath  = match[1].split('?')[0]; // strip query strings
