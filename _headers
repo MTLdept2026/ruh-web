@@ -7,7 +7,7 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: no-referrer
   Permissions-Policy: geolocation=(self), camera=(), microphone=(), payment=(), usb=()
-  Content-Security-Policy: default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://al-ruh.netlify.app; manifest-src 'self'; worker-src 'self'; connect-src 'self' https://api.aladhan.com https://www.e-solat.gov.my; object-src 'none'; base-uri 'self'; form-action 'self'
+  Content-Security-Policy: default-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://al-ruh.netlify.app; manifest-src 'self'; worker-src 'self'; connect-src 'self' https://api.aladhan.com https://www.e-solat.gov.my; object-src 'none'; base-uri 'self'; form-action 'self'
   Cache-Control: no-store, no-cache, must-revalidate
   Pragma: no-cache
   Expires: 0
