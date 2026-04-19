@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Scheherazade+New:wght@400;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    background: #0f0d0a;
+  }
+
+  .root {
+    width: 1200px;
+    height: 630px;
+    background: #13110d;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  /* Decorative ring stack — left side */
+  .ring-wrap {
+    position: absolute;
+    left: -120px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 520px;
+    height: 520px;
+    flex-shrink: 0;
+  }
+
+  /* Islamic star — right background */
+  .star-bg {
+    position: absolute;
+    right: -60px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 460px;
+    height: 460px;
+    opacity: 0.055;
+  }
+
+  /* Thin gold vertical divider */
+  .divider {
+    position: absolute;
+    left: 390px;
+    top: 80px;
+    bottom: 80px;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.35) 30%, rgba(201,168,76,0.35) 70%, transparent);
+  }
+
+  /* Content — right of divider */
+  .content {
+    position: absolute;
+    left: 430px;
+    right: 80px;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    color: rgba(201, 168, 76, 0.6);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .wordmark {
+    font-family: 'Cinzel', serif;
+    font-size: 88px;
+    font-weight: 700;
+    color: #faf7f2;
+    letter-spacing: 0.1em;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .wordmark em {
+    color: #C9A84C;
+    font-style: normal;
+  }
+
+  .tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 23px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(250, 247, 242, 0.42);
+    letter-spacing: 0.02em;
+    margin-bottom: 36px;
+  }
+
+  .rule {
+    width: 40px;
+    height: 1px;
+    background: rgba(201,168,76,0.4);
+    margin-bottom: 28px;
+  }
+
+  .pills {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .pill {
+    font-family: 'Cinzel', serif;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(201, 168, 76, 0.55);
+    border: 1px solid rgba(201,168,76,0.18);
+    border-radius: 100px;
+    padding: 5px 14px;
+  }
+
+  .url {
+    position: absolute;
+    bottom: 38px;
+    right: 80px;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: rgba(250,247,242,0.18);
+    text-transform: uppercase;
+  }
+
+  .arabic-accent {
+    position: absolute;
+    bottom: 30px;
+    left: 430px;
+    font-family: 'Scheherazade New', serif;
+    font-size: 26px;
+    color: rgba(201,168,76,0.22);
+    line-height: 1;
+  }
+</style>
+</head>
+<body>
+<div class="root">
+
+  <!-- Concentric ring composition — left -->
+  <svg class="ring-wrap" viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- outer rings -->
+    <circle cx="260" cy="260" r="255" stroke="rgba(201,168,76,0.12)" stroke-width="1"/>
+    <circle cx="260" cy="260" r="230" stroke="rgba(201,168,76,0.08)" stroke-width="0.5"/>
+    <!-- main gold ring -->
+    <circle cx="260" cy="260" r="200" stroke="#C9A84C" stroke-width="1.5" stroke-opacity="0.55"/>
+    <!-- tick marks (12 positions) -->
+    <g stroke="#C9A84C" stroke-width="1.5" stroke-opacity="0.5" stroke-linecap="round">
+      <line x1="260" y1="56" x2="260" y2="70"/>
+      <line x1="260" y1="450" x2="260" y2="464"/>
+      <line x1="56" y1="260" x2="70" y2="260"/>
+      <line x1="450" y1="260" x2="464" y2="260"/>
+      <line x1="118" y1="118" x2="128" y2="128"/>
+      <line x1="392" y1="392" x2="402" y2="402"/>
+      <line x1="392" y1="118" x2="402" y2="128"/>
+      <line x1="118" y1="392" x2="128" y2="402"/>
+    </g>
+    <!-- inner circle -->
+    <circle cx="260" cy="260" r="90" stroke="rgba(250,247,242,0.08)" stroke-width="1"/>
+    <!-- centre glow -->
+    <circle cx="260" cy="260" r="18" fill="#C9A84C" fill-opacity="0.9"/>
+    <circle cx="260" cy="260" r="36" fill="#C9A84C" fill-opacity="0.07"/>
+    <circle cx="260" cy="260" r="60" fill="#C9A84C" fill-opacity="0.03"/>
+  </svg>
+
+  <!-- Islamic star — right background -->
+  <svg class="star-bg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g fill="#C9A84C" transform="translate(200,200)">
+      <polygon points="0,-175 13,-50 50,-133 0,-50 -50,-133 -13,-50 0,-175"/>
+      <polygon points="0,175 13,50 50,133 0,50 -50,133 -13,50 0,175"/>
+      <polygon points="-175,0 -50,13 -133,50 -50,0 -133,-50 -50,-13 -175,0"/>
+      <polygon points="175,0 50,13 133,50 50,0 133,-50 50,-13 175,0"/>
+      <polygon points="-124,-124 -19,-72 -72,-19 -72,-72 -19,-124 -72,-72 -124,-124"/>
+      <polygon points="124,-124 19,-72 72,-19 72,-72 19,-124 72,-72 124,-124"/>
+      <polygon points="-124,124 -19,72 -72,19 -72,72 -19,124 -72,72 -124,124"/>
+      <polygon points="124,124 19,72 72,19 72,72 19,124 72,72 124,124"/>
+      <circle r="55" fill="none" stroke="#C9A84C" stroke-width="0.8"/>
+      <circle r="115" fill="none" stroke="#C9A84C" stroke-width="0.5"/>
+      <circle r="170" fill="none" stroke="#C9A84C" stroke-width="0.5"/>
+    </g>
+  </svg>
+
+  <!-- Vertical divider -->
+  <div class="divider"></div>
+
+  <!-- Text content -->
+  <div class="content">
+    <div class="eyebrow">Islamic Reflection App</div>
+    <div class="wordmark">R<em>Ū</em>H</div>
+    <div class="tagline">A moment for your heart and soul</div>
+    <div class="rule"></div>
+    <div class="pills">
+      <span class="pill">Quran</span>
+      <span class="pill">Salawat</span>
+      <span class="pill">Dua</span>
+      <span class="pill">Diary</span>
+    </div>
+  </div>
+
+  <!-- Bottom accents -->
+  <div class="arabic-accent">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+  <div class="url">al-ruh.netlify.app</div>
+
+</div>
+</body>
+</html>

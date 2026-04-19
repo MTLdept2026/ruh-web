@@ -1,0 +1,39 @@
+## Security & Caching Headers for Rūḥ — al-ruh.netlify.app
+## Lines starting with ## are top-level comments (ignored by Netlify).
+## No inline comments are allowed inside path blocks.
+
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  Permissions-Policy: geolocation=(self), camera=(), microphone=(), payment=(), usb=()
+  Content-Security-Policy: default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://al-ruh.netlify.app; manifest-src 'self'; worker-src 'self'; connect-src 'self' https://api.aladhan.com https://www.e-solat.gov.my; object-src 'none'; base-uri 'self'; form-action 'self'
+  Cache-Control: no-store, no-cache, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+## App shell — never cache; always fetch fresh from Netlify on every open.
+/index.html
+  Cache-Control: no-store, no-cache, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+## Service worker — never cache; browser must compare the live file on every load.
+## Service-Worker-Allowed grants the SW scope over the entire origin (/).
+/sw.js
+  Cache-Control: no-store, no-cache, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+  Service-Worker-Allowed: /
+
+## version.json — NEVER cache. This is the single file updated on every deploy.
+## The async version poller in index.html fetches this on startup and on tab
+## focus. A changed value triggers a hard reload across all open tabs/PWAs.
+/version.json
+  Cache-Control: no-store, no-cache, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+## Manifest — short TTL so icon/name changes propagate within an hour.
+/ruh-manifest.json
+  Cache-Control: public, max-age=3600, must-revalidate

@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "Bash(npx --version)",
+      "Read(//usr/local/**)",
+      "Read(//opt/homebrew/**)",
+      "Bash(/usr/bin/python3 -c \"import os; print\\(os.getcwd\\(\\)\\)\")"
+    ]
+  }
+}

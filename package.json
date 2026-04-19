@@ -1,0 +1,20 @@
+{
+  "name": "ruh-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Standalone web and PWA version of Ruh.",
+  "type": "module",
+  "scripts": {
+    "dev": "python3 server.py 3000",
+    "dev:netlify": "npx netlify dev",
+    "dispatch:debug": "npx netlify functions:invoke push-dispatch --payload '{\"manual\":true}'",
+    "generate:vapid": "npx web-push generate-vapid-keys",
+    "serve": "python3 server.py 4173",
+    "setup:vendor": "node setup-vendor.js"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^10.7.4",
+    "@netlify/functions": "^5.2.0",
+    "web-push": "^3.6.7"
+  }
+}
