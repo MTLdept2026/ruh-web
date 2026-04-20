@@ -30,7 +30,7 @@
         //   2. "v" in /version.json       (one-liner at root — the async poller reads it)
         // Both must match. APP_VERSION fires synchronously on first load;
         // version.json catches open tabs and background PWA installs.
-        var APP_VERSION = '2026-03-28b'; // ← YYYY-MM-DD, must match version.json "v"
+        var APP_VERSION = '2026-04-20a'; // ← YYYY-MM-DD, must match version.json "v"
         var stored = localStorage.getItem('ruh-app-version');
         if (stored !== APP_VERSION) {
           localStorage.setItem('ruh-app-version', APP_VERSION);
@@ -60,17 +60,17 @@
 
     <!-- Social / Link Preview (Open Graph + Twitter Card) -->
     <meta property="og:type"        content="website">
-    <meta property="og:url"         content="https://al-ruh.netlify.app">
+    <meta property="og:url"         content="https://ruh-app.netlify.app">
     <meta property="og:title"       content="Rūḥ — Quranic Reflection &amp; Remembrance">
     <meta property="og:description" content="A moment for your heart and soul. Daily Quran verses, salawat, dua, and personal reflection.">
-    <meta property="og:image"       content="https://al-ruh.netlify.app/og-image.png">
+    <meta property="og:image"       content="https://ruh-app.netlify.app/og-image.png">
     <meta property="og:image:width"  content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt"   content="Rūḥ — Islamic reflection app">
     <meta name="twitter:card"        content="summary_large_image">
     <meta name="twitter:title"       content="Rūḥ — Quranic Reflection &amp; Remembrance">
     <meta name="twitter:description" content="A moment for your heart and soul. Daily Quran verses, salawat, dua, and personal reflection.">
-    <meta name="twitter:image"       content="https://al-ruh.netlify.app/og-image.png">
+    <meta name="twitter:image"       content="https://ruh-app.netlify.app/og-image.png">
 
     <!-- iOS "Add to Home Screen" -->
     <meta name="apple-mobile-web-app-capable" content="yes">
