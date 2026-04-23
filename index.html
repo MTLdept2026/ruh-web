@@ -100,9 +100,9 @@
                         sans:      ['Cormorant Garamond', 'Georgia', 'serif'],
                     },
                     colors: {
-                        gold: { DEFAULT: '#b5873f', light: '#d4a853', pale: '#fdf6e9', dark: '#8a6220' },
-                        ink:  { DEFAULT: '#1a1612', light: '#3d3529' },
-                        parchment: { DEFAULT: '#faf7f2', dark: '#f0ebe0' },
+                        gold: { DEFAULT: '#a87b32', light: '#c9973f', pale: '#fdf8f0', dark: '#7d5a22' },
+                        ink:  { DEFAULT: '#130f0a', light: '#2e2720' },
+                        parchment: { DEFAULT: '#fdfaf5', dark: '#f4efe5' },
                     }
                 }
             }
@@ -135,20 +135,20 @@
 
         /* ─── Design Tokens ─────────────────────────────────── */
         :root {
-            --gold:           #b5873f;
-            --gold-light:     #d4a853;
-            --gold-pale:      #fdf6e9;
+            --gold:           #a87b32;
+            --gold-light:     #c9973f;
+            --gold-pale:      #fdf8f0;
             --emerald:        #2d7a56;
             --emerald-light:  #3ca36e;
             --emerald-pale:   #edf7f2;
             --indigo:         #4a3e8c;
             --indigo-light:   #6b5fcf;
             --indigo-pale:    #f0eeff;
-            --ink:            #1a1612;
-            --ink-light:      #3d3529;
-            --parchment:      #faf7f2;
-            --parchment-dark: #f0ebe0;
-            --mist:           #8a8070;
+            --ink:            #130f0a;
+            --ink-light:      #2e2720;
+            --parchment:      #fdfaf5;
+            --parchment-dark: #f4efe5;
+            --mist:           #7a7060;
         }
 
         /* ─── Fonts ─────────────────────────────────────────── */
@@ -205,7 +205,7 @@
 
         /* ─── Timeline Gradient Line ─────────────────────────── */
         .timeline-line {
-            background: linear-gradient(to bottom, #3ca36e 0%, #b5873f 35%, #6b5fcf 70%, #94a3b8 100%);
+            background: linear-gradient(to bottom, #3ca36e 0%, #a87b32 35%, #6b5fcf 70%, #94a3b8 100%);
             width: 1px;
             position: absolute;
             left: 0;
@@ -222,9 +222,9 @@
 
         /* ─── Recite Button Pulse ────────────────────────────── */
         @keyframes recite-pulse {
-            0%   { box-shadow: 0 0 0 0 rgba(181,135,63,0.35); }
-            70%  { box-shadow: 0 0 0 10px rgba(181,135,63,0); }
-            100% { box-shadow: 0 0 0 0 rgba(181,135,63,0); }
+            0%   { box-shadow: 0 0 0 0 rgba(168,123,50,0.35); }
+            70%  { box-shadow: 0 0 0 10px rgba(168,123,50,0); }
+            100% { box-shadow: 0 0 0 0 rgba(168,123,50,0); }
         }
         .recite-btn:active {
             animation: recite-pulse 0.5s ease-out;
@@ -245,8 +245,8 @@
             background-image: repeating-linear-gradient(
                 transparent,
                 transparent 27px,
-                rgba(181,135,63,0.10) 27px,
-                rgba(181,135,63,0.10) 28px
+                rgba(168,123,50,0.10) 27px,
+                rgba(168,123,50,0.10) 28px
             );
             line-height: 28px;
             background-position: 0 16px;
@@ -255,8 +255,8 @@
             background-image: repeating-linear-gradient(
                 transparent,
                 transparent 27px,
-                rgba(181,135,63,0.07) 27px,
-                rgba(181,135,63,0.07) 28px
+                rgba(168,123,50,0.07) 27px,
+                rgba(168,123,50,0.07) 28px
             );
             background-position: 0 16px;
         }
@@ -353,11 +353,11 @@
         }
         .memory-shimmer {
             background: linear-gradient(90deg,
-                rgba(181,135,63,0) 0%,
-                rgba(181,135,63,0.18) 40%,
-                rgba(181,135,63,0.32) 50%,
-                rgba(181,135,63,0.18) 60%,
-                rgba(181,135,63,0) 100%
+                rgba(168,123,50,0) 0%,
+                rgba(168,123,50,0.18) 40%,
+                rgba(168,123,50,0.32) 50%,
+                rgba(168,123,50,0.18) 60%,
+                rgba(168,123,50,0) 100%
             );
             background-size: 200% auto;
             animation: memory-shimmer 2.4s linear infinite;
@@ -2620,12 +2620,12 @@
             ctx.scale(SCALE, SCALE);
 
             const dark = isDarkMode;
-            const BG    = dark ? '#16122E' : '#faf7f2';
-            const TEXT  = dark ? '#dde3ed' : '#1a1612';
-            const GOLD  = '#b5873f';
-            const GOLD2 = dark ? 'rgba(181,135,63,0.18)' : 'rgba(181,135,63,0.22)';
-            const GOLD3 = dark ? 'rgba(181,135,63,0.07)' : 'rgba(181,135,63,0.09)';
-            const SUB   = dark ? 'rgba(221,227,237,0.35)' : 'rgba(26,22,18,0.32)';
+            const BG    = dark ? '#16122E' : '#fdfaf5';
+            const TEXT  = dark ? '#dde3ed' : '#130f0a';
+            const GOLD  = '#a87b32';
+            const GOLD2 = dark ? 'rgba(168,123,50,0.18)' : 'rgba(168,123,50,0.22)';
+            const GOLD3 = dark ? 'rgba(168,123,50,0.07)' : 'rgba(168,123,50,0.09)';
+            const SUB   = dark ? 'rgba(221,227,237,0.35)' : 'rgba(19,15,10,0.32)';
 
             // ── Background
             ctx.fillStyle = BG;
@@ -2762,7 +2762,7 @@
             ctx.restore();
 
             ctx.font = `300 11px Cinzel, Georgia, serif`;
-            ctx.fillStyle = dark ? 'rgba(181,135,63,0.45)' : 'rgba(181,135,63,0.55)';
+            ctx.fillStyle = dark ? 'rgba(168,123,50,0.45)' : 'rgba(168,123,50,0.55)';
             ctx.letterSpacing = '0.22em';
             ctx.fillText('A SPACE FOR THE HEART', W / 2, BOT_Y + 24);
             ctx.letterSpacing = '0';
@@ -2787,16 +2787,16 @@
             const dark  = isDarkMode;
             const isSalawat = type === 'salawat_100';
             // Colour tokens — gold for salawat, emerald for shields
-            const ACCENT  = isSalawat ? '#b5873f' : '#3ca36e';
+            const ACCENT  = isSalawat ? '#a87b32' : '#3ca36e';
             const ACCENT2 = isSalawat
-              ? (dark ? 'rgba(181,135,63,0.18)' : 'rgba(181,135,63,0.22)')
+              ? (dark ? 'rgba(168,123,50,0.18)' : 'rgba(168,123,50,0.22)')
               : (dark ? 'rgba(60,163,110,0.18)'  : 'rgba(60,163,110,0.22)');
             const ACCENT3 = isSalawat
-              ? (dark ? 'rgba(181,135,63,0.07)' : 'rgba(181,135,63,0.09)')
+              ? (dark ? 'rgba(168,123,50,0.07)' : 'rgba(168,123,50,0.09)')
               : (dark ? 'rgba(60,163,110,0.06)'  : 'rgba(60,163,110,0.08)');
-            const BG   = dark ? '#16122E' : (isSalawat ? '#faf7f2' : '#f2faf6');
-            const TEXT = dark ? '#dde3ed' : '#1a1612';
-            const SUB  = dark ? 'rgba(221,227,237,0.38)' : 'rgba(26,22,18,0.35)';
+            const BG   = dark ? '#16122E' : (isSalawat ? '#fdfaf5' : '#f2faf6');
+            const TEXT = dark ? '#dde3ed' : '#130f0a';
+            const SUB  = dark ? 'rgba(221,227,237,0.38)' : 'rgba(19,15,10,0.35)';
 
             // ── Background
             ctx.fillStyle = BG;
@@ -2868,7 +2868,7 @@
               // Glow circle behind the number
               const glowR = ctx.createRadialGradient(W/2, CY - 28, 20, W/2, CY - 28, 140);
               glowR.addColorStop(0, isSalawat
-                ? (dark ? 'rgba(181,135,63,0.14)' : 'rgba(181,135,63,0.10)')
+                ? (dark ? 'rgba(168,123,50,0.14)' : 'rgba(168,123,50,0.10)')
                 : (dark ? 'rgba(60,163,110,0.14)'  : 'rgba(60,163,110,0.10)'));
               glowR.addColorStop(1, 'rgba(0,0,0,0)');
               ctx.fillStyle = glowR;
@@ -2882,7 +2882,7 @@
 
               // "ﷺ" — peace be upon him
               ctx.font = `italic 42px "Cormorant Garamond", Georgia, serif`;
-              ctx.fillStyle = dark ? 'rgba(221,227,237,0.55)' : 'rgba(26,22,18,0.50)';
+              ctx.fillStyle = dark ? 'rgba(221,227,237,0.55)' : 'rgba(19,15,10,0.50)';
               ctx.fillText('ﷺ', W/2, CY + 118);
 
               ctx.font = `300 16px Cinzel, Georgia, serif`;
@@ -2928,7 +2928,7 @@
               ctx.letterSpacing = '0';
 
               ctx.font = `italic 32px "Cormorant Garamond", Georgia, serif`;
-              ctx.fillStyle = dark ? 'rgba(221,227,237,0.55)' : 'rgba(26,22,18,0.50)';
+              ctx.fillStyle = dark ? 'rgba(221,227,237,0.55)' : 'rgba(19,15,10,0.50)';
               ctx.fillText('Your morning remembrance is complete.', W/2, CY + 154);
             }
 
@@ -2947,7 +2947,7 @@
             // userName dedication (if set)
             if (userName) {
               ctx.font = `italic 16px "Cormorant Garamond", Georgia, serif`;
-              ctx.fillStyle = dark ? 'rgba(181,135,63,0.45)' : 'rgba(181,135,63,0.50)';
+              ctx.fillStyle = dark ? 'rgba(168,123,50,0.45)' : 'rgba(168,123,50,0.50)';
               ctx.fillText(userName, W/2, FTR_TOP + 64);
             }
 
@@ -2963,7 +2963,7 @@
             ctx.fillRect(-4, -4, 8, 8);
             ctx.restore();
             ctx.font = `300 11px Cinzel, Georgia, serif`;
-            ctx.fillStyle = dark ? 'rgba(181,135,63,0.45)' : 'rgba(181,135,63,0.55)';
+            ctx.fillStyle = dark ? 'rgba(168,123,50,0.45)' : 'rgba(168,123,50,0.55)';
             ctx.letterSpacing = '0.22em';
             ctx.fillText('A SPACE FOR THE HEART', W/2, BOT_Y + 24);
             ctx.letterSpacing = '0';
@@ -4610,7 +4610,7 @@
                     <div style={{
                       width: 320, height: 320,
                       borderRadius: '50%',
-                      background: 'radial-gradient(circle, rgba(181,135,63,0.13) 0%, transparent 70%)'
+                      background: 'radial-gradient(circle, rgba(168,123,50,0.13) 0%, transparent 70%)'
                     }}></div>
                   </div>
 
@@ -4618,23 +4618,23 @@
                   <svg width="120" height="120" viewBox="0 0 120 120" fill="none" strokeLinecap="round" className="mb-10 relative z-10">
                     <circle className="star-draw" cx="60" cy="60" r="55"
                       style={{'--star-len': '346'}} strokeDasharray="346"
-                      stroke="#b5873f" strokeWidth="0.75" strokeOpacity="0.6" />
+                      stroke="#a87b32" strokeWidth="0.75" strokeOpacity="0.6" />
                     <circle className="star-draw" cx="60" cy="60" r="43"
                       style={{'--star-len': '270', animationDelay: '0.3s'}} strokeDasharray="270"
-                      stroke="#b5873f" strokeWidth="0.75" />
+                      stroke="#a87b32" strokeWidth="0.75" />
                     <circle className="star-draw" cx="60" cy="60" r="31"
                       style={{'--star-len': '195', animationDelay: '0.55s'}} strokeDasharray="195"
-                      stroke="#b5873f" strokeWidth="3.2" />
+                      stroke="#a87b32" strokeWidth="3.2" />
                     <circle className="star-draw" cx="60" cy="60" r="20"
                       style={{'--star-len': '126', animationDelay: '0.75s'}} strokeDasharray="126"
-                      stroke="#b5873f" strokeWidth="0.9" />
+                      stroke="#a87b32" strokeWidth="0.9" />
                     <circle className="star-draw" cx="60" cy="60" r="8"
                       style={{'--star-len': '50', animationDelay: '0.9s'}} strokeDasharray="50"
-                      stroke="#b5873f" strokeWidth="1.3" />
+                      stroke="#a87b32" strokeWidth="1.3" />
                   </svg>
 
                   {/* Bismillah in Arabic */}
-                  <p className="bismillah-rise font-indopak text-[2rem] text-[#b5873f] tracking-wide mb-3 relative z-10" dir="rtl">
+                  <p className="bismillah-rise font-indopak text-[2rem] text-[#a87b32] tracking-wide mb-3 relative z-10" dir="rtl">
                     بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
                   </p>
 
@@ -4658,7 +4658,7 @@
                   className={`fixed inset-x-0 top-0 z-[150] app-fixed-viewport flex flex-col items-center justify-center cursor-pointer px-8 ${dailyVerseDismissing ? 'verse-dismiss' : 'verse-reveal'}`}
                   style={{background: isDarkMode
                     ? 'linear-gradient(160deg, #0e0c1e 0%, #16122e 50%, #0e1a14 100%)'
-                    : 'linear-gradient(160deg, #faf7f0 0%, #f5efe0 50%, #edf4f0 100%)',
+                    : 'linear-gradient(160deg, #fdfaf5 0%, #f7f0e4 50%, #f0f6f2 100%)',
                     paddingTop: 'max(1rem, env(safe-area-inset-top))',
                     paddingBottom: 'max(1rem, env(safe-area-inset-bottom))'}}
                   onClick={dismissDailyVerse}
@@ -4666,14 +4666,14 @@
                   {/* Ambient glow */}
                   <div className="absolute inset-0 pointer-events-none" style={{
                     background: isDarkMode
-                      ? 'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(181,135,63,0.08) 0%, transparent 70%)'
-                      : 'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(181,135,63,0.12) 0%, transparent 70%)'
+                      ? 'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(168,123,50,0.08) 0%, transparent 70%)'
+                      : 'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(168,123,50,0.18) 0%, transparent 70%)'
                   }}></div>
 
-                  <AppIconMark className="w-16 h-16 mb-8 opacity-20" style={{color: isDarkMode ? '#b5873f' : '#b5873f'}} />
+                  <AppIconMark className="w-16 h-16 mb-8 opacity-20" style={{color: isDarkMode ? '#a87b32' : '#a87b32'}} />
 
                   <p className="font-display text-[9px] tracking-[0.3em] uppercase mb-8 text-center"
-                    style={{color: isDarkMode ? 'rgba(181,135,63,0.7)' : 'rgba(181,135,63,0.85)'}}>
+                    style={{color: isDarkMode ? 'rgba(168,123,50,0.7)' : 'rgba(168,123,50,0.85)'}}>
                     Verse of the Day
                   </p>
 
@@ -4682,20 +4682,20 @@
                     dir="rtl"
                     style={{
                       fontSize: 'clamp(1.8rem, 7vw, 2.8rem)',
-                      color: isDarkMode ? '#d4a853' : '#5c3d11',
-                      textShadow: isDarkMode ? '0 0 80px rgba(181,135,63,0.3)' : 'none'
+                      color: isDarkMode ? '#c9973f' : '#6b4a1a',
+                      textShadow: isDarkMode ? '0 0 80px rgba(168,123,50,0.3)' : 'none'
                     }}
                   >
                     {verseData.arabic}
                   </p>
 
                   <p className="font-editorial text-lg italic leading-relaxed text-center relative z-10 max-w-xs"
-                    style={{color: isDarkMode ? 'rgba(221,227,237,0.75)' : 'rgba(26,22,18,0.65)'}}>
+                    style={{color: isDarkMode ? 'rgba(221,227,237,0.75)' : 'rgba(19,15,10,0.65)'}}>
                     "{verseData.translation}"
                   </p>
 
                   <p className="font-display text-[9px] tracking-[0.2em] uppercase mt-5 relative z-10"
-                    style={{color: isDarkMode ? 'rgba(181,135,63,0.5)' : 'rgba(181,135,63,0.6)'}}>
+                    style={{color: isDarkMode ? 'rgba(168,123,50,0.6)' : 'rgba(168,123,50,0.6)'}}>
                     {verseData.surah} · {verseData.ayah}
                   </p>
 
@@ -4716,7 +4716,7 @@
                 <div className="fixed inset-x-0 top-0 z-[100] app-fixed-viewport flex items-end justify-center"
                   style={{background: isDarkMode
                     ? 'linear-gradient(180deg, rgba(14,12,30,0.95) 0%, rgba(22,18,46,0.98) 100%)'
-                    : 'linear-gradient(180deg, rgba(181,135,63,0.06) 0%, rgba(250,247,242,0.97) 100%)',
+                    : 'linear-gradient(180deg, rgba(168,123,50,0.06) 0%, rgba(253,250,245,0.97) 100%)',
                     backdropFilter: 'blur(12px)',
                     paddingTop: 'max(1rem, env(safe-area-inset-top))',
                     paddingBottom: 'max(1rem, env(safe-area-inset-bottom))'}}>
@@ -4724,23 +4724,23 @@
                   {/* Step 0 — Atmospheric welcome */}
                   {onboardingStep === 0 && (
                     <div className="step-in w-full max-w-md px-8 pb-16 pt-20 flex flex-col items-center text-center">
-                      <AppIconMark className="w-10 h-10 mb-8" style={{color: '#b5873f', opacity: 0.7}} />
+                      <AppIconMark className="w-10 h-10 mb-8" style={{color: '#a87b32', opacity: 0.7}} />
                       <h1 className="font-display text-[11px] tracking-[0.35em] uppercase mb-6"
-                        style={{color: isDarkMode ? 'rgba(181,135,63,0.65)' : 'rgba(181,135,63,0.8)'}}>
+                        style={{color: isDarkMode ? 'rgba(168,123,50,0.65)' : 'rgba(168,123,50,0.8)'}}>
                         Ahlan wa Sahlan
                       </h1>
                       <h2 className="font-editorial text-4xl font-light leading-tight mb-5"
-                        style={{color: isDarkMode ? '#dde3ed' : '#1a1612'}}>
+                        style={{color: isDarkMode ? '#dde3ed' : '#130f0a'}}>
                         A sanctuary<br/>for your heart.
                       </h2>
                       <p className="font-editorial text-base italic leading-relaxed mb-12"
-                        style={{color: isDarkMode ? 'rgba(221,227,237,0.45)' : 'rgba(26,22,18,0.45)'}}>
+                        style={{color: isDarkMode ? 'rgba(221,227,237,0.45)' : 'rgba(19,15,10,0.45)'}}>
                         Daily verses, remembrance, and reflection — in a space that honours the soul.
                       </p>
                       <button
                         onClick={() => { window.RuhSoundscape.init(); setOnboardingStep(1); }}
                         className="w-full py-4 rounded-2xl font-display text-[11px] tracking-[0.2em] uppercase transition-all active:scale-[0.98] shadow-xl"
-                        style={{background: '#b5873f', color: '#fff', boxShadow: '0 8px 32px rgba(181,135,63,0.35)'}}
+                        style={{background: '#a87b32', color: '#fff', boxShadow: '0 8px 32px rgba(168,123,50,0.35)'}}
                       >
                         Begin
                       </button>
@@ -4751,15 +4751,15 @@
                   {onboardingStep === 1 && (
                     <div className="step-in w-full max-w-md px-8 pb-16 pt-12 flex flex-col">
                       <p className="font-display text-[10px] tracking-[0.3em] uppercase mb-3 text-center"
-                        style={{color: isDarkMode ? 'rgba(181,135,63,0.55)' : 'rgba(181,135,63,0.7)'}}>
+                        style={{color: isDarkMode ? 'rgba(168,123,50,0.55)' : 'rgba(168,123,50,0.7)'}}>
                         Step 1 of 3
                       </p>
                       <h2 className="font-editorial text-3xl font-light text-center leading-snug mb-2"
-                        style={{color: isDarkMode ? '#dde3ed' : '#1a1612'}}>
+                        style={{color: isDarkMode ? '#dde3ed' : '#130f0a'}}>
                         What brings you here today?
                       </h2>
                       <p className="font-editorial text-sm italic text-center mb-9"
-                        style={{color: isDarkMode ? 'rgba(221,227,237,0.4)' : 'rgba(26,22,18,0.4)'}}>
+                        style={{color: isDarkMode ? 'rgba(221,227,237,0.4)' : 'rgba(19,15,10,0.4)'}}>
                         Choose your primary intention.
                       </p>
                       <div className="space-y-3 mb-10">
@@ -4774,20 +4774,20 @@
                             className="w-full flex items-center gap-4 px-5 py-4 rounded-2xl border transition-all active:scale-[0.98] text-left"
                             style={{
                               background: spiritualFocus === opt.key
-                                ? (isDarkMode ? 'rgba(181,135,63,0.14)' : 'rgba(181,135,63,0.10)')
-                                : (isDarkMode ? 'rgba(255,255,255,0.04)' : 'rgba(26,22,18,0.03)'),
+                                ? (isDarkMode ? 'rgba(168,123,50,0.14)' : 'rgba(168,123,50,0.10)')
+                                : (isDarkMode ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.92)'),
                               borderColor: spiritualFocus === opt.key
-                                ? 'rgba(181,135,63,0.5)'
-                                : (isDarkMode ? 'rgba(255,255,255,0.08)' : 'rgba(26,22,18,0.08)')
+                                ? 'rgba(168,123,50,0.6)'
+                                : (isDarkMode ? 'rgba(255,255,255,0.08)' : 'rgba(19,15,10,0.14)')
                             }}
                           >
                             <span className="text-2xl w-8 flex-shrink-0 text-center"
-                              style={{color: '#b5873f', fontFamily: 'serif'}}>{opt.emoji}</span>
+                              style={{color: '#a87b32', fontFamily: 'serif'}}>{opt.emoji}</span>
                             <div>
                               <p className="font-display text-[11px] tracking-[0.1em] uppercase mb-0.5"
-                                style={{color: isDarkMode ? '#dde3ed' : '#1a1612'}}>{opt.title}</p>
+                                style={{color: isDarkMode ? '#dde3ed' : '#130f0a'}}>{opt.title}</p>
                               <p className="font-editorial text-sm italic"
-                                style={{color: isDarkMode ? 'rgba(221,227,237,0.45)' : 'rgba(26,22,18,0.45)'}}>{opt.sub}</p>
+                                style={{color: isDarkMode ? 'rgba(221,227,237,0.45)' : 'rgba(19,15,10,0.45)'}}>{opt.sub}</p>
                             </div>
                           </button>
                         ))}
@@ -4804,15 +4804,15 @@
                   {onboardingStep === 2 && (
                     <div className="step-in w-full max-w-md px-8 pb-16 pt-12 flex flex-col">
                       <p className="font-display text-[10px] tracking-[0.3em] uppercase mb-3 text-center"
-                        style={{color: isDarkMode ? 'rgba(181,135,63,0.55)' : 'rgba(181,135,63,0.7)'}}>
+                        style={{color: isDarkMode ? 'rgba(168,123,50,0.55)' : 'rgba(168,123,50,0.7)'}}>
                         Step 2 of 3
                       </p>
                       <h2 className="font-editorial text-3xl font-light text-center leading-snug mb-2"
-                        style={{color: isDarkMode ? '#dde3ed' : '#1a1612'}}>
+                        style={{color: isDarkMode ? '#dde3ed' : '#130f0a'}}>
                         How shall we<br/>address you?
                       </h2>
                       <p className="font-editorial text-sm italic text-center mb-9"
-                        style={{color: isDarkMode ? 'rgba(221,227,237,0.4)' : 'rgba(26,22,18,0.4)'}}>
+                        style={{color: isDarkMode ? 'rgba(221,227,237,0.4)' : 'rgba(19,15,10,0.4)'}}>
                         A name or nickname — entirely your choice.
                       </p>
                       <form onSubmit={handleNameSubmit} className="space-y-4 mb-6">
@@ -4824,18 +4824,18 @@
                           maxLength={60}
                           autoComplete="off"
                           autoFocus
-                          className="w-full rounded-2xl px-5 py-4 font-editorial text-base text-center border focus:outline-none focus:ring-1 focus:ring-[#b5873f] transition-all"
+                          className="w-full rounded-2xl px-5 py-4 font-editorial text-base text-center border focus:outline-none focus:ring-1 focus:ring-[#a87b32] transition-all"
                           style={{
                             background: isDarkMode ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.9)',
-                            borderColor: isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(26,22,18,0.12)',
-                            color: isDarkMode ? '#dde3ed' : '#1a1612'
+                            borderColor: isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(19,15,10,0.18)',
+                            color: isDarkMode ? '#dde3ed' : '#130f0a'
                           }}
                         />
                         <button
                           type="submit"
                           disabled={!tempName.trim()}
                           className="w-full py-4 rounded-2xl font-display text-[11px] tracking-[0.2em] uppercase transition-all disabled:opacity-40 active:scale-[0.98] shadow-xl"
-                          style={{background: '#b5873f', color: '#fff', boxShadow: '0 8px 32px rgba(181,135,63,0.35)'}}
+                          style={{background: '#a87b32', color: '#fff', boxShadow: '0 8px 32px rgba(168,123,50,0.35)'}}
                         >
                           Enter Rūh
                         </button>
@@ -4856,25 +4856,25 @@
                   {onboardingStep === 3 && (
                     <div className="step-in w-full max-w-md px-8 pb-14 pt-12 flex flex-col">
                       <p className="font-display text-[10px] tracking-[0.3em] uppercase mb-3 text-center"
-                        style={{color: isDarkMode ? 'rgba(181,135,63,0.55)' : 'rgba(181,135,63,0.7)'}}>
+                        style={{color: isDarkMode ? 'rgba(168,123,50,0.55)' : 'rgba(168,123,50,0.7)'}}>
                         Step 3 of 3
                       </p>
 
                       {/* Mosque icon */}
                       <div className="flex justify-center mb-5">
                         <div className="w-12 h-12 rounded-full flex items-center justify-center"
-                          style={{background: isDarkMode ? 'rgba(181,135,63,0.12)' : 'rgba(181,135,63,0.10)', border: '1px solid rgba(181,135,63,0.25)'}}>
-                          <i className="ph-fill ph-mosque text-[24px]" style={{color: '#b5873f'}}></i>
+                          style={{background: isDarkMode ? 'rgba(168,123,50,0.12)' : 'rgba(168,123,50,0.10)', border: '1px solid rgba(168,123,50,0.25)'}}>
+                          <i className="ph-fill ph-mosque text-[24px]" style={{color: '#a87b32'}}></i>
                         </div>
                       </div>
 
                       <h2 className="font-editorial text-3xl font-light text-center leading-snug mb-3"
-                        style={{color: isDarkMode ? '#dde3ed' : '#1a1612'}}>
+                        style={{color: isDarkMode ? '#dde3ed' : '#130f0a'}}>
                         Your times,<br/>your city.
                       </h2>
                       <p className="font-editorial text-base italic text-center leading-relaxed mb-4"
-                        style={{color: isDarkMode ? 'rgba(221,227,237,0.5)' : 'rgba(26,22,18,0.5)'}}>
-                        Rūh will use the <span style={{color: isDarkMode ? '#d4a853' : '#8a6220'}}>closest official source available</span> for your region — direct authority feeds like MUIS for Singapore and JAKIM for Malaysia, with authority-aligned methods elsewhere when a first-party feed is not available.
+                        style={{color: isDarkMode ? 'rgba(221,227,237,0.5)' : 'rgba(19,15,10,0.5)'}}>
+                        Rūh will use the <span style={{color: isDarkMode ? '#c9973f' : '#7d5a22'}}>closest official source available</span> for your region — direct authority feeds like MUIS for Singapore and JAKIM for Malaysia, with authority-aligned methods elsewhere when a first-party feed is not available.
                       </p>
 
                       {/* Regional authority preview badges */}
@@ -4889,9 +4889,9 @@
                         ].map(a => (
                           <span key={a.label} className="px-2 py-1 rounded-full font-display text-[7.5px] tracking-[0.1em] uppercase"
                             style={{
-                              background: isDarkMode ? 'rgba(181,135,63,0.10)' : 'rgba(181,135,63,0.08)',
-                              color: isDarkMode ? 'rgba(181,135,63,0.65)' : 'rgba(181,135,63,0.75)',
-                              border: '1px solid ' + (isDarkMode ? 'rgba(181,135,63,0.18)' : 'rgba(181,135,63,0.18)')
+                              background: isDarkMode ? 'rgba(168,123,50,0.10)' : 'rgba(168,123,50,0.08)',
+                              color: isDarkMode ? 'rgba(168,123,50,0.65)' : 'rgba(168,123,50,0.75)',
+                              border: '1px solid ' + (isDarkMode ? 'rgba(168,123,50,0.18)' : 'rgba(168,123,50,0.18)')
                             }}>
                             {a.label} <span style={{opacity: 0.55}}>· {a.sub}</span>
                           </span>
@@ -4906,15 +4906,15 @@
                           onChange={(e) => setCitySearch(e.target.value)}
                           placeholder="Search your city…"
                           autoFocus
-                          className="w-full rounded-xl px-4 py-3 font-editorial text-base border focus:outline-none focus:ring-1 focus:ring-[#b5873f] transition-all mb-2"
+                          className="w-full rounded-xl px-4 py-3 font-editorial text-base border focus:outline-none focus:ring-1 focus:ring-[#a87b32] transition-all mb-2"
                           style={{
-                            background: isDarkMode ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.92)',
-                            borderColor: isDarkMode ? 'rgba(255,255,255,0.10)' : 'rgba(26,22,18,0.12)',
-                            color: isDarkMode ? '#dde3ed' : '#1a1612'
+                            background: isDarkMode ? 'rgba(255,255,255,0.06)' : '#ffffff',
+                            borderColor: isDarkMode ? 'rgba(255,255,255,0.10)' : 'rgba(19,15,10,0.18)',
+                            color: isDarkMode ? '#dde3ed' : '#130f0a'
                           }}
                         />
                         <div className="rounded-2xl overflow-hidden border overflow-y-auto"
-                          style={{maxHeight: '200px', borderColor: isDarkMode ? 'rgba(255,255,255,0.08)' : 'rgba(26,22,18,0.08)'}}>
+                          style={{maxHeight: '200px', borderColor: isDarkMode ? 'rgba(255,255,255,0.08)' : 'rgba(19,15,10,0.14)'}}>
                           {MAJOR_CITIES
                             .filter(c => c.label.toLowerCase().includes(citySearch.toLowerCase()))
                             .slice(0, 15)
@@ -4928,9 +4928,9 @@
                                 }}
                                 className="w-full text-left px-4 py-3 font-editorial text-sm border-b last:border-b-0 transition-colors"
                                 style={{
-                                  background: isDarkMode ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.9)',
-                                  borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(26,22,18,0.07)',
-                                  color: isDarkMode ? '#dde3ed' : '#1a1612'
+                                  background: isDarkMode ? 'rgba(255,255,255,0.03)' : '#ffffff',
+                                  borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(19,15,10,0.14)',
+                                  color: isDarkMode ? '#dde3ed' : '#130f0a'
                                 }}
                               >{city.label}</button>
                             ))}
@@ -4967,7 +4967,7 @@
                     style={{
                       background: isDarkMode
                         ? 'linear-gradient(180deg, rgba(10,9,25,0.97) 0%, rgba(22,18,46,0.99) 100%)'
-                        : 'linear-gradient(180deg, rgba(250,247,242,0.97) 0%, rgba(240,235,224,0.99) 100%)',
+                        : 'linear-gradient(180deg, rgba(253,250,245,0.97) 0%, rgba(244,239,229,0.99) 100%)',
                       backdropFilter: 'blur(18px)',
                     }}>
                     <div
@@ -4979,9 +4979,9 @@
                         paddingLeft: 'max(1.25rem, calc(env(safe-area-inset-left) + 1rem))',
                       }}>
                       <div className="flex items-center gap-2">
-                        <i className="ph-fill ph-mosque text-[18px]" style={{color: '#b5873f'}}></i>
+                        <i className="ph-fill ph-mosque text-[18px]" style={{color: '#a87b32'}}></i>
                         <span className="font-display text-[10px] tracking-[0.28em] uppercase"
-                          style={{color: isDarkMode ? 'rgba(181,135,63,0.75)' : 'rgba(181,135,63,0.85)'}}>Qibla Finder</span>
+                          style={{color: isDarkMode ? 'rgba(168,123,50,0.75)' : 'rgba(168,123,50,0.85)'}}>Qibla Finder</span>
                       </div>
                       <button
                         type="button"
@@ -4989,36 +4989,36 @@
                         onClick={() => setShowQibla(false)}
                         className="relative z-20 w-11 h-11 rounded-full flex items-center justify-center border"
                         style={{
-                          background: isDarkMode ? 'rgba(255,255,255,0.08)' : 'rgba(26,22,18,0.08)',
-                          borderColor: isDarkMode ? 'rgba(255,255,255,0.10)' : 'rgba(26,22,18,0.10)',
-                          color: isDarkMode ? 'rgba(221,227,237,0.72)' : 'rgba(26,22,18,0.58)'
+                          background: isDarkMode ? 'rgba(255,255,255,0.08)' : 'rgba(19,15,10,0.05)',
+                          borderColor: isDarkMode ? 'rgba(255,255,255,0.10)' : 'rgba(19,15,10,0.16)',
+                          color: isDarkMode ? 'rgba(221,227,237,0.72)' : 'rgba(19,15,10,0.58)'
                         }}>
                         <i className="ph ph-x text-[18px]"></i>
                       </button>
                     </div>
                     <div className="w-full max-w-sm px-8 flex flex-col items-center">
                       <div className="w-14 h-14 rounded-full flex items-center justify-center mb-6"
-                        style={{background: isDarkMode ? 'rgba(181,135,63,0.12)' : 'rgba(181,135,63,0.10)', border: '1px solid rgba(181,135,63,0.25)'}}>
-                        <i className="ph-fill ph-mosque text-[28px]" style={{color: '#b5873f'}}></i>
+                        style={{background: isDarkMode ? 'rgba(168,123,50,0.12)' : 'rgba(168,123,50,0.10)', border: '1px solid rgba(168,123,50,0.25)'}}>
+                        <i className="ph-fill ph-mosque text-[28px]" style={{color: '#a87b32'}}></i>
                       </div>
                       <h2 className="font-editorial text-2xl font-light text-center mb-2"
-                        style={{color: isDarkMode ? '#dde3ed' : '#1a1612'}}>Set your location first</h2>
+                        style={{color: isDarkMode ? '#dde3ed' : '#130f0a'}}>Set your location first</h2>
                       <p className="font-editorial text-sm italic text-center mb-7"
-                        style={{color: isDarkMode ? 'rgba(221,227,237,0.42)' : 'rgba(26,22,18,0.45)'}}>
+                        style={{color: isDarkMode ? 'rgba(221,227,237,0.42)' : 'rgba(19,15,10,0.45)'}}>
                         Rūh needs to know where you are to calculate the direction of Makkah.
                       </p>
                       {/* City picker — shown directly, no GPS */}
                       <div className="w-full mb-4">
                         <input type="text" value={citySearch} onChange={(e) => setCitySearch(e.target.value)}
                           placeholder="Search your city…" autoFocus
-                          className="w-full rounded-xl px-4 py-3 font-editorial text-base border focus:outline-none focus:ring-1 focus:ring-[#b5873f] mb-2"
-                          style={{background: isDarkMode ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.92)', borderColor: isDarkMode ? 'rgba(255,255,255,0.10)' : 'rgba(26,22,18,0.12)', color: isDarkMode ? '#dde3ed' : '#1a1612'}}/>
-                        <div className="rounded-2xl overflow-hidden border overflow-y-auto" style={{maxHeight: '200px', borderColor: isDarkMode ? 'rgba(255,255,255,0.08)' : 'rgba(26,22,18,0.08)'}}>
+                          className="w-full rounded-xl px-4 py-3 font-editorial text-base border focus:outline-none focus:ring-1 focus:ring-[#a87b32] mb-2"
+                          style={{background: isDarkMode ? 'rgba(255,255,255,0.06)' : '#ffffff', borderColor: isDarkMode ? 'rgba(255,255,255,0.10)' : 'rgba(19,15,10,0.18)', color: isDarkMode ? '#dde3ed' : '#130f0a'}}/>
+                        <div className="rounded-2xl overflow-hidden border overflow-y-auto" style={{maxHeight: '200px', borderColor: isDarkMode ? 'rgba(255,255,255,0.08)' : 'rgba(19,15,10,0.14)'}}>
                           {MAJOR_CITIES.filter(c => c.label.toLowerCase().includes(citySearch.toLowerCase())).slice(0, 15).map(city => (
                             <button key={city.label}
                               onClick={() => { setUserCoords({ lat: city.lat, lng: city.lng, label: city.label }); setCitySearch(''); setCompassStatus('idle'); }}
                               className="w-full text-left px-4 py-3 font-editorial text-sm border-b last:border-b-0 transition-colors"
-                              style={{background: isDarkMode ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.9)', borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(26,22,18,0.07)', color: isDarkMode ? '#dde3ed' : '#1a1612'}}>
+                              style={{background: isDarkMode ? 'rgba(255,255,255,0.03)' : '#ffffff', borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(19,15,10,0.14)', color: isDarkMode ? '#dde3ed' : '#130f0a'}}>
                               {city.label}
                             </button>
                           ))}
@@ -5053,7 +5053,7 @@
                     style={{
                       background: isDarkMode
                         ? 'linear-gradient(180deg, rgba(10,9,25,0.97) 0%, rgba(22,18,46,0.99) 100%)'
-                        : 'linear-gradient(180deg, rgba(250,247,242,0.97) 0%, rgba(240,235,224,0.99) 100%)',
+                        : 'linear-gradient(180deg, rgba(253,250,245,0.97) 0%, rgba(244,239,229,0.99) 100%)',
                       backdropFilter: 'blur(18px)',
                     }}>
 
@@ -5067,9 +5067,9 @@
                         paddingLeft: 'max(1.25rem, calc(env(safe-area-inset-left) + 1rem))',
                       }}>
                       <div className="flex items-center gap-2">
-                        <i className="ph-fill ph-mosque text-[18px]" style={{color: '#b5873f'}}></i>
+                        <i className="ph-fill ph-mosque text-[18px]" style={{color: '#a87b32'}}></i>
                         <span className="font-display text-[10px] tracking-[0.28em] uppercase"
-                          style={{color: isDarkMode ? 'rgba(181,135,63,0.75)' : 'rgba(181,135,63,0.85)'}}>
+                          style={{color: isDarkMode ? 'rgba(168,123,50,0.75)' : 'rgba(168,123,50,0.85)'}}>
                           Qibla Finder
                         </span>
                       </div>
@@ -5079,9 +5079,9 @@
                         onClick={() => setShowQibla(false)}
                         className="relative z-20 w-11 h-11 rounded-full flex items-center justify-center transition-colors border"
                         style={{
-                          background: isDarkMode ? 'rgba(255,255,255,0.08)' : 'rgba(26,22,18,0.08)',
-                          borderColor: isDarkMode ? 'rgba(255,255,255,0.10)' : 'rgba(26,22,18,0.10)',
-                          color: isDarkMode ? 'rgba(221,227,237,0.72)' : 'rgba(26,22,18,0.58)'
+                          background: isDarkMode ? 'rgba(255,255,255,0.08)' : 'rgba(19,15,10,0.05)',
+                          borderColor: isDarkMode ? 'rgba(255,255,255,0.10)' : 'rgba(19,15,10,0.16)',
+                          color: isDarkMode ? 'rgba(221,227,237,0.72)' : 'rgba(19,15,10,0.58)'
                         }}>
                         <i className="ph ph-x text-[18px]"></i>
                       </button>
@@ -5089,7 +5089,7 @@
 
                     {/* Location label */}
                     <p className="font-editorial text-sm italic mb-8"
-                      style={{color: isDarkMode ? 'rgba(221,227,237,0.4)' : 'rgba(26,22,18,0.4)'}}>
+                      style={{color: isDarkMode ? 'rgba(221,227,237,0.4)' : 'rgba(19,15,10,0.4)'}}>
                       <i className="ph ph-map-pin text-[12px] mr-1"></i>
                       {userCoords.label}
                     </p>
@@ -5101,13 +5101,13 @@
                       <svg width="260" height="260" viewBox="0 0 260 260" className="absolute inset-0">
                         {/* Background circle */}
                         <circle cx="130" cy="130" r="126"
-                          fill={isDarkMode ? 'rgba(181,135,63,0.04)' : 'rgba(181,135,63,0.05)'}
-                          stroke={isDarkMode ? 'rgba(181,135,63,0.25)' : 'rgba(181,135,63,0.30)'}
+                          fill={isDarkMode ? 'rgba(168,123,50,0.04)' : 'rgba(168,123,50,0.05)'}
+                          stroke={isDarkMode ? 'rgba(168,123,50,0.25)' : 'rgba(168,123,50,0.30)'}
                           strokeWidth="1.5"/>
                         {/* Inner ring */}
                         <circle cx="130" cy="130" r="110"
                           fill="none"
-                          stroke={isDarkMode ? 'rgba(181,135,63,0.10)' : 'rgba(181,135,63,0.14)'}
+                          stroke={isDarkMode ? 'rgba(168,123,50,0.10)' : 'rgba(168,123,50,0.14)'}
                           strokeWidth="0.75"
                           strokeDasharray="4 6"/>
                         {/* Tick marks every 30° */}
@@ -5119,7 +5119,7 @@
                           const x2 = 130 + r2 * Math.cos(angle);
                           const y2 = 130 + r2 * Math.sin(angle);
                           return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2}
-                            stroke={isDarkMode ? 'rgba(181,135,63,0.4)' : 'rgba(181,135,63,0.5)'}
+                            stroke={isDarkMode ? 'rgba(168,123,50,0.4)' : 'rgba(168,123,50,0.5)'}
                             strokeWidth={i % 3 === 0 ? 1.5 : 0.75}/>;
                         })}
                         {/* Cardinal labels — these rotate with device heading so N always faces up */}
@@ -5138,8 +5138,8 @@
                               fontFamily="Cinzel, serif"
                               fontWeight={isN ? "600" : "400"}
                               fill={isN
-                                ? (isDarkMode ? '#d4a853' : '#b5873f')
-                                : (isDarkMode ? 'rgba(221,227,237,0.45)' : 'rgba(26,22,18,0.4)')
+                                ? (isDarkMode ? '#c9973f' : '#a87b32')
+                                : (isDarkMode ? 'rgba(221,227,237,0.45)' : 'rgba(19,15,10,0.4)')
                               }>
                               {label}
                             </text>
@@ -5154,24 +5154,24 @@
                           {/* Needle body — points toward Makkah (top) */}
                           <polygon
                             points="130,28 123,130 130,142 137,130"
-                            fill={isDarkMode ? '#d4a853' : '#b5873f'}
+                            fill={isDarkMode ? '#c9973f' : '#a87b32'}
                             opacity="0.95"/>
                           {/* Opposite end */}
                           <polygon
                             points="130,232 123,130 130,118 137,130"
-                            fill={isDarkMode ? 'rgba(221,227,237,0.2)' : 'rgba(26,22,18,0.15)'}/>
+                            fill={isDarkMode ? 'rgba(221,227,237,0.2)' : 'rgba(19,15,10,0.15)'}/>
                           {/* Center jewel */}
                           <circle cx="130" cy="130" r="7"
-                            fill={isDarkMode ? '#16122e' : '#faf7f2'}
-                            stroke={isDarkMode ? '#d4a853' : '#b5873f'}
+                            fill={isDarkMode ? '#16122e' : '#fdfaf5'}
+                            stroke={isDarkMode ? '#c9973f' : '#a87b32'}
                             strokeWidth="2"/>
                           {/* Kaaba icon at needle tip */}
                           <rect x="123" y="14" width="14" height="14" rx="2"
-                            fill={isDarkMode ? '#d4a853' : '#b5873f'}
+                            fill={isDarkMode ? '#c9973f' : '#a87b32'}
                             opacity="0.9"/>
                           <rect x="125" y="16" width="10" height="10" rx="1"
                             fill="none"
-                            stroke={isDarkMode ? 'rgba(22,18,46,0.8)' : 'rgba(250,247,242,0.8)'}
+                            stroke={isDarkMode ? 'rgba(22,18,46,0.8)' : 'rgba(253,250,245,0.8)'}
                             strokeWidth="1.5"/>
                         </svg>
                       </div>
@@ -5179,16 +5179,16 @@
                       {/* Center bearing display */}
                       <div className="relative z-10 flex flex-col items-center pointer-events-none">
                         <span className="font-display text-[10px] tracking-[0.2em] uppercase mb-0.5"
-                          style={{color: isDarkMode ? 'rgba(181,135,63,0.6)' : 'rgba(181,135,63,0.7)'}}>
+                          style={{color: isDarkMode ? 'rgba(168,123,50,0.6)' : 'rgba(168,123,50,0.7)'}}>
                           Qibla
                         </span>
                         <span className="font-editorial text-2xl font-light"
-                          style={{color: isDarkMode ? '#dde3ed' : '#1a1612'}}>
+                          style={{color: isDarkMode ? '#dde3ed' : '#130f0a'}}>
                           {bearingLabel}
                         </span>
                         {aligned && (
                           <span className="mt-1 font-display text-[9px] tracking-[0.15em] uppercase animate-pulse"
-                            style={{color: isDarkMode ? '#d4a853' : '#b5873f'}}>
+                            style={{color: isDarkMode ? '#c9973f' : '#a87b32'}}>
                             You're facing it ✦
                           </span>
                         )}
@@ -5220,31 +5220,31 @@
                               .catch(() => setCompassStatus('denied'));
                           }}
                           className="w-full py-4 rounded-2xl font-display text-[11px] tracking-[0.18em] uppercase shadow-xl"
-                          style={{background: '#b5873f', color: '#fff', boxShadow: '0 6px 24px rgba(181,135,63,0.3)'}}>
+                          style={{background: '#a87b32', color: '#fff', boxShadow: '0 6px 24px rgba(168,123,50,0.3)'}}>
                           Allow Compass
                         </button>
                       )}
                       {compassStatus === 'denied' && (
                         <p className="text-center font-editorial text-sm italic"
-                          style={{color: isDarkMode ? 'rgba(221,227,237,0.35)' : 'rgba(26,22,18,0.4)'}}>
+                          style={{color: isDarkMode ? 'rgba(221,227,237,0.35)' : 'rgba(19,15,10,0.4)'}}>
                           Compass access denied. The bearing above is calculated from your saved location — orient yourself using a physical compass.
                         </p>
                       )}
                       {compassStatus === 'unavailable' && (
                         <p className="text-center font-editorial text-sm italic"
-                          style={{color: isDarkMode ? 'rgba(221,227,237,0.35)' : 'rgba(26,22,18,0.4)'}}>
+                          style={{color: isDarkMode ? 'rgba(221,227,237,0.35)' : 'rgba(19,15,10,0.4)'}}>
                           Compass sensor not available on this device. The bearing shown is calculated from your saved location.
                         </p>
                       )}
                       {(compassStatus === 'granted' && deviceHeading === null) && (
                         <p className="text-center font-editorial text-sm italic animate-pulse"
-                          style={{color: isDarkMode ? 'rgba(181,135,63,0.5)' : 'rgba(181,135,63,0.6)'}}>
+                          style={{color: isDarkMode ? 'rgba(168,123,50,0.6)' : 'rgba(168,123,50,0.6)'}}>
                           Calibrating compass…
                         </p>
                       )}
                       {compassStatus === 'idle' && (
                         <p className="text-center font-editorial text-sm italic"
-                          style={{color: isDarkMode ? 'rgba(221,227,237,0.3)' : 'rgba(26,22,18,0.32)'}}>
+                          style={{color: isDarkMode ? 'rgba(221,227,237,0.3)' : 'rgba(19,15,10,0.32)'}}>
                           Hold your device flat and level for best accuracy.
                         </p>
                       )}
@@ -5252,7 +5252,7 @@
 
                     {/* Bottom context */}
                     <p className="absolute bottom-8 font-editorial text-xs italic text-center px-8"
-                      style={{color: isDarkMode ? 'rgba(221,227,237,0.2)' : 'rgba(26,22,18,0.22)'}}>
+                      style={{color: isDarkMode ? 'rgba(221,227,237,0.2)' : 'rgba(19,15,10,0.22)'}}>
                       Calculated using Muslim World League method · All offline
                     </p>
                   </div>
@@ -5262,7 +5262,7 @@
               <div className="w-full max-w-md bg-parchment dark:bg-slate-900 app-viewport shadow-2xl relative overflow-hidden flex flex-col text-ink dark:text-slate-200 transition-colors duration-500 selection:bg-amber-200 dark:selection:bg-amber-900 selection:text-amber-900 dark:selection:text-amber-100 font-editorial">
                 
                 {/* Top Navigation */}
-                <header className="px-5 pb-4 flex items-center justify-between border-b border-amber-900/10 dark:border-slate-800/60 bg-parchment/95 dark:bg-slate-900/90 backdrop-blur-md sticky top-0 z-20 transition-colors duration-500" style={{paddingTop: 'max(1rem, env(safe-area-inset-top))'}}>
+                <header className="px-5 pb-4 flex items-center justify-between border-b border-amber-900/[0.14] dark:border-slate-800/60 bg-parchment/95 dark:bg-slate-900/90 backdrop-blur-md sticky top-0 z-20 transition-colors duration-500" style={{paddingTop: 'max(1rem, env(safe-area-inset-top))'}}>
                   {currentScreen === 'home' ? (
                     <div className="flex items-center space-x-2.5">
                       <AppIconMark className="w-5 h-5 text-gold dark:text-gold-light" />
@@ -5352,9 +5352,9 @@
                         </h2>
                         {streakCount >= 2 && (
                           <div className="flex items-center gap-1.5 mt-3 px-3 py-1.5 rounded-full w-fit"
-                            style={{background: isDarkMode ? 'rgba(181,135,63,0.10)' : 'rgba(181,135,63,0.08)', border: '1px solid rgba(181,135,63,0.18)'}}>
-                            <i className="ph-fill ph-flame text-[11px]" style={{color:'#b5873f'}}></i>
-                            <span className="font-display text-[9px] uppercase tracking-widest" style={{color: isDarkMode ? 'rgba(181,135,63,0.75)' : 'rgba(181,135,63,0.70)'}}>
+                            style={{background: isDarkMode ? 'rgba(168,123,50,0.10)' : 'rgba(168,123,50,0.10)', border: '1px solid rgba(168,123,50,0.28)'}}>
+                            <i className="ph-fill ph-flame text-[11px]" style={{color:'#a87b32'}}></i>
+                            <span className="font-display text-[9px] uppercase tracking-widest" style={{color: isDarkMode ? 'rgba(168,123,50,0.75)' : 'rgba(168,123,50,0.70)'}}>
                               {streakCount} day streak
                             </span>
                           </div>
@@ -5386,8 +5386,8 @@
                         };
 
                         // Muted colour for all non-next prayers (same shade, no past/future distinction)
-                        const mutedColor = isDarkMode ? 'rgba(221,227,237,0.35)' : 'rgba(26,22,18,0.35)';
-                        const goldColor  = isDarkMode ? '#d4a853' : '#8a6220';
+                        const mutedColor = isDarkMode ? 'rgba(221,227,237,0.35)' : 'rgba(19,15,10,0.35)';
+                        const goldColor  = isDarkMode ? '#c9973f' : '#7d5a22';
 
                         // Build one segment per prayer — duplicated for seamless loop
                         const Segment = ({ prayers, activeIdx }) => (
@@ -5403,7 +5403,7 @@
                                     width: 4, height: 4,
                                     borderRadius: 0,
                                     transform: 'rotate(45deg)',
-                                    background: isNext ? '#b5873f' : (isDarkMode ? 'rgba(181,135,63,0.2)' : 'rgba(181,135,63,0.15)'),
+                                    background: isNext ? '#a87b32' : (isDarkMode ? 'rgba(168,123,50,0.2)' : 'rgba(168,123,50,0.15)'),
                                     marginRight: 2,
                                     flexShrink: 0,
                                   }}/>
@@ -5423,9 +5423,9 @@
                                     <span style={{
                                       display: 'inline-block',
                                       width: 6, height: 6, borderRadius: '50%',
-                                      background: '#b5873f',
+                                      background: '#a87b32',
                                       flexShrink: 0,
-                                      boxShadow: '0 0 5px rgba(181,135,63,0.6)',
+                                      boxShadow: '0 0 5px rgba(168,123,50,0.6)',
                                     }}/>
                                   )}
                                 </span>
@@ -5438,13 +5438,13 @@
                           <div className="rounded-full border flex items-center gap-0 overflow-hidden"
                             style={{
                               height: 44,
-                              background: isDarkMode ? 'rgba(181,135,63,0.06)' : 'rgba(181,135,63,0.05)',
-                              borderColor: isDarkMode ? 'rgba(181,135,63,0.18)' : 'rgba(181,135,63,0.2)',
+                              background: isDarkMode ? 'rgba(168,123,50,0.06)' : 'rgba(168,123,50,0.07)',
+                              borderColor: isDarkMode ? 'rgba(168,123,50,0.18)' : 'rgba(168,123,50,0.28)',
                             }}>
 
                             {/* Left pill — label + official badge + Qibla */}
                             <div className="flex items-center gap-2 pl-3.5 pr-3 flex-shrink-0 border-r h-full"
-                              style={{borderColor: isDarkMode ? 'rgba(181,135,63,0.15)' : 'rgba(181,135,63,0.15)'}}>
+                              style={{borderColor: isDarkMode ? 'rgba(168,123,50,0.15)' : 'rgba(168,123,50,0.20)'}}>
                               {isOfficial ? (
                                 <span className="inline-flex items-center gap-0.5"
                                   style={{color: isDarkMode ? '#3ca36e' : '#2d7a56'}}>
@@ -5452,16 +5452,16 @@
                                 </span>
                               ) : isAligned ? (
                                 <span className="inline-flex items-center gap-0.5"
-                                  style={{color: isDarkMode ? '#b5873f' : '#8a6220'}}>
+                                  style={{color: isDarkMode ? '#a87b32' : '#7d5a22'}}>
                                   <i className="ph-fill ph-mosque text-[13px]"></i>
                                 </span>
                               ) : (
-                                <i className="ph ph-mosque text-[13px]" style={{color: '#b5873f', opacity: 0.7}}></i>
+                                <i className="ph ph-mosque text-[13px]" style={{color: '#a87b32', opacity: 0.7}}></i>
                               )}
                               <span
                                 className="font-display text-[9px] tracking-[0.18em] uppercase"
                                 title={authority}
-                                style={{color: isDarkMode ? 'rgba(181,135,63,0.65)' : 'rgba(181,135,63,0.75)'}}>
+                                style={{color: isDarkMode ? 'rgba(168,123,50,0.65)' : 'rgba(168,123,50,0.75)'}}>
                                 {ptLoading ? '…' : 'Prayer'}
                               </span>
                             </div>
@@ -5479,10 +5479,10 @@
                               onClick={handleTogglePrayerNotifications}
                               className="relative flex items-center justify-center px-3 h-full flex-shrink-0 border-l transition-opacity hover:opacity-80 active:scale-95"
                               style={{
-                                borderColor: isDarkMode ? 'rgba(181,135,63,0.15)' : 'rgba(181,135,63,0.15)',
+                                borderColor: isDarkMode ? 'rgba(168,123,50,0.15)' : 'rgba(168,123,50,0.20)',
                                 color: prayerNotificationsEnabled
-                                  ? (isDarkMode ? '#d4a853' : '#8a6220')
-                                  : (isDarkMode ? 'rgba(181,135,63,0.5)' : 'rgba(181,135,63,0.6)'),
+                                  ? (isDarkMode ? '#c9973f' : '#7d5a22')
+                                  : (isDarkMode ? 'rgba(168,123,50,0.6)' : 'rgba(168,123,50,0.6)'),
                               }}
                               title={prayerNotificationsEnabled ? 'Turn off prayer reminders' : 'Turn on prayer reminders'}>
                               <i className={`text-[13px] ${prayerNotificationsEnabled ? 'ph-fill ph-notification' : 'ph ph-notification'}`}></i>
@@ -5498,8 +5498,8 @@
                               onClick={() => { setCompassStatus('idle'); setShowQibla(true); }}
                               className="flex items-center gap-1.5 pl-2.5 pr-3.5 h-full flex-shrink-0 border-l transition-opacity hover:opacity-80 active:scale-95"
                               style={{
-                                borderColor: isDarkMode ? 'rgba(181,135,63,0.15)' : 'rgba(181,135,63,0.15)',
-                                color: isDarkMode ? 'rgba(181,135,63,0.6)' : 'rgba(181,135,63,0.7)',
+                                borderColor: isDarkMode ? 'rgba(168,123,50,0.15)' : 'rgba(168,123,50,0.20)',
+                                color: isDarkMode ? 'rgba(168,123,50,0.6)' : 'rgba(168,123,50,0.7)',
                               }}
                               title="Qibla finder">
                               <i className="ph-fill ph-compass text-[13px]"></i>
@@ -5531,7 +5531,7 @@
                               <button
                                 key={mood.key}
                                 onClick={() => selectMoodVerse(mood)}
-                                className={`flex flex-col items-center gap-1 py-2.5 rounded-xl border transition-all duration-200 ${active ? `${mood.bg} border-current/10 shadow-sm scale-[0.97]` : 'bg-ink/[0.03] dark:bg-white/[0.04] border-ink/[0.05] dark:border-white/[0.05] hover:bg-ink/[0.06] dark:hover:bg-white/[0.07]'}`}
+                                className={`flex flex-col items-center gap-1 py-2.5 rounded-xl border transition-all duration-200 ${active ? `${mood.bg} border-current/10 shadow-sm scale-[0.97]` : 'bg-ink/[0.04] dark:bg-white/[0.04] border-ink/[0.08] dark:border-white/[0.05] hover:bg-ink/[0.08] dark:hover:bg-white/[0.07]'}`}
                               >
                                 <i className={`ph-fill ${mood.icon} text-[20px] ${active ? mood.color : 'text-ink/35 dark:text-slate-400'} transition-colors duration-200`}></i>
                                 <span className={`font-display text-[8.5px] tracking-[0.05em] uppercase leading-tight text-center px-1 ${active ? mood.color : 'text-ink/45 dark:text-slate-400'} transition-colors duration-200`}>
@@ -5546,7 +5546,7 @@
                       {/* ── Verse Card (bookmark style) ────────── */}
                       <div
                         onClick={() => navigateTo('verse')}
-                        className="verse-card-bookmark bg-white dark:bg-slate-800/60 pl-5 pr-5 pt-5 pb-4 rounded-2xl border border-amber-900/12 dark:border-slate-700/60 cursor-pointer group hover:border-gold/40 dark:hover:border-gold/30 transition-all duration-300 relative overflow-hidden shadow-md shadow-amber-900/5 dark:shadow-black/20"
+                        className="verse-card-bookmark bg-white dark:bg-slate-800/60 pl-5 pr-5 pt-5 pb-4 rounded-2xl border border-amber-900/[0.14] dark:border-slate-700/60 cursor-pointer group hover:border-gold/40 dark:hover:border-gold/30 transition-all duration-300 relative overflow-hidden shadow-md shadow-amber-900/5 dark:shadow-black/20"
                       >
                         <IslamicMotif className="absolute -right-10 -top-10 w-52 h-52 text-gold dark:text-gold-light opacity-[0.04] group-hover:rotate-12 transition-transform duration-[3000ms] pointer-events-none" />
 
@@ -5565,7 +5565,7 @@
                         </div>
 
                         <div className="relative z-10 animate-in fade-in duration-500" key={currentVerseIndex}>
-                          <p className="arabic-reveal text-[2.6rem] font-indopak text-right leading-[2.2] mb-5 text-ink dark:text-gold-light tracking-wide" dir="rtl" style={{textShadow: isDarkMode ? '0 0 40px rgba(181,135,63,0.18)' : 'none'}}>
+                          <p className="arabic-reveal text-[2.6rem] font-indopak text-right leading-[2.2] mb-5 text-ink dark:text-gold-light tracking-wide" dir="rtl" style={{textShadow: isDarkMode ? '0 0 40px rgba(168,123,50,0.18)' : 'none'}}>
                             {verseData.arabic}
                           </p>
                           <p className="text-ink/70 dark:text-slate-300 text-xl font-editorial italic leading-relaxed mb-4">
@@ -5585,27 +5585,27 @@
                         onClick={() => { setCompassStatus('idle'); setShowQibla(true); }}
                         className="w-full flex items-center gap-4 px-5 py-4 rounded-2xl border transition-all duration-300 group hover:border-gold/40 dark:hover:border-gold/30 active:scale-[0.98]"
                         style={{
-                          background: isDarkMode ? 'rgba(181,135,63,0.06)' : 'rgba(181,135,63,0.05)',
-                          borderColor: isDarkMode ? 'rgba(181,135,63,0.18)' : 'rgba(181,135,63,0.22)',
+                          background: isDarkMode ? 'rgba(168,123,50,0.06)' : 'rgba(168,123,50,0.07)',
+                          borderColor: isDarkMode ? 'rgba(168,123,50,0.18)' : 'rgba(168,123,50,0.22)',
                         }}>
                         <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
-                          style={{background: isDarkMode ? 'rgba(181,135,63,0.14)' : 'rgba(181,135,63,0.12)'}}>
-                          <i className="ph-fill ph-compass text-[22px]" style={{color: '#b5873f'}}></i>
+                          style={{background: isDarkMode ? 'rgba(168,123,50,0.14)' : 'rgba(168,123,50,0.12)'}}>
+                          <i className="ph-fill ph-compass text-[22px]" style={{color: '#a87b32'}}></i>
                         </div>
                         <div className="flex-1 text-left">
                           <p className="font-display text-[10px] tracking-[0.18em] uppercase mb-0.5"
-                            style={{color: isDarkMode ? '#dde3ed' : '#1a1612'}}>
+                            style={{color: isDarkMode ? '#dde3ed' : '#130f0a'}}>
                             Qibla Finder
                           </p>
                           <p className="font-editorial text-sm italic"
-                            style={{color: isDarkMode ? 'rgba(221,227,237,0.4)' : 'rgba(26,22,18,0.4)'}}>
+                            style={{color: isDarkMode ? 'rgba(221,227,237,0.4)' : 'rgba(19,15,10,0.4)'}}>
                             {userCoords
                               ? `${Math.round(window.adhan ? adhan.Qibla(new adhan.Coordinates(userCoords.lat, userCoords.lng)) : 0)}° toward Makkah`
                               : 'Find the direction of Makkah'}
                           </p>
                         </div>
                         <i className="ph ph-arrow-right text-[16px] group-hover:translate-x-0.5 transition-transform"
-                          style={{color: isDarkMode ? 'rgba(181,135,63,0.5)' : 'rgba(181,135,63,0.6)'}}></i>
+                          style={{color: isDarkMode ? 'rgba(168,123,50,0.6)' : 'rgba(168,123,50,0.6)'}}></i>
                       </button>
 
                       {/* ── Journey Teaser ────────────────────── */}
@@ -5642,7 +5642,7 @@
                     <div className="animate-in fade-in slide-in-from-right-8 duration-500">
                       <div className="px-6 pt-8 pb-6 text-center space-y-5 relative overflow-hidden">
                         <IslamicMotif className="absolute -left-16 -top-16 w-72 h-72 text-gold dark:text-gold opacity-[0.04] dark:opacity-[0.03] pointer-events-none" />
-                        <p className="arabic-reveal text-[3.4rem] md:text-[4rem] font-indopak text-ink dark:text-gold-light leading-[2.1] relative z-10 tracking-wide" dir="rtl" style={{textShadow: isDarkMode ? '0 0 60px rgba(181,135,63,0.22)' : 'none'}}>
+                        <p className="arabic-reveal text-[3.4rem] md:text-[4rem] font-indopak text-ink dark:text-gold-light leading-[2.1] relative z-10 tracking-wide" dir="rtl" style={{textShadow: isDarkMode ? '0 0 60px rgba(168,123,50,0.22)' : 'none'}}>
                           {verseData.arabic}
                         </p>
                         <p className="text-xl font-editorial text-ink/65 dark:text-slate-300 italic leading-relaxed relative z-10">
@@ -5651,7 +5651,7 @@
                       </div>
 
                       <div className="px-4">
-                        <div className="flex p-1 bg-parchment-dark/60 dark:bg-slate-800/80 backdrop-blur rounded-xl border border-amber-900/10 dark:border-slate-700/50">
+                        <div className="flex p-1 bg-parchment-dark/70 dark:bg-slate-800/80 backdrop-blur rounded-xl border border-amber-900/[0.16] dark:border-slate-700/50">
                           {['reflect', 'understand', 'action'].map((tab) => (
                             <button
                               key={tab}
@@ -5834,13 +5834,13 @@
                             const full  = done === total && total > 0;
                             const W = 48, H = 56;
                             const shieldD = `M 24 3 L 45 12 L 45 34 C 45 44 36 52 24 55 C 12 52 3 44 3 34 L 3 12 Z`;
-                            const fillColor   = full ? '#3ca36e' : '#b5873f';
+                            const fillColor   = full ? '#3ca36e' : '#a87b32';
                             const strokeColor = full
                               ? 'rgba(60,163,110,0.8)'
-                              : (isDarkMode ? 'rgba(181,135,63,0.45)' : 'rgba(181,135,63,0.55)');
+                              : (isDarkMode ? 'rgba(168,123,50,0.45)' : 'rgba(168,123,50,0.55)');
                             const labelColor  = full
                               ? '#3ca36e'
-                              : (isDarkMode ? 'rgba(181,135,63,0.5)' : 'rgba(181,135,63,0.65)');
+                              : (isDarkMode ? 'rgba(168,123,50,0.6)' : 'rgba(168,123,50,0.65)');
                             return (
                               <div className={`mb-1 ${full ? 'shield-full' : ''}`} style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
                                 <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} overflow="visible" style={{display:'block'}}>
@@ -5852,7 +5852,7 @@
                                   {/* Shield outline + faint bg */}
                                   <path
                                     d={shieldD}
-                                    fill={isDarkMode ? 'rgba(255,255,255,0.03)' : 'rgba(181,135,63,0.05)'}
+                                    fill={isDarkMode ? 'rgba(255,255,255,0.03)' : 'rgba(168,123,50,0.05)'}
                                     stroke={strokeColor}
                                     strokeWidth="1.5"
                                   />
@@ -5900,7 +5900,7 @@
                                 window.RuhSoundscape.onCounterReset();
                                 setProtectionCounts({});
                               }}
-                              className="mt-1 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-50 dark:bg-slate-800/60 hover:bg-amber-100 dark:hover:bg-slate-700/60 border border-amber-900/10 dark:border-slate-700/40 text-ink/35 dark:text-slate-500 hover:text-ink/60 dark:hover:text-slate-300 transition-all"
+                              className="mt-1 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-50 dark:bg-slate-800/60 hover:bg-amber-100 dark:hover:bg-slate-700/60 border border-amber-900/[0.13] dark:border-slate-700/40 text-ink/35 dark:text-slate-500 hover:text-ink/60 dark:hover:text-slate-300 transition-all"
                             >
                               <i className="ph ph-arrow-counter-clockwise text-[12px]"></i>
                               <span className="font-display text-[9px] uppercase tracking-widest">Reset All</span>
@@ -5931,7 +5931,7 @@
                                   <div className="flex-1 h-px bg-amber-900/8 dark:bg-slate-700/40"></div>
                                 </div>
                               )}
-                              <div id={`protection-${dua.id}`} className={`bg-white dark:bg-slate-800/40 rounded-2xl border transition-all relative overflow-hidden shadow-sm shadow-amber-900/5 ${isFav ? 'border-amber-300/50 dark:border-amber-700/40' : 'border-amber-900/10 dark:border-slate-700/40'}`}>
+                              <div id={`protection-${dua.id}`} className={`bg-white dark:bg-slate-800/40 rounded-2xl border transition-all relative overflow-hidden shadow-sm shadow-amber-900/[0.09] ${isFav ? 'border-amber-300/50 dark:border-amber-700/40' : 'border-amber-900/[0.13] dark:border-slate-700/40'}`}>
 
                                 {/* ── Collapsed tile header ── */}
                                 <button
@@ -5997,7 +5997,7 @@
                                     {/* ── Favourite toggle ── */}
                                     <button
                                       onClick={() => setFavoriteDoa(prev => isFav ? prev.filter(x => x !== dua.id) : [...prev, dua.id])}
-                                      className="mt-3 w-full flex items-center justify-center gap-1.5 py-2 rounded-xl border border-dashed border-amber-900/10 dark:border-slate-700/40 text-ink/30 dark:text-slate-600 hover:text-gold dark:hover:text-gold-light hover:border-amber-300/50 dark:hover:border-amber-700/40 transition-all"
+                                      className="mt-3 w-full flex items-center justify-center gap-1.5 py-2 rounded-xl border border-dashed border-amber-900/[0.13] dark:border-slate-700/40 text-ink/30 dark:text-slate-600 hover:text-gold dark:hover:text-gold-light hover:border-amber-300/50 dark:hover:border-amber-700/40 transition-all"
                                     >
                                       <i className={`${isFav ? 'ph-fill ph-bookmark-simple text-gold dark:text-gold-light' : 'ph ph-bookmark-simple'} text-[13px]`}></i>
                                       <span className="font-display text-[9px] uppercase tracking-widest">{isFav ? 'Pinned' : 'Pin to top'}</span>
@@ -6103,7 +6103,7 @@
                                   <div className="flex-1 h-px bg-amber-900/8 dark:bg-slate-700/40"></div>
                                 </div>
                               )}
-                              <div id={`salawat-${salawat.id}`} className={`bg-white dark:bg-slate-800/40 rounded-2xl border transition-all relative overflow-hidden shadow-sm shadow-amber-900/5 ${isFav ? 'border-amber-300/50 dark:border-amber-700/40' : 'border-amber-900/10 dark:border-slate-700/40'}`}>
+                              <div id={`salawat-${salawat.id}`} className={`bg-white dark:bg-slate-800/40 rounded-2xl border transition-all relative overflow-hidden shadow-sm shadow-amber-900/[0.09] ${isFav ? 'border-amber-300/50 dark:border-amber-700/40' : 'border-amber-900/[0.13] dark:border-slate-700/40'}`}>
 
                                 {/* ── Collapsed tile header ── */}
                                 <button
@@ -6204,7 +6204,7 @@
                                         setTasbihCountKey(0);
                                         setTasbihCycleKey(0);
                                       }}
-                                      className="mt-2 w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-ink/4 dark:bg-slate-700/20 border border-amber-900/10 dark:border-slate-700/40 text-ink/40 dark:text-slate-500 hover:text-gold dark:hover:text-gold-light hover:border-amber-300/50 dark:hover:border-amber-700/40 hover:bg-gold/5 transition-all"
+                                      className="mt-2 w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-ink/4 dark:bg-slate-700/20 border border-amber-900/[0.13] dark:border-slate-700/40 text-ink/40 dark:text-slate-500 hover:text-gold dark:hover:text-gold-light hover:border-amber-300/50 dark:hover:border-amber-700/40 hover:bg-gold/5 transition-all"
                                     >
                                       <i className="ph ph-arrows-out text-[13px]"></i>
                                       <span className="font-display text-[9px] uppercase tracking-widest">Focus Mode</span>
@@ -6213,7 +6213,7 @@
                                     {/* ── Favourite toggle ── */}
                                     <button
                                       onClick={() => setFavoriteSalawat(prev => isFav ? prev.filter(x => x !== salawat.id) : [...prev, salawat.id])}
-                                      className="mt-2 w-full flex items-center justify-center gap-1.5 py-2 rounded-xl border border-dashed border-amber-900/10 dark:border-slate-700/40 text-ink/30 dark:text-slate-600 hover:text-gold dark:hover:text-gold-light hover:border-amber-300/50 dark:hover:border-amber-700/40 transition-all"
+                                      className="mt-2 w-full flex items-center justify-center gap-1.5 py-2 rounded-xl border border-dashed border-amber-900/[0.13] dark:border-slate-700/40 text-ink/30 dark:text-slate-600 hover:text-gold dark:hover:text-gold-light hover:border-amber-300/50 dark:hover:border-amber-700/40 transition-all"
                                     >
                                       <i className={`${isFav ? 'ph-fill ph-bookmark-simple text-gold dark:text-gold-light' : 'ph ph-bookmark-simple'} text-[13px]`}></i>
                                       <span className="font-display text-[9px] uppercase tracking-widest">{isFav ? 'Pinned' : 'Pin to top'}</span>
@@ -6253,7 +6253,7 @@
                                 <i className="ph-fill ph-sparkle text-[8px] text-white"></i>
                               </div>
                             ) : prophet.status === 'active' ? (
-                              <div className="absolute -left-[28px] top-2.5 w-3 h-3 rounded-full bg-gold ring-2 ring-parchment dark:ring-slate-900 shadow-[0_0_8px_rgba(181,135,63,0.5)]"></div>
+                              <div className="absolute -left-[28px] top-2.5 w-3 h-3 rounded-full bg-gold ring-2 ring-parchment dark:ring-slate-900 shadow-[0_0_8px_rgba(168,123,50,0.5)]"></div>
                             ) : prophet.status === 'completed' ? (
                               <div className="absolute -left-[26px] top-3 w-2.5 h-2.5 rounded-full bg-gold/50 ring-2 ring-parchment dark:ring-slate-900"></div>
                             ) : (
@@ -6286,14 +6286,14 @@
                                 <h3 className="font-editorial text-lg font-medium text-ink dark:text-slate-200 mb-0.5">{prophet.name}</h3>
                                 <p className="font-editorial text-xs italic text-ink/65 dark:text-slate-400 mb-3">{prophet.title}</p>
                                 <p className="font-editorial text-sm text-ink/60 dark:text-slate-300 mb-4 line-clamp-2">{prophet.desc}</p>
-                                <button className="w-full py-2 font-editorial text-sm bg-parchment-dark/40 dark:bg-slate-800 group-hover:bg-gold group-hover:text-white border border-amber-900/12 dark:border-slate-700 group-hover:border-gold rounded-lg text-gold dark:text-gold-light transition-all">
+                                <button className="w-full py-2 font-editorial text-sm bg-parchment-dark/40 dark:bg-slate-800 group-hover:bg-gold group-hover:text-white border border-amber-900/[0.14] dark:border-slate-700 group-hover:border-gold rounded-lg text-gold dark:text-gold-light transition-all">
                                   Continue Journey
                                 </button>
                               </div>
                             ) : (
                               <div
                                 onClick={() => openProphetDetail(prophet)}
-                                className={`bg-white/60 dark:bg-slate-800/30 p-4 rounded-xl border cursor-pointer hover:bg-white dark:hover:bg-slate-800/60 transition-all group ${prophet.status === 'completed' ? 'border-gold/20 dark:border-gold/10' : 'border-ink/8 dark:border-slate-700/40 hover:border-gold/25 dark:hover:border-gold/20'} shadow-sm`}
+                                className={`bg-white/80 dark:bg-slate-800/30 p-4 rounded-xl border cursor-pointer hover:bg-white dark:hover:bg-slate-800/60 transition-all group ${prophet.status === 'completed' ? 'border-gold/20 dark:border-gold/10' : 'border-ink/[0.12] dark:border-slate-700/40 hover:border-gold/35 dark:hover:border-gold/20'} shadow-sm`}
                               >
                                 <div className="flex justify-between items-start">
                                   <div className="flex-1 pr-2">
@@ -6497,7 +6497,7 @@
                             <div className="flex items-center gap-2 mb-3">
                               <div className="memory-shimmer h-px flex-1 rounded-full"></div>
                               <span className="font-display text-[9px] tracking-[0.25em] uppercase flex items-center gap-1.5"
-                                style={{color: isDarkMode ? 'rgba(181,135,63,0.65)' : 'rgba(181,135,63,0.75)'}}>
+                                style={{color: isDarkMode ? 'rgba(168,123,50,0.65)' : 'rgba(168,123,50,0.75)'}}>
                                 <i className="ph-fill ph-clock-clockwise text-[10px]"></i>
                                 On This Day
                               </span>
@@ -6507,15 +6507,15 @@
                               <div key={`otd-${entry.id}`}
                                 className="relative mb-3 px-5 pt-4 pb-4 rounded-xl border overflow-hidden"
                                 style={{
-                                  background: isDarkMode ? 'rgba(181,135,63,0.06)' : 'rgba(181,135,63,0.05)',
-                                  borderColor: isDarkMode ? 'rgba(181,135,63,0.2)' : 'rgba(181,135,63,0.22)'
+                                  background: isDarkMode ? 'rgba(168,123,50,0.06)' : 'rgba(168,123,50,0.07)',
+                                  borderColor: isDarkMode ? 'rgba(168,123,50,0.2)' : 'rgba(168,123,50,0.22)'
                                 }}>
                                 <div className="absolute top-0 left-0 w-full h-0.5" style={{
-                                  background: 'linear-gradient(90deg, transparent, rgba(181,135,63,0.5), transparent)'
+                                  background: 'linear-gradient(90deg, transparent, rgba(168,123,50,0.5), transparent)'
                                 }}></div>
                                 <div className="flex justify-between items-center mb-2">
                                   <span className="font-display text-[9px] tracking-[0.12em] uppercase"
-                                    style={{color: isDarkMode ? 'rgba(181,135,63,0.6)' : 'rgba(181,135,63,0.7)'}}>
+                                    style={{color: isDarkMode ? 'rgba(168,123,50,0.6)' : 'rgba(168,123,50,0.7)'}}>
                                     {entry.surah}{entry.ayah !== "—" && ` · ${entry.ayah}`}
                                   </span>
                                   <span className="font-display text-[9px] tracking-widest uppercase"
@@ -6524,7 +6524,7 @@
                                   </span>
                                 </div>
                                 <p className="font-editorial text-base italic leading-relaxed"
-                                  style={{color: isDarkMode ? 'rgba(221,227,237,0.65)' : 'rgba(26,22,18,0.62)'}}>
+                                  style={{color: isDarkMode ? 'rgba(221,227,237,0.65)' : 'rgba(19,15,10,0.62)'}}>
                                   "{entry.text}"
                                 </p>
                               </div>
@@ -6535,7 +6535,7 @@
                         {/* Entries */}
                         {filteredDiaryEntries.length > 0 ? (
                           filteredDiaryEntries.map((entry) => (
-                            <div key={entry.id} className="verse-card-bookmark bg-white dark:bg-slate-800/30 px-5 pt-4 pb-4 rounded-xl border border-ink/6 dark:border-slate-700/40 hover:border-gold/30 dark:hover:border-gold/20 transition-colors group shadow-sm">
+                            <div key={entry.id} className="verse-card-bookmark bg-white dark:bg-slate-800/30 px-5 pt-4 pb-4 rounded-xl border border-ink/[0.12] dark:border-slate-700/40 hover:border-gold/40 dark:hover:border-gold/20 transition-colors group shadow-sm">
                               <div className="flex justify-between items-center mb-2">
                                 <span className="font-display text-[9px] text-gold/70 dark:text-gold/50 uppercase tracking-[0.15em] flex items-center">
                                   {entry.surah !== "General Reflection" && <i className="ph-fill ph-book-open text-[9px] mr-1"></i>}
@@ -6743,7 +6743,7 @@
                     <div className="fixed inset-0 z-[400] flex flex-col select-none overflow-hidden" style={{background:'#11102A'}}>
                       {/* Ambient centre glow — shifts colour on cycle complete */}
                       <div className="absolute inset-0 pointer-events-none" style={{
-                        background: `radial-gradient(ellipse 65% 55% at 50% 52%, ${cycleComplete ? 'rgba(60,163,110,0.11)' : 'rgba(181,135,63,0.07)'} 0%, transparent 70%)`,
+                        background: `radial-gradient(ellipse 65% 55% at 50% 52%, ${cycleComplete ? 'rgba(60,163,110,0.11)' : 'rgba(168,123,50,0.07)'} 0%, transparent 70%)`,
                         transition: 'background 0.6s ease',
                       }} />
                       {/* Islamic star watermark */}
@@ -6759,7 +6759,7 @@
                           <i className="ph ph-x text-[16px]" style={{color:'rgba(255,255,255,0.55)'}}></i>
                         </button>
                         <div className="text-center flex-1 px-3">
-                          <p className="font-display text-[8px] uppercase tracking-[0.26em]" style={{color:'rgba(181,135,63,0.42)'}}>Focus Mode</p>
+                          <p className="font-display text-[8px] uppercase tracking-[0.26em]" style={{color:'rgba(168,123,50,0.42)'}}>Focus Mode</p>
                           <p className="font-editorial text-sm mt-0.5 truncate" style={{color:'rgba(255,255,255,0.55)'}}>{tasbihMode.name}</p>
                         </div>
                         <div className="w-10" />
@@ -6779,7 +6779,7 @@
                           style={{
                             position:'absolute', left:'50%', top:'50%',
                             width:240, height:240, borderRadius:'50%',
-                            border:`1.5px solid ${cycleComplete ? 'rgba(60,163,110,0.45)' : 'rgba(181,135,63,0.35)'}`,
+                            border:`1.5px solid ${cycleComplete ? 'rgba(60,163,110,0.45)' : 'rgba(168,123,50,0.35)'}`,
                           }}
                         />
 
@@ -6868,8 +6868,8 @@
                           className="flex flex-col items-center gap-0.5 px-6 py-3 rounded-2xl active:scale-95 transition-transform"
                           style={{background:'rgba(255,255,255,0.07)', border:'1px solid rgba(255,255,255,0.10)'}}
                         >
-                          <span className="font-display text-[8px] uppercase tracking-widest" style={{color:'rgba(181,135,63,0.50)'}}>Target</span>
-                          <span className="font-display text-xl font-bold" style={{color:'rgba(181,135,63,0.92)'}}>
+                          <span className="font-display text-[8px] uppercase tracking-widest" style={{color:'rgba(168,123,50,0.50)'}}>Target</span>
+                          <span className="font-display text-xl font-bold" style={{color:'rgba(168,123,50,0.92)'}}>
                             {tasbihTarget === 0 ? '∞' : tasbihTarget}
                           </span>
                         </button>
@@ -6886,7 +6886,7 @@
                               style={{background:'#1c1a38', border:'1px solid rgba(255,255,255,0.10)', borderBottom:'none'}}
                               onClick={e => e.stopPropagation()}
                             >
-                              <p className="font-display text-[9px] uppercase tracking-[0.22em] text-center mb-5" style={{color:'rgba(181,135,63,0.55)'}}>Set Target</p>
+                              <p className="font-display text-[9px] uppercase tracking-[0.22em] text-center mb-5" style={{color:'rgba(168,123,50,0.55)'}}>Set Target</p>
 
                               {/* Preset chips */}
                               <div className="flex flex-wrap justify-center gap-2 mb-5">
@@ -6896,9 +6896,9 @@
                                     onClick={() => { setTasbihTarget(n); setTasbihShowPicker(false); }}
                                     className="px-4 py-2 rounded-xl font-display text-sm font-bold transition-all active:scale-95"
                                     style={{
-                                      background: tasbihTarget === n ? 'rgba(181,135,63,0.25)' : 'rgba(255,255,255,0.07)',
-                                      border: tasbihTarget === n ? '1px solid rgba(181,135,63,0.50)' : '1px solid rgba(255,255,255,0.10)',
-                                      color: tasbihTarget === n ? 'rgba(181,135,63,0.95)' : 'rgba(255,255,255,0.55)',
+                                      background: tasbihTarget === n ? 'rgba(168,123,50,0.25)' : 'rgba(255,255,255,0.07)',
+                                      border: tasbihTarget === n ? '1px solid rgba(168,123,50,0.50)' : '1px solid rgba(255,255,255,0.10)',
+                                      color: tasbihTarget === n ? 'rgba(168,123,50,0.95)' : 'rgba(255,255,255,0.55)',
                                     }}
                                   >
                                     {n === 0 ? '∞' : n}
@@ -6932,7 +6932,7 @@
                                   }}
                                   disabled={!tasbihCustomInput || parseInt(tasbihCustomInput,10) <= 0}
                                   className="px-5 py-3 rounded-xl font-display text-[10px] uppercase tracking-widest transition-all active:scale-95 disabled:opacity-30"
-                                  style={{background:'rgba(181,135,63,0.20)', border:'1px solid rgba(181,135,63,0.35)', color:'rgba(181,135,63,0.90)'}}
+                                  style={{background:'rgba(168,123,50,0.20)', border:'1px solid rgba(168,123,50,0.35)', color:'rgba(168,123,50,0.90)'}}
                                 >
                                   Set
                                 </button>
@@ -6969,7 +6969,7 @@
                       {/* Radiant glow behind card */}
                       <div className="absolute inset-0 rounded-2xl blur-2xl opacity-30 pointer-events-none"
                         style={{background: milestoneCard.type === 'salawat_100'
-                          ? 'radial-gradient(circle, rgba(181,135,63,0.6) 0%, transparent 70%)'
+                          ? 'radial-gradient(circle, rgba(168,123,50,0.6) 0%, transparent 70%)'
                           : 'radial-gradient(circle, rgba(60,163,110,0.6) 0%, transparent 70%)'}} />
                       <img
                         src={milestoneCard.dataUrl}
@@ -6985,9 +6985,9 @@
                             ? `ruh-salawat-100-${new Date().toISOString().slice(0,10)}.png`
                             : `ruh-shields-complete-${new Date().toISOString().slice(0,10)}.png`}
                           className="flex items-center gap-2 px-5 py-2.5 text-white font-editorial text-sm rounded-xl transition-all shadow-lg active:scale-95"
-                          style={{background: milestoneCard.type === 'salawat_100' ? '#b5873f' : '#3ca36e',
+                          style={{background: milestoneCard.type === 'salawat_100' ? '#a87b32' : '#3ca36e',
                             boxShadow: milestoneCard.type === 'salawat_100'
-                              ? '0 4px 16px rgba(181,135,63,0.35)'
+                              ? '0 4px 16px rgba(168,123,50,0.35)'
                               : '0 4px 16px rgba(60,163,110,0.35)'}}
                           title="Save image"
                         >
@@ -7116,7 +7116,7 @@
                 )}
 
                 {/* Bottom Tab Bar */}
-                <nav className="absolute bottom-0 w-full bg-parchment/97 dark:bg-slate-900/97 backdrop-blur-lg border-t border-amber-900/10 dark:border-slate-800/80 px-2 pt-3 pb-7 flex justify-around items-center z-30 transition-colors duration-500">
+                <nav className="absolute bottom-0 w-full bg-parchment/97 dark:bg-slate-900/97 backdrop-blur-lg border-t border-amber-900/[0.14] dark:border-slate-800/80 px-2 pt-3 pb-7 flex justify-around items-center z-30 transition-colors duration-500">
                   {/* Read */}
                   <button
                     onClick={() => navigateTo('home')}
