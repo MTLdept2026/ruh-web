@@ -5395,26 +5395,26 @@
                             {prayers.map((p, i) => {
                               const isNext = i === activeIdx;
                               return (
-                                <span key={i} className="inline-flex items-center gap-1.5 px-3"
+                                <span key={i} className="inline-flex items-center gap-2 px-3.5"
                                   style={{ flexShrink: 0 }}>
                                   {/* Separator diamond */}
                                   <span style={{
                                     display: 'inline-block',
-                                    width: 3, height: 3,
+                                    width: 4, height: 4,
                                     borderRadius: 0,
                                     transform: 'rotate(45deg)',
                                     background: isNext ? '#b5873f' : (isDarkMode ? 'rgba(181,135,63,0.2)' : 'rgba(181,135,63,0.15)'),
                                     marginRight: 2,
                                     flexShrink: 0,
                                   }}/>
-                                  <span className="font-display text-[8px] tracking-[0.08em] uppercase"
+                                  <span className="font-display text-[9px] tracking-[0.08em] uppercase"
                                     style={{ color: isNext ? goldColor : mutedColor }}>
                                     {p.name}
                                   </span>
                                   <span className="font-editorial"
                                     style={{
-                                      fontSize: 13,
-                                      fontWeight: isNext ? 500 : 400,
+                                      fontSize: 15,
+                                      fontWeight: isNext ? 550 : 450,
                                       color: isNext ? goldColor : mutedColor,
                                     }}>
                                     {fmtTime(p.time)}
@@ -5422,7 +5422,7 @@
                                   {isNext && (
                                     <span style={{
                                       display: 'inline-block',
-                                      width: 5, height: 5, borderRadius: '50%',
+                                      width: 6, height: 6, borderRadius: '50%',
                                       background: '#b5873f',
                                       flexShrink: 0,
                                       boxShadow: '0 0 5px rgba(181,135,63,0.6)',
@@ -5437,29 +5437,29 @@
                         return (
                           <div className="rounded-full border flex items-center gap-0 overflow-hidden"
                             style={{
-                              height: 34,
+                              height: 44,
                               background: isDarkMode ? 'rgba(181,135,63,0.06)' : 'rgba(181,135,63,0.05)',
                               borderColor: isDarkMode ? 'rgba(181,135,63,0.18)' : 'rgba(181,135,63,0.2)',
                             }}>
 
                             {/* Left pill — label + official badge + Qibla */}
-                            <div className="flex items-center gap-1.5 pl-3 pr-2.5 flex-shrink-0 border-r h-full"
+                            <div className="flex items-center gap-2 pl-3.5 pr-3 flex-shrink-0 border-r h-full"
                               style={{borderColor: isDarkMode ? 'rgba(181,135,63,0.15)' : 'rgba(181,135,63,0.15)'}}>
                               {isOfficial ? (
                                 <span className="inline-flex items-center gap-0.5"
                                   style={{color: isDarkMode ? '#3ca36e' : '#2d7a56'}}>
-                                  <i className="ph-fill ph-seal-check text-[11px]"></i>
+                                  <i className="ph-fill ph-seal-check text-[13px]"></i>
                                 </span>
                               ) : isAligned ? (
                                 <span className="inline-flex items-center gap-0.5"
                                   style={{color: isDarkMode ? '#b5873f' : '#8a6220'}}>
-                                  <i className="ph-fill ph-mosque text-[11px]"></i>
+                                  <i className="ph-fill ph-mosque text-[13px]"></i>
                                 </span>
                               ) : (
-                                <i className="ph ph-mosque text-[11px]" style={{color: '#b5873f', opacity: 0.7}}></i>
+                                <i className="ph ph-mosque text-[13px]" style={{color: '#b5873f', opacity: 0.7}}></i>
                               )}
                               <span
-                                className="font-display text-[8px] tracking-[0.18em] uppercase"
+                                className="font-display text-[9px] tracking-[0.18em] uppercase"
                                 title={authority}
                                 style={{color: isDarkMode ? 'rgba(181,135,63,0.65)' : 'rgba(181,135,63,0.75)'}}>
                                 {ptLoading ? '…' : 'Prayer'}
@@ -5477,7 +5477,7 @@
 
                             <button
                               onClick={handleTogglePrayerNotifications}
-                              className="relative flex items-center justify-center px-2.5 h-full flex-shrink-0 border-l transition-opacity hover:opacity-80 active:scale-95"
+                              className="relative flex items-center justify-center px-3 h-full flex-shrink-0 border-l transition-opacity hover:opacity-80 active:scale-95"
                               style={{
                                 borderColor: isDarkMode ? 'rgba(181,135,63,0.15)' : 'rgba(181,135,63,0.15)',
                                 color: prayerNotificationsEnabled
@@ -5485,10 +5485,10 @@
                                   : (isDarkMode ? 'rgba(181,135,63,0.5)' : 'rgba(181,135,63,0.6)'),
                               }}
                               title={prayerNotificationsEnabled ? 'Turn off prayer reminders' : 'Turn on prayer reminders'}>
-                              <i className={`text-[11px] ${prayerNotificationsEnabled ? 'ph-fill ph-notification' : 'ph ph-notification'}`}></i>
+                              <i className={`text-[13px] ${prayerNotificationsEnabled ? 'ph-fill ph-notification' : 'ph ph-notification'}`}></i>
                               {prayerNotificationsEnabled && (
                                 <span
-                                  className="absolute top-[8px] right-[8px] w-1.5 h-1.5 rounded-full"
+                                  className="absolute top-[11px] right-[10px] w-1.5 h-1.5 rounded-full"
                                   style={{background: '#3ca36e', boxShadow: '0 0 6px rgba(60,163,110,0.5)'}}></span>
                               )}
                             </button>
@@ -5496,14 +5496,14 @@
                             {/* Right pill — Qibla button */}
                             <button
                               onClick={() => { setCompassStatus('idle'); setShowQibla(true); }}
-                              className="flex items-center gap-1 pl-2 pr-3 h-full flex-shrink-0 border-l transition-opacity hover:opacity-80 active:scale-95"
+                              className="flex items-center gap-1.5 pl-2.5 pr-3.5 h-full flex-shrink-0 border-l transition-opacity hover:opacity-80 active:scale-95"
                               style={{
                                 borderColor: isDarkMode ? 'rgba(181,135,63,0.15)' : 'rgba(181,135,63,0.15)',
                                 color: isDarkMode ? 'rgba(181,135,63,0.6)' : 'rgba(181,135,63,0.7)',
                               }}
                               title="Qibla finder">
-                              <i className="ph-fill ph-compass text-[11px]"></i>
-                              <span className="font-display text-[8px] tracking-[0.14em] uppercase">Qibla</span>
+                              <i className="ph-fill ph-compass text-[13px]"></i>
+                              <span className="font-display text-[9px] tracking-[0.14em] uppercase">Qibla</span>
                             </button>
                           </div>
                         );
