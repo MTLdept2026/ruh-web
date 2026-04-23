@@ -30,7 +30,7 @@
         //   2. "v" in /version.json       (one-liner at root — the async poller reads it)
         // Both must match. APP_VERSION fires synchronously on first load;
         // version.json catches open tabs and background PWA installs.
-        var APP_VERSION = '2026-04-20a'; // ← YYYY-MM-DD, must match version.json "v"
+        var APP_VERSION = '2026-03-28b'; // ← YYYY-MM-DD, must match version.json "v"
         var stored = localStorage.getItem('ruh-app-version');
         if (stored !== APP_VERSION) {
           localStorage.setItem('ruh-app-version', APP_VERSION);
@@ -60,17 +60,17 @@
 
     <!-- Social / Link Preview (Open Graph + Twitter Card) -->
     <meta property="og:type"        content="website">
-    <meta property="og:url"         content="https://ruh-app.netlify.app">
+    <meta property="og:url"         content="https://al-ruh.netlify.app">
     <meta property="og:title"       content="Rūḥ — Quranic Reflection &amp; Remembrance">
     <meta property="og:description" content="A moment for your heart and soul. Daily Quran verses, salawat, dua, and personal reflection.">
-    <meta property="og:image"       content="https://ruh-app.netlify.app/og-image.png">
+    <meta property="og:image"       content="https://al-ruh.netlify.app/og-image.png">
     <meta property="og:image:width"  content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt"   content="Rūḥ — Islamic reflection app">
     <meta name="twitter:card"        content="summary_large_image">
     <meta name="twitter:title"       content="Rūḥ — Quranic Reflection &amp; Remembrance">
     <meta name="twitter:description" content="A moment for your heart and soul. Daily Quran verses, salawat, dua, and personal reflection.">
-    <meta name="twitter:image"       content="https://ruh-app.netlify.app/og-image.png">
+    <meta name="twitter:image"       content="https://al-ruh.netlify.app/og-image.png">
 
     <!-- iOS "Add to Home Screen" -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1422,119 +1422,241 @@
           { label: 'Brisbane, Australia',    lat: -27.4698, lng: 153.0251 },
         ];
 
-        // ── Calculation Method Mapper ─────────────────────────────────
-        // Maps a city label (or lat/lng for GPS locations) to the correct
-        // regional religious authority's Adhan.js calculation method.
-        // Each country's official Islamic body uses specific Fajr/Isha angles
-        // and madhab rules — using the wrong method can give times that are
-        // 10–20 minutes off from what's published by local authorities.
-        function getCalcMethod(coords) {
-            if (!window.adhan) return { method: null, authority: 'Unknown' };
-            const label = (coords && coords.label) ? coords.label.toLowerCase() : '';
-            const lat   = coords ? coords.lat : 0;
-            const lng   = coords ? coords.lng : 0;
+        function labelIncludes(label, aliases) {
+            return aliases.some(alias => label.includes(alias));
+        }
 
-            // ── Southeast Asia ──────────────────────────────────────────
-            // Singapore MUIS & Malaysia JAKIM & Indonesia Kemenag all use
-            // Fajr 20°, Isha 18°, Shafi'i madhab — matched by Singapore().
-            if (label.includes('singapore'))
-                return { method: adhan.CalculationMethod.Singapore(), authority: 'MUIS (Singapore)' };
-            if (label.includes('malaysia') || label.includes('kuala lumpur') || label.includes('penang'))
-                return { method: adhan.CalculationMethod.Singapore(), authority: 'JAKIM (Malaysia)' };
-            if (label.includes('indonesia') || label.includes('jakarta') ||
-                label.includes('bandung') || label.includes('surabaya') || label.includes('medan'))
-                return { method: adhan.CalculationMethod.Singapore(), authority: 'Kemenag (Indonesia)' };
+        function withinBounds(coords, bounds) {
+            return !!coords
+                && typeof coords.lat === 'number'
+                && typeof coords.lng === 'number'
+                && coords.lat > bounds.minLat
+                && coords.lat < bounds.maxLat
+                && coords.lng > bounds.minLng
+                && coords.lng < bounds.maxLng;
+        }
 
-            // ── Arabian Peninsula ───────────────────────────────────────
-            if (label.includes('saudi') || label.includes('makkah') ||
-                label.includes('madinah') || label.includes('riyadh'))
-                return { method: adhan.CalculationMethod.UmmAlQura(), authority: 'Umm al-Qura (Saudi Arabia)' };
-            if (label.includes('dubai') || label.includes('abu dhabi') || label.includes('uae'))
-                return { method: adhan.CalculationMethod.Dubai(), authority: 'UAE General Authority of Islamic Affairs' };
-            if (label.includes('qatar'))
-                return { method: adhan.CalculationMethod.Qatar(), authority: 'Qatar Ministry of Awqaf' };
-            if (label.includes('kuwait'))
-                return { method: adhan.CalculationMethod.Kuwait(), authority: 'Kuwait Ministry of Awqaf' };
+        const PRAYER_REGION_RULES = [
+            {
+                key: 'SG',
+                authority: 'MUIS (Singapore)',
+                aliases: ['singapore'],
+                bounds: { minLat: 1.1, maxLat: 1.5, minLng: 103.6, maxLng: 104.1 },
+                calcMethod: () => adhan.CalculationMethod.Singapore(),
+                aladhanMethodId: 11,
+                source: 'official',
+            },
+            {
+                key: 'MY',
+                authority: 'JAKIM (Malaysia)',
+                aliases: ['malaysia', 'kuala lumpur', 'penang', 'pulau pinang', 'johor', 'melaka', 'malacca', 'selangor', 'perak', 'kedah', 'kelantan', 'pahang', 'terengganu', 'negeri sembilan'],
+                bounds: { minLat: 1.0, maxLat: 6.7, minLng: 99.5, maxLng: 104.7 },
+                calcMethod: () => adhan.CalculationMethod.Singapore(),
+                aladhanMethodId: 16,
+                source: 'official',
+            },
+            {
+                key: 'ID',
+                authority: 'Kemenag (Indonesia)',
+                aliases: ['indonesia', 'jakarta', 'bandung', 'surabaya', 'medan'],
+                bounds: { minLat: -11, maxLat: 6, minLng: 95, maxLng: 141 },
+                calcMethod: () => adhan.CalculationMethod.Singapore(),
+                aladhanMethodId: 19,
+                source: 'aligned',
+            },
+            {
+                key: 'SA',
+                authority: 'Umm al-Qura (Saudi Arabia)',
+                aliases: ['saudi', 'saudi arabia', 'makkah', 'madinah', 'riyadh'],
+                bounds: { minLat: 16, maxLat: 32, minLng: 34, maxLng: 56 },
+                calcMethod: () => adhan.CalculationMethod.UmmAlQura(),
+                aladhanMethodId: 4,
+                source: 'aligned',
+            },
+            {
+                key: 'AE',
+                authority: 'UAE General Authority of Islamic Affairs',
+                aliases: ['dubai', 'abu dhabi', 'uae', 'united arab emirates'],
+                bounds: { minLat: 22, maxLat: 26.5, minLng: 51, maxLng: 56.5 },
+                calcMethod: () => adhan.CalculationMethod.Dubai(),
+                aladhanMethodId: 8,
+                source: 'aligned',
+            },
+            {
+                key: 'QA',
+                authority: 'Qatar Ministry of Awqaf',
+                aliases: ['qatar'],
+                calcMethod: () => adhan.CalculationMethod.Qatar(),
+                aladhanMethodId: 10,
+                source: 'aligned',
+            },
+            {
+                key: 'KW',
+                authority: 'Kuwait Ministry of Awqaf',
+                aliases: ['kuwait'],
+                calcMethod: () => adhan.CalculationMethod.Kuwait(),
+                aladhanMethodId: 9,
+                source: 'aligned',
+            },
+            {
+                key: 'TR',
+                authority: 'Diyanet İşleri Başkanlığı (Turkey)',
+                aliases: ['turkey', 'istanbul', 'ankara'],
+                bounds: { minLat: 36, maxLat: 42.5, minLng: 26, maxLng: 45 },
+                calcMethod: () => adhan.CalculationMethod.Turkey(),
+                aladhanMethodId: 13,
+                source: 'aligned',
+            },
+            {
+                key: 'EG',
+                authority: 'Egyptian General Authority of Survey',
+                aliases: ['egypt', 'cairo'],
+                bounds: { minLat: 22, maxLat: 31.7, minLng: 25, maxLng: 37.3 },
+                calcMethod: () => adhan.CalculationMethod.Egyptian(),
+                aladhanMethodId: 5,
+                source: 'aligned',
+            },
+            {
+                key: 'IR',
+                authority: 'Institute of Geophysics, University of Tehran',
+                aliases: ['iran', 'tehran'],
+                bounds: { minLat: 25, maxLat: 40, minLng: 44, maxLng: 63.5 },
+                calcMethod: () => adhan.CalculationMethod.Tehran(),
+                aladhanMethodId: 7,
+                source: 'aligned',
+            },
+            {
+                key: 'JO',
+                authority: 'Jordan Ministry of Awqaf',
+                aliases: ['amman', 'jordan'],
+                calcMethod: () => adhan.CalculationMethod.MuslimWorldLeague(),
+                aladhanMethodId: 22,
+                source: 'aligned',
+            },
+            {
+                key: 'LB-IQ',
+                authority: 'Muslim World League',
+                aliases: ['beirut', 'lebanon', 'baghdad', 'iraq'],
+                calcMethod: () => adhan.CalculationMethod.MuslimWorldLeague(),
+                aladhanMethodId: 3,
+                source: 'aligned',
+            },
+            {
+                key: 'MA',
+                authority: 'Ministry of Habous & Islamic Affairs (Morocco)',
+                aliases: ['morocco', 'casablanca'],
+                calcMethod: () => adhan.CalculationMethod.Egyptian(),
+                aladhanMethodId: 20,
+                source: 'aligned',
+            },
+            {
+                key: 'DZ',
+                authority: 'Algeria Ministry of Religious Affairs',
+                aliases: ['algeria', 'algiers'],
+                calcMethod: () => adhan.CalculationMethod.Egyptian(),
+                aladhanMethodId: 18,
+                source: 'aligned',
+            },
+            {
+                key: 'TN',
+                authority: 'Ministry of Religious Affairs (Tunisia)',
+                aliases: ['tunis', 'tunisia'],
+                calcMethod: () => adhan.CalculationMethod.Egyptian(),
+                aladhanMethodId: 17,
+                source: 'aligned',
+            },
+            {
+                key: 'PK',
+                authority: 'University of Islamic Sciences, Karachi',
+                aliases: ['pakistan', 'karachi', 'lahore', 'islamabad'],
+                bounds: { minLat: 8, maxLat: 37, minLng: 60, maxLng: 97 },
+                calcMethod: () => adhan.CalculationMethod.Karachi(),
+                aladhanMethodId: 1,
+                source: 'aligned',
+            },
+            {
+                key: 'BD',
+                authority: 'University of Islamic Sciences, Karachi',
+                aliases: ['bangladesh', 'dhaka'],
+                calcMethod: () => adhan.CalculationMethod.Karachi(),
+                aladhanMethodId: 1,
+                source: 'aligned',
+            },
+            {
+                key: 'IN',
+                authority: 'University of Islamic Sciences, Karachi',
+                aliases: ['india', 'mumbai', 'delhi'],
+                calcMethod: () => adhan.CalculationMethod.Karachi(),
+                aladhanMethodId: 1,
+                source: 'aligned',
+            },
+            {
+                key: 'AFRICA',
+                authority: 'Muslim World League',
+                aliases: ['nigeria', 'lagos', 'abuja', 'nairobi', 'kenya', 'senegal', 'dakar'],
+                calcMethod: () => adhan.CalculationMethod.MuslimWorldLeague(),
+                aladhanMethodId: 3,
+                source: 'aligned',
+            },
+            {
+                key: 'EU',
+                authority: 'Moonsighting Committee (UK/Europe)',
+                aliases: ['london', 'uk', 'united kingdom', 'france', 'paris', 'netherlands', 'amsterdam'],
+                bounds: { minLat: 35, maxLat: 72, minLng: -10, maxLng: 25 },
+                calcMethod: () => adhan.CalculationMethod.MoonsightingCommittee(),
+                aladhanMethodId: 15,
+                source: 'aligned',
+            },
+            {
+                key: 'NA',
+                authority: 'ISNA (North America)',
+                aliases: ['usa', 'united states', 'new york', 'canada', 'toronto'],
+                bounds: { minLat: 15, maxLat: 72, minLng: -170, maxLng: -52 },
+                calcMethod: () => adhan.CalculationMethod.NorthAmerica(),
+                aladhanMethodId: 2,
+                source: 'aligned',
+            },
+            {
+                key: 'AU',
+                authority: 'AFIC (Australia)',
+                aliases: ['australia', 'sydney', 'melbourne', 'brisbane'],
+                bounds: { minLat: -50, maxLat: -10, minLng: 110, maxLng: 180 },
+                calcMethod: () => adhan.CalculationMethod.MoonsightingCommittee(),
+                aladhanMethodId: 15,
+                source: 'aligned',
+            },
+        ];
 
-            // ── Middle East & North Africa ──────────────────────────────
-            if (label.includes('turkey') || label.includes('istanbul') || label.includes('ankara'))
-                return { method: adhan.CalculationMethod.Turkey(), authority: 'Diyanet İşleri Başkanlığı (Turkey)' };
-            if (label.includes('egypt') || label.includes('cairo'))
-                return { method: adhan.CalculationMethod.Egyptian(), authority: 'Egyptian General Authority of Survey' };
-            if (label.includes('iran') || label.includes('tehran'))
-                return { method: adhan.CalculationMethod.Tehran(), authority: 'Institute of Geophysics, University of Tehran' };
-            if (label.includes('amman') || label.includes('jordan') ||
-                label.includes('beirut') || label.includes('lebanon') ||
-                label.includes('baghdad') || label.includes('iraq'))
-                return { method: adhan.CalculationMethod.MuslimWorldLeague(), authority: 'Muslim World League' };
-            if (label.includes('morocco') || label.includes('casablanca') ||
-                label.includes('algeria') || label.includes('algiers') ||
-                label.includes('tunis') || label.includes('tunisia'))
-                return { method: adhan.CalculationMethod.Egyptian(), authority: 'Egyptian General Authority of Survey' };
+        const DEFAULT_PRAYER_REGION = {
+            key: 'GLOBAL',
+            authority: 'Muslim World League',
+            calcMethod: () => adhan.CalculationMethod.MuslimWorldLeague(),
+            aladhanMethodId: 3,
+            source: 'aligned',
+        };
 
-            // ── South Asia ──────────────────────────────────────────────
-            // University of Islamic Sciences, Karachi: Fajr 18°, Isha 18°
-            if (label.includes('pakistan') || label.includes('karachi') ||
-                label.includes('lahore') || label.includes('islamabad'))
-                return { method: adhan.CalculationMethod.Karachi(), authority: 'University of Islamic Sciences, Karachi' };
-            if (label.includes('bangladesh') || label.includes('dhaka'))
-                return { method: adhan.CalculationMethod.Karachi(), authority: 'University of Islamic Sciences, Karachi' };
-            if (label.includes('india') || label.includes('mumbai') || label.includes('delhi'))
-                return { method: adhan.CalculationMethod.Karachi(), authority: 'University of Islamic Sciences, Karachi' };
-
-            // ── Sub-Saharan Africa ──────────────────────────────────────
-            if (label.includes('nigeria') || label.includes('lagos') || label.includes('abuja') ||
-                label.includes('nairobi') || label.includes('kenya') ||
-                label.includes('senegal') || label.includes('dakar'))
-                return { method: adhan.CalculationMethod.MuslimWorldLeague(), authority: 'Muslim World League' };
-
-            // ── Western Europe ──────────────────────────────────────────
-            if (label.includes('london') || label.includes('uk') || label.includes('united kingdom') ||
-                label.includes('france') || label.includes('paris') ||
-                label.includes('netherlands') || label.includes('amsterdam'))
-                return { method: adhan.CalculationMethod.MoonsightingCommittee(), authority: 'Moonsighting Committee (UK/Europe)' };
-
-            // ── North America ───────────────────────────────────────────
-            if (label.includes('usa') || label.includes('new york') ||
-                label.includes('canada') || label.includes('toronto'))
-                return { method: adhan.CalculationMethod.NorthAmerica(), authority: 'ISNA (North America)' };
-
-            // ── Oceania ─────────────────────────────────────────────────
-            if (label.includes('australia') || label.includes('sydney') ||
-                label.includes('melbourne') || label.includes('brisbane'))
-                return { method: adhan.CalculationMethod.MoonsightingCommittee(), authority: 'AFIC (Australia)' };
-
-            // ── GPS coordinate fallback (no city name available) ────────
-            // Use bounding boxes to approximate the correct authority.
-            if (label === 'your location' || label === '') {
-                if (lat > 1.1 && lat < 1.5  && lng > 103.6 && lng < 104.1)  // Singapore
-                    return { method: adhan.CalculationMethod.Singapore(), authority: 'MUIS (Singapore)' };
-                if (lat > 1.0 && lat < 6.7  && lng > 99.5  && lng < 104.7)  // Peninsula Malaysia
-                    return { method: adhan.CalculationMethod.Singapore(), authority: 'JAKIM (Malaysia)' };
-                if (lat > -11  && lat < 6   && lng > 95    && lng < 141)     // Indonesia
-                    return { method: adhan.CalculationMethod.Singapore(), authority: 'Kemenag (Indonesia)' };
-                if (lat > 16   && lat < 32  && lng > 34    && lng < 56)      // Saudi Arabia
-                    return { method: adhan.CalculationMethod.UmmAlQura(), authority: 'Umm al-Qura (Saudi Arabia)' };
-                if (lat > 22   && lat < 26.5 && lng > 51   && lng < 56.5)   // UAE
-                    return { method: adhan.CalculationMethod.Dubai(), authority: 'UAE General Authority of Islamic Affairs' };
-                if (lat > 36   && lat < 42.5 && lng > 26   && lng < 45)     // Turkey
-                    return { method: adhan.CalculationMethod.Turkey(), authority: 'Diyanet İşleri Başkanlığı (Turkey)' };
-                if (lat > 22   && lat < 31.7 && lng > 25   && lng < 37.3)   // Egypt
-                    return { method: adhan.CalculationMethod.Egyptian(), authority: 'Egyptian General Authority of Survey' };
-                if (lat > 25   && lat < 40  && lng > 44    && lng < 63.5)   // Iran
-                    return { method: adhan.CalculationMethod.Tehran(), authority: 'Institute of Geophysics, University of Tehran' };
-                if (lat > 8    && lat < 37  && lng > 60    && lng < 97)     // South Asia
-                    return { method: adhan.CalculationMethod.Karachi(), authority: 'University of Islamic Sciences, Karachi' };
-                if (lat > 15   && lat < 72  && lng > -170  && lng < -52)    // Americas
-                    return { method: adhan.CalculationMethod.NorthAmerica(), authority: 'ISNA (North America)' };
-                if (lat > 35   && lat < 72  && lng > -10   && lng < 25)     // Western Europe
-                    return { method: adhan.CalculationMethod.MoonsightingCommittee(), authority: 'Moonsighting Committee' };
-                if (lat > -50  && lat < -10 && lng > 110   && lng < 180)    // Australia/NZ
-                    return { method: adhan.CalculationMethod.MoonsightingCommittee(), authority: 'AFIC (Australia)' };
+        function resolvePrayerRegion(coords) {
+            const label = (coords?.label || '').toLowerCase();
+            for (const rule of PRAYER_REGION_RULES) {
+                if ((rule.aliases && labelIncludes(label, rule.aliases))
+                    || (rule.bounds && withinBounds(coords, rule.bounds))) {
+                    return rule;
+                }
             }
+            return DEFAULT_PRAYER_REGION;
+        }
 
-            // ── Global default ──────────────────────────────────────────
-            return { method: adhan.CalculationMethod.MuslimWorldLeague(), authority: 'Muslim World League' };
+        // ── Calculation Method Mapper ─────────────────────────────────
+        // Uses the same region resolver as the network fetcher so the
+        // calculated fallback stays aligned with the chosen authority.
+        function getCalcMethod(coords) {
+            if (!window.adhan) return { method: null, authority: 'Unknown', source: 'calculated' };
+            const region = resolvePrayerRegion(coords);
+            return {
+                method: region.calcMethod(),
+                authority: region.authority,
+                source: region.source,
+            };
         }
 
         // ── Prayer Times Display Helper (Adhan.js) ───────────────────
@@ -1567,11 +1689,11 @@
             } catch(_) { return null; }
         }
 
-        // ── Aladhan API — official Islamic authority prayer times ──────
-        // api.aladhan.com provides times directly from each country's
-        // religious authority — not calculated approximations.
+        // ── Aladhan API — authority-aligned fallback ────────────────────
+        // When we do not have a direct first-party feed, use Aladhan with the
+        // closest regional calculation method instead of calling it "official".
         //
-        // Method IDs that map to official sources:
+        // Regional method IDs used by the Aladhan fallback:
         //   11 = MUIS (Singapore)        16 = JAKIM (Malaysia)
         //   19 = Kemenag (Indonesia)      4 = Umm al-Qura (Saudi)
         //    5 = Egyptian Authority       13 = Diyanet (Turkey)
@@ -1603,49 +1725,7 @@
         };
 
         function getAladhanMethodId(coords) {
-            const l   = (coords && coords.label) ? coords.label.toLowerCase() : '';
-            const lat = coords ? coords.lat : 0;
-            const lng = coords ? coords.lng : 0;
-
-            // Named city matching — most reliable
-            if (l.includes('singapore'))                                         return 11;
-            if (l.includes('malaysia')||l.includes('kuala lumpur')||l.includes('penang')) return 16;
-            if (l.includes('indonesia')||l.includes('jakarta')||l.includes('bandung')||l.includes('surabaya')||l.includes('medan')) return 19;
-            if (l.includes('saudi')||l.includes('makkah')||l.includes('madinah')||l.includes('riyadh')) return 4;
-            if (l.includes('dubai')||l.includes('abu dhabi')||l.includes('uae')) return 8;
-            if (l.includes('qatar'))                                             return 10;
-            if (l.includes('kuwait'))                                            return 9;
-            if (l.includes('turkey')||l.includes('istanbul')||l.includes('ankara')) return 13;
-            if (l.includes('egypt')||l.includes('cairo'))                        return 5;
-            if (l.includes('iran')||l.includes('tehran'))                        return 7;
-            if (l.includes('jordan')||l.includes('amman'))                       return 22;
-            if (l.includes('morocco')||l.includes('casablanca'))                 return 20;
-            if (l.includes('algeria')||l.includes('algiers'))                    return 18;
-            if (l.includes('tunis')||l.includes('tunisia'))                      return 17;
-            if (l.includes('pakistan')||l.includes('karachi')||l.includes('lahore')||l.includes('islamabad')) return 1;
-            if (l.includes('bangladesh')||l.includes('dhaka'))                   return 1;
-            if (l.includes('india')||l.includes('mumbai')||l.includes('delhi'))  return 1;
-            if (l.includes('usa')||l.includes('new york')||l.includes('canada')||l.includes('toronto')) return 2;
-            if (l.includes('london')||l.includes('uk')||l.includes('france')||l.includes('paris')||l.includes('netherlands')||l.includes('amsterdam')) return 15;
-            if (l.includes('australia')||l.includes('sydney')||l.includes('melbourne')||l.includes('brisbane')) return 15;
-            if (l.includes('nigeria')||l.includes('lagos')||l.includes('abuja')||l.includes('kenya')||l.includes('nairobi')||l.includes('senegal')||l.includes('dakar')) return 3;
-            if (l.includes('lebanon')||l.includes('beirut')||l.includes('iraq')||l.includes('baghdad')) return 3;
-
-            // GPS bounding-box fallback (no city name)
-            if (lat > 1.1  && lat < 1.5  && lng > 103.6 && lng < 104.1) return 11; // Singapore
-            if (lat > 1.0  && lat < 6.7  && lng > 99.5  && lng < 104.7) return 16; // Malaysia
-            if (lat > -11  && lat < 6    && lng > 95    && lng < 141)   return 19; // Indonesia
-            if (lat > 16   && lat < 32   && lng > 34    && lng < 56)    return 4;  // Saudi Arabia
-            if (lat > 22   && lat < 26.5 && lng > 51    && lng < 56.5)  return 8;  // UAE
-            if (lat > 36   && lat < 42.5 && lng > 26    && lng < 45)    return 13; // Turkey
-            if (lat > 22   && lat < 31.7 && lng > 25    && lng < 37.3)  return 5;  // Egypt
-            if (lat > 25   && lat < 40   && lng > 44    && lng < 63.5)  return 7;  // Iran
-            if (lat > 8    && lat < 37   && lng > 60    && lng < 97)    return 1;  // South Asia
-            if (lat > 15   && lat < 72   && lng > -170  && lng < -52)   return 2;  // Americas
-            if (lat > 35   && lat < 72   && lng > -10   && lng < 25)    return 15; // Europe
-            if (lat > -50  && lat < -10  && lng > 110   && lng < 180)   return 15; // Australia/NZ
-
-            return 3; // Muslim World League default
+            return resolvePrayerRegion(coords).aladhanMethodId || 3;
         }
 
         // ── MUIS 2026 Official Timetable (Singapore) ──────────────────────────
@@ -1805,14 +1885,6 @@
             return coords.lat > 1.1 && coords.lat < 1.5 && coords.lng > 103.6 && coords.lng < 104.1;
         }
 
-        // Returns true if coords are within Peninsular Malaysia bounds
-        function isMalaysia(coords) {
-            if (!coords) return false;
-            const l = coords.label ? coords.label.toLowerCase() : '';
-            if (l.includes('malaysia') || l.includes('kuala lumpur') || l.includes('penang')) return true;
-            return coords.lat > 1.0 && coords.lat < 6.7 && coords.lng > 99.5 && coords.lng < 104.7;
-        }
-
         // Reads today's prayer times from the embedded MUIS 2026 timetable.
         // The table stores times as integers: 824 → 8:24, 1310 → 13:10.
         function getMUISTimes(baseDate = new Date()) {
@@ -1858,15 +1930,32 @@
             return { source: 'official', authority: 'MUIS (Singapore)', prayers };
         }
 
-        // Fetches prayer times from the official source:
-        // • Singapore → embedded MUIS 2026 timetable (exact, offline, zero API calls)
-        // • Malaysia  → data.gov.sg JAKIM dataset via API
-        // • All others → Aladhan API with correct regional method ID
-        // Returns { source:'official'|'api'|'calculated', authority, prayers:[{name,time,str}] }
+        function getJakimZone(coords) {
+            const label = (coords?.label || '').toLowerCase();
+            if (label.includes('penang') || label.includes('pulau pinang')) return 'PNG01';
+            if (label.includes('johor')) return 'JHR01';
+            if (label.includes('melaka') || label.includes('malacca')) return 'MLK01';
+            if (label.includes('selangor')) return 'SGR01';
+            if (label.includes('perak')) return 'PRK01';
+            if (label.includes('kedah')) return 'KDH01';
+            if (label.includes('kelantan')) return 'KTN01';
+            if (label.includes('pahang')) return 'PHG01';
+            if (label.includes('terengganu')) return 'TRG01';
+            if (label.includes('negeri sembilan') || label.includes('n9')) return 'NSN01';
+            return 'WLY01';
+        }
+
+        // Fetches prayer times from the closest direct authority feed available:
+        // • Singapore → embedded MUIS timetable
+        // • Malaysia  → JAKIM e-Solat API
+        // • Others    → authority-aligned Aladhan method for that region
+        // Returns { source:'official'|'aligned'|'calculated', authority, prayers:[{name,time,str}] }
         // Throws on network/API error — caller should fall back to Adhan.js.
         async function fetchPrayerTimesFromAPI(coords) {
+            const region = resolvePrayerRegion(coords);
+
             // ── Singapore: use embedded MUIS timetable (no network needed) ──────
-            if (isSingapore(coords)) {
+            if (region.key === 'SG') {
                 const result = getMUISTimes();
                 if (result) return result;
                 // Fallback to Aladhan if date not found (shouldn't happen for 2026)
@@ -1874,28 +1963,10 @@
 
             // ── Malaysia: fetch from JAKIM e-solat API ────────────────────────
             // e-solat.gov.my hosts the official JAKIM waktu solat dataset.
-            if (isMalaysia(coords)) {
+            if (region.key === 'MY') {
                 try {
-                    // JAKIM zone for Kuala Lumpur / general Peninsula
-                    // WLY01 = Kuala Lumpur & Putrajaya; default to this for GPS hits
-                    const zone = (() => {
-                        const l = coords.label ? coords.label.toLowerCase() : '';
-                        if (l.includes('penang') || l.includes('pulau pinang')) return 'PNG01';
-                        if (l.includes('johor')) return 'JHR01';
-                        if (l.includes('melaka') || l.includes('malacca')) return 'MLK01';
-                        if (l.includes('selangor')) return 'SGR01';
-                        if (l.includes('perak')) return 'PRK01';
-                        if (l.includes('kedah')) return 'KDH01';
-                        if (l.includes('kelantan')) return 'KTN01';
-                        if (l.includes('pahang')) return 'PHG01';
-                        if (l.includes('terengganu')) return 'TRG01';
-                        if (l.includes('negeri sembilan') || l.includes('n9')) return 'NSN01';
-                        return 'WLY01'; // KL / default
-                    })();
+                    const zone = getJakimZone(coords);
                     const today = new Date();
-                    const dd = String(today.getDate()).padStart(2, '0');
-                    const mm = String(today.getMonth() + 1).padStart(2, '0');
-                    const yyyy = today.getFullYear();
                     const url = `https://www.e-solat.gov.my/index.php?r=esolatApi/takwimsolat&period=today&zone=${zone}`;
                     const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
                     if (!res.ok) throw new Error(`JAKIM HTTP ${res.status}`);
@@ -1929,8 +2000,8 @@
                 }
             }
 
-            // ── All other regions: Aladhan API ───────────────────────────────
-            const methodId = getAladhanMethodId(coords);
+            // ── All other regions: authority-aligned Aladhan fallback ─────────
+            const methodId = region.aladhanMethodId || getAladhanMethodId(coords);
             const url = `https://api.aladhan.com/v1/timings?latitude=${coords.lat}&longitude=${coords.lng}&method=${methodId}`;
             const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -1960,8 +2031,8 @@
                 ));
             } catch(_) {}
             return {
-                source: 'api',
-                authority: ALADHAN_AUTHORITIES[methodId] || 'Official Islamic Authority',
+                source: 'aligned',
+                authority: region.authority || ALADHAN_AUTHORITIES[methodId] || 'Authority-aligned method',
                 prayers,
             };
         }
@@ -2306,8 +2377,8 @@
           // Prayer times location (Adhan.js) — {lat, lng, label} or null
           const [userCoords, setUserCoords] = useLocalStorage('ruh_user_coords', null);
 
-          // Official prayer times from API (MUIS/JAKIM/etc.) — fetched when coords set
-          // { source:'api'|'calculated', authority, prayers:[...] } or null
+          // Prayer times from the closest direct authority source available
+          // { source:'official'|'aligned'|'calculated', authority, prayers:[...] } or null
           const [prayerTimesData, setPrayerTimesData] = React.useState(null);
           const [ptLoading, setPtLoading] = React.useState(false);
           const prayerNotificationsAvailable = isPrayerNotificationSupported();
@@ -4803,7 +4874,7 @@
                       </h2>
                       <p className="font-editorial text-base italic text-center leading-relaxed mb-4"
                         style={{color: isDarkMode ? 'rgba(221,227,237,0.5)' : 'rgba(26,22,18,0.5)'}}>
-                        Rūh will fetch <span style={{color: isDarkMode ? '#d4a853' : '#8a6220'}}>official prayer times</span> from the religious authority in your region — MUIS for Singapore, JAKIM for Malaysia, and so on — accurate to the minute.
+                        Rūh will use the <span style={{color: isDarkMode ? '#d4a853' : '#8a6220'}}>closest official source available</span> for your region — direct authority feeds like MUIS for Singapore and JAKIM for Malaysia, with authority-aligned methods elsewhere when a first-party feed is not available.
                       </p>
 
                       {/* Regional authority preview badges */}
@@ -4868,7 +4939,7 @@
 
                       <p className="font-editorial text-xs italic text-center mb-5"
                         style={{color: isDarkMode ? 'rgba(255,255,255,0.22)' : 'rgba(0,0,0,0.28)'}}>
-                        Your city choice is saved only on your device. Prayer times are fetched from the official authority for your region. Diary entries and settings never leave your device.
+                        Your city choice is saved only on your device. Rūh uses direct official timetables where available, and falls back to authority-aligned regional methods elsewhere. Diary entries and settings never leave your device.
                       </p>
 
                       {/* Skip — graceful fallback */}
@@ -5297,7 +5368,8 @@
                         const result = prayerTimesData || getPrayerTimesForDisplay(userCoords);
                         if (!result) return null;
                         const { authority, prayers, source } = result;
-                        const isOfficial = source === 'api' || source === 'official';
+                        const isOfficial = source === 'official';
+                        const isAligned = source === 'aligned';
                         // Use live clock (updates every 30s) so highlight stays current
                         const nextIdx = prayers.findIndex(p => p.time > nowMs);
                         // activeIdx: next upcoming prayer; after Isha passes, wrap to Fajr (tomorrow)
@@ -5378,10 +5450,17 @@
                                   style={{color: isDarkMode ? '#3ca36e' : '#2d7a56'}}>
                                   <i className="ph-fill ph-seal-check text-[11px]"></i>
                                 </span>
+                              ) : isAligned ? (
+                                <span className="inline-flex items-center gap-0.5"
+                                  style={{color: isDarkMode ? '#b5873f' : '#8a6220'}}>
+                                  <i className="ph-fill ph-mosque text-[11px]"></i>
+                                </span>
                               ) : (
                                 <i className="ph ph-mosque text-[11px]" style={{color: '#b5873f', opacity: 0.7}}></i>
                               )}
-                              <span className="font-display text-[8px] tracking-[0.18em] uppercase"
+                              <span
+                                className="font-display text-[8px] tracking-[0.18em] uppercase"
+                                title={authority}
                                 style={{color: isDarkMode ? 'rgba(181,135,63,0.65)' : 'rgba(181,135,63,0.75)'}}>
                                 {ptLoading ? '…' : 'Prayer'}
                               </span>
