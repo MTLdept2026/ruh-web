@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import webpush from "web-push";
 import {
   deleteSubscriptionRecord,
@@ -10,6 +11,11 @@ import {
 export const config = {
   schedule: "* * * * *",
 };
+
+function topicForReminder(reminder) {
+  const seed = String(reminder?.tag || reminder?.id || "ruh-reminder");
+  return `ruh-${createHash("sha256").update(seed).digest("hex").slice(0, 28)}`;
+}
 
 function configureWebPush() {
   const subject = process.env.VAPID_SUBJECT;
@@ -91,7 +97,7 @@ export default async function pushDispatch(req) {
           {
             TTL: 60 * 60,
             urgency: "high",
-            topic: reminder.tag || reminder.id,
+            topic: topicForReminder(reminder),
           }
         );
 
