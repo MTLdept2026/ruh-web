@@ -30,7 +30,7 @@
         //   2. "v" in /version.json       (one-liner at root — the async poller reads it)
         // Both must match. APP_VERSION fires synchronously on first load;
         // version.json catches open tabs and background PWA installs.
-        var APP_VERSION = '2026-04-25d'; // ← YYYY-MM-DD, must match version.json "v"
+        var APP_VERSION = '2026-04-25e'; // ← YYYY-MM-DD, must match version.json "v"
         var stored = localStorage.getItem('ruh-app-version');
         if (stored !== APP_VERSION) {
           localStorage.setItem('ruh-app-version', APP_VERSION);
@@ -56,7 +56,7 @@
     </script>
 
     <!-- PWA: Installable as home-screen app -->
-    <link rel="manifest" href="ruh-manifest.json?v=2026-04-25d">
+    <link rel="manifest" href="ruh-manifest.json?v=2026-04-25e">
 
     <!-- Social / Link Preview (Open Graph + Twitter Card) -->
     <meta property="og:type"        content="website">
@@ -4629,24 +4629,15 @@
                     }}></div>
                   </div>
 
-                  {/* App icon — concentric rings drawing themselves on */}
-                  <svg width="120" height="120" viewBox="0 0 120 120" fill="none" strokeLinecap="round" className="mb-10 relative z-10">
-                    <circle className="star-draw" cx="60" cy="60" r="55"
-                      style={{'--star-len': '346'}} strokeDasharray="346"
-                      stroke="#a87b32" strokeWidth="0.75" strokeOpacity="0.6" />
-                    <circle className="star-draw" cx="60" cy="60" r="43"
-                      style={{'--star-len': '270', animationDelay: '0.3s'}} strokeDasharray="270"
-                      stroke="#a87b32" strokeWidth="0.75" />
-                    <circle className="star-draw" cx="60" cy="60" r="31"
-                      style={{'--star-len': '195', animationDelay: '0.55s'}} strokeDasharray="195"
-                      stroke="#a87b32" strokeWidth="3.2" />
-                    <circle className="star-draw" cx="60" cy="60" r="20"
-                      style={{'--star-len': '126', animationDelay: '0.75s'}} strokeDasharray="126"
-                      stroke="#a87b32" strokeWidth="0.9" />
-                    <circle className="star-draw" cx="60" cy="60" r="8"
-                      style={{'--star-len': '50', animationDelay: '0.9s'}} strokeDasharray="50"
-                      stroke="#a87b32" strokeWidth="1.3" />
-                  </svg>
+                  <div className="relative z-10 mb-10 text-center">
+                    <h1 className="font-display text-[3.4rem] leading-none text-[#a87b32] tracking-[0.12em] uppercase">
+                      Rūḥ
+                    </h1>
+                    <div className="mx-auto mt-5 mb-4 h-px w-28 bg-[#a87b32]/40"></div>
+                    <p className="font-display text-[10px] text-white/55 tracking-[0.35em] uppercase">
+                      Quranic Reflections
+                    </p>
+                  </div>
 
                   {/* Bismillah in Arabic */}
                   <p className="bismillah-rise font-indopak text-[2rem] text-[#a87b32] tracking-wide mb-3 relative z-10" dir="rtl">
