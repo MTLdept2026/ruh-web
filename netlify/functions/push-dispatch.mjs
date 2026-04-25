@@ -42,7 +42,7 @@ export default async function pushDispatch(req) {
 
   const records = await listSubscriptionRecords();
   const now = Date.now();
-  const dueWindowEnd = now + 60 * 1000;
+  const dueWindowEnd = now;
   const graceWindowStart = now - 5 * 60 * 1000;
 
   let scanned = 0;
