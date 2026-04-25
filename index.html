@@ -30,7 +30,7 @@
         //   2. "v" in /version.json       (one-liner at root — the async poller reads it)
         // Both must match. APP_VERSION fires synchronously on first load;
         // version.json catches open tabs and background PWA installs.
-        var APP_VERSION = '2026-04-25b'; // ← YYYY-MM-DD, must match version.json "v"
+        var APP_VERSION = '2026-04-25c'; // ← YYYY-MM-DD, must match version.json "v"
         var stored = localStorage.getItem('ruh-app-version');
         if (stored !== APP_VERSION) {
           localStorage.setItem('ruh-app-version', APP_VERSION);
@@ -56,7 +56,7 @@
     </script>
 
     <!-- PWA: Installable as home-screen app -->
-    <link rel="manifest" href="ruh-manifest.json?v=2026-04-25b">
+    <link rel="manifest" href="ruh-manifest.json?v=2026-04-25c">
 
     <!-- Social / Link Preview (Open Graph + Twitter Card) -->
     <meta property="og:type"        content="website">
@@ -80,7 +80,7 @@
 
     <!-- Android / browser chrome colour -->
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fdfaf5" data-ruh-theme-color="light">
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#050c2c" data-ruh-theme-color="dark">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f172a" data-ruh-theme-color="dark">
     <meta name="theme-color" content="#fdfaf5" data-ruh-theme-color="default">
 
     <!-- Favicon -->
@@ -1286,7 +1286,7 @@
 
         const RUH_THEME_COLORS = {
           light: '#fdfaf5',
-          dark: '#050c2c',
+          dark: '#0f172a',
         };
 
         function syncBrowserThemeColor(isDarkMode) {
@@ -4612,7 +4612,7 @@
               ════════════════════════════════════════════════════ */}
               {showLaunch && (
                 <div
-                  className={`fixed inset-x-0 top-0 z-[200] app-fixed-viewport flex flex-col items-center justify-center bg-[#0e0c1e] overflow-hidden ${launchFadingOut ? 'launch-fade-out' : ''}`}
+                  className={`fixed inset-x-0 top-0 z-[200] app-fixed-viewport flex flex-col items-center justify-center bg-slate-900 overflow-hidden ${launchFadingOut ? 'launch-fade-out' : ''}`}
                   style={{
                     pointerEvents: launchFadingOut ? 'none' : 'auto',
                     paddingTop: 'max(1rem, env(safe-area-inset-top))',
