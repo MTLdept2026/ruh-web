@@ -30,7 +30,7 @@
         //   2. "v" in /version.json       (one-liner at root — the async poller reads it)
         // Both must match. APP_VERSION fires synchronously on first load;
         // version.json catches open tabs and background PWA installs.
-        var APP_VERSION = '2026-03-28b'; // ← YYYY-MM-DD, must match version.json "v"
+        var APP_VERSION = '2026-04-25a'; // ← YYYY-MM-DD, must match version.json "v"
         var stored = localStorage.getItem('ruh-app-version');
         if (stored !== APP_VERSION) {
           localStorage.setItem('ruh-app-version', APP_VERSION);
@@ -79,7 +79,9 @@
     <link rel="apple-touch-icon" href="ruh-apple-touch-icon.png">
 
     <!-- Android / browser chrome colour -->
-    <meta name="theme-color" content="#16122E">
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fdfaf5" data-ruh-theme-color="light">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f172a" data-ruh-theme-color="dark">
+    <meta name="theme-color" content="#fdfaf5" data-ruh-theme-color="default">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="16x16" href="icons/web/favicon-16.png">
@@ -1281,6 +1283,18 @@
 
           return [value, setValue];
         };
+
+        const RUH_THEME_COLORS = {
+          light: '#fdfaf5',
+          dark: '#0f172a',
+        };
+
+        function syncBrowserThemeColor(isDarkMode) {
+          const color = isDarkMode ? RUH_THEME_COLORS.dark : RUH_THEME_COLORS.light;
+          document.querySelectorAll('meta[data-ruh-theme-color]').forEach((meta) => {
+            meta.setAttribute('content', color);
+          });
+        }
 
         // NMoQ cracked panel tessellation — used as decorative watermark throughout the app.
         // Irregular convex polygon network referencing the surface cladding of the
@@ -3169,6 +3183,7 @@
               } else {
                   document.documentElement.classList.remove('dark');
               }
+              syncBrowserThemeColor(isDarkMode);
           }, [isDarkMode]);
 
           // Restore scroll position to last-recited item on salawat / protection pages
