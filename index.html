@@ -30,7 +30,7 @@
         //   2. "v" in /version.json       (one-liner at root — the async poller reads it)
         // Both must match. APP_VERSION fires synchronously on first load;
         // version.json catches open tabs and background PWA installs.
-        var APP_VERSION = '2026-04-25a'; // ← YYYY-MM-DD, must match version.json "v"
+        var APP_VERSION = '2026-04-25b'; // ← YYYY-MM-DD, must match version.json "v"
         var stored = localStorage.getItem('ruh-app-version');
         if (stored !== APP_VERSION) {
           localStorage.setItem('ruh-app-version', APP_VERSION);
@@ -56,7 +56,7 @@
     </script>
 
     <!-- PWA: Installable as home-screen app -->
-    <link rel="manifest" href="ruh-manifest.json">
+    <link rel="manifest" href="ruh-manifest.json?v=2026-04-25b">
 
     <!-- Social / Link Preview (Open Graph + Twitter Card) -->
     <meta property="og:type"        content="website">
@@ -80,7 +80,7 @@
 
     <!-- Android / browser chrome colour -->
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fdfaf5" data-ruh-theme-color="light">
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f172a" data-ruh-theme-color="dark">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#050c2c" data-ruh-theme-color="dark">
     <meta name="theme-color" content="#fdfaf5" data-ruh-theme-color="default">
 
     <!-- Favicon -->
@@ -1286,7 +1286,7 @@
 
         const RUH_THEME_COLORS = {
           light: '#fdfaf5',
-          dark: '#0f172a',
+          dark: '#050c2c',
         };
 
         function syncBrowserThemeColor(isDarkMode) {
