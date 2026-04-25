@@ -30,7 +30,7 @@
         //   2. "v" in /version.json       (one-liner at root — the async poller reads it)
         // Both must match. APP_VERSION fires synchronously on first load;
         // version.json catches open tabs and background PWA installs.
-        var APP_VERSION = '2026-04-25c'; // ← YYYY-MM-DD, must match version.json "v"
+        var APP_VERSION = '2026-04-25d'; // ← YYYY-MM-DD, must match version.json "v"
         var stored = localStorage.getItem('ruh-app-version');
         if (stored !== APP_VERSION) {
           localStorage.setItem('ruh-app-version', APP_VERSION);
@@ -56,7 +56,7 @@
     </script>
 
     <!-- PWA: Installable as home-screen app -->
-    <link rel="manifest" href="ruh-manifest.json?v=2026-04-25c">
+    <link rel="manifest" href="ruh-manifest.json?v=2026-04-25d">
 
     <!-- Social / Link Preview (Open Graph + Twitter Card) -->
     <meta property="og:type"        content="website">

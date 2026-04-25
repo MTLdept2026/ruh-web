@@ -3,23 +3,23 @@
   "short_name": "Rūḥ",
   "id": "/",
   "description": "A personal Islamic reflection and remembrance companion.",
-  "start_url": "/?v=2026-04-25c",
+  "start_url": "/?v=2026-04-25d",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#000000",
+  "background_color": "#0f172a",
   "theme_color": "#0f172a",
   "icons": [
     {
-      "src": "icons/web/android-icon-192.png",
+      "src": "icons/web/splash-rings-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "icons/web/android-icon-512.png",
+      "src": "icons/web/splash-rings-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ]
 }
