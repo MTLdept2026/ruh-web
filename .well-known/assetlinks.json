@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.alruh.app",
+      "sha256_cert_fingerprints": [
+        "3A:DD:55:54:14:83:64:81:EE:08:68:E7:90:72:A8:D6:4B:2B:9E:54:64:E7:71:92:11:D4:BD:BD:B6:E5:63:47"
+      ]
+    }
+  }
+]

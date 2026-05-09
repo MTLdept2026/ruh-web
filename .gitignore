@@ -1,0 +1,13 @@
+.DS_Store
+netlify/.DS_Store
+
+# Android signing and generated outputs
+android.keystore
+*.keystore
+local.properties
+*.apk
+*.aab
+*.idsig
+build/
+app/build/
+.gradle/

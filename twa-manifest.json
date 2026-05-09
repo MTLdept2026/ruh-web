@@ -1,0 +1,55 @@
+{
+  "packageId": "com.alruh.app",
+  "host": "ruh-app.netlify.app",
+  "name": "Rūḥ — A Space for the Heart",
+  "launcherName": "Rūḥ",
+  "display": "standalone",
+  "themeColor": "#0F172A",
+  "themeColorDark": "#000000",
+  "navigationColor": "#000000",
+  "navigationColorDark": "#000000",
+  "navigationDividerColor": "#000000",
+  "navigationDividerColorDark": "#000000",
+  "backgroundColor": "#0F172A",
+  "enableNotifications": true,
+  "startUrl": "/?v=2026-04-25e",
+  "iconUrl": "https://ruh-app.netlify.app/icons/web/splash-title-512.png",
+  "maskableIconUrl": "https://ruh-app.netlify.app/icons/web/splash-title-512.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "/Users/mherwanto/Library/CloudStorage/Dropbox/Ruh App and Backups/Ruh Web Version/ruh-web/android-alruh-upload.keystore",
+    "alias": "alruh_upload"
+  },
+  "appVersionName": "2",
+  "appVersionCode": 2,
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://ruh-app.netlify.app/ruh-manifest.json",
+  "fallbackType": "customtabs",
+  "features": {
+    "locationDelegation": {
+      "enabled": true
+    }
+  },
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fullScopeUrl": "https://ruh-app.netlify.app/",
+  "minSdkVersion": 21,
+  "orientation": "portrait",
+  "fingerprints": [
+    {
+      "value": "3A:DD:55:54:14:83:64:81:EE:08:68:E7:90:72:A8:D6:4B:2B:9E:54:64:E7:71:92:11:D4:BD:BD:B6:E5:63:47"
+    }
+  ],
+  "additionalTrustedOrigins": [],
+  "retainedBundles": [],
+  "protocolHandlers": [],
+  "fileHandlers": [],
+  "launchHandlerClientMode": "",
+  "displayOverride": [],
+  "appVersion": "2"
+}
