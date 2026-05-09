@@ -37,3 +37,18 @@
 ## Manifest — short TTL so icon/name changes propagate within an hour.
 /ruh-manifest.json
   Cache-Control: public, max-age=3600, must-revalidate
+
+## Digital Asset Links — required for Android App Links / Trusted Web Activity verification.
+/.well-known/assetlinks.json
+  Content-Type: application/json; charset=utf-8
+  Cache-Control: public, max-age=3600, must-revalidate
+
+## Google Play privacy policy page.
+/privacy-policy.html
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/privacy-policy
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/privacy
+  Cache-Control: public, max-age=3600, must-revalidate
