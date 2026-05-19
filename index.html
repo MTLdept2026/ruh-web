@@ -9,7 +9,7 @@
 <title>Ruh · Quranic Reflection</title>
 <script>
   (function () {
-    var APP_VERSION = '2026-05-19f';
+    var APP_VERSION = '2026-05-19g';
     var stored = localStorage.getItem('ruh-app-version');
     if (stored !== APP_VERSION) {
       localStorage.setItem('ruh-app-version', APP_VERSION);
@@ -34,7 +34,7 @@
     }
   })();
 </script>
-<link rel="manifest" href="ruh-manifest.json?v=2026-05-19f">
+<link rel="manifest" href="ruh-manifest.json?v=2026-05-19g">
 <meta name="theme-color" content="#fff7ea" data-ruh-theme-color="default">
 <meta name="navigation-bar-color" content="#fff7ea">
 <meta name="color-scheme" content="light dark">
@@ -57,7 +57,7 @@
     --gold:     #a87b32; --gold-lt:  #c9973f; --gold-dim: rgba(168,123,50,.16);
     --emerald:  #2d7a56; --emerald-dim: rgba(45,122,86,.13);
     --mist:     #6d6253; --mist-lt:  #8c806f;
-    --deep:     #0d0c0a; --deep-w:   #181410; --app-chrome: #0d0c0a;
+    --deep:     #0d0c0a; --deep-w:   #181410; --app-chrome: #fff7ea;
     --ease-out: cubic-bezier(.22,1,.36,1);
     --ease-io:  cubic-bezier(.4,0,.2,1);
     --ease-premium: cubic-bezier(.16,1,.3,1);
@@ -90,7 +90,7 @@ html,body{width:100%;height:100%;background:var(--app-chrome,#060504);display:fl
 button,input,textarea{font:inherit}
 button:focus-visible,input:focus-visible,textarea:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
 #device{position:relative;width:390px;height:844px;overflow:hidden;background:var(--deep);box-shadow:0 0 0 1px rgba(255,255,255,.06),0 60px 180px rgba(0,0,0,.9)}
-@media(max-width:430px){html,body{background:var(--app-chrome,#0d0c0a);display:block;height:calc(var(--ruh-vh,1vh) * 100);min-height:calc(var(--ruh-vh,1vh) * 100);overflow:hidden;overscroll-behavior:none}#device{position:fixed;inset:0;width:100vw;height:calc(var(--ruh-vh,1vh) * 100);box-shadow:none}.tab-bar{padding:12px 4px max(18px,env(safe-area-inset-bottom));min-height:76px}.home-scroll{padding-bottom:18px}}
+@media(max-width:430px){html,body{background:var(--app-chrome,#fff7ea);display:block;height:calc(var(--ruh-vh,1vh) * 100);min-height:calc(var(--ruh-vh,1vh) * 100);overflow:hidden;overscroll-behavior:none}#device{position:fixed;inset:0;width:100vw;height:calc(var(--ruh-vh,1vh) * 100);box-shadow:none}.tab-bar{padding:12px 4px max(18px,env(safe-area-inset-bottom));min-height:76px}.home-scroll{padding-bottom:18px}}
 .screen{position:absolute;inset:0;display:flex;flex-direction:column;will-change:transform,opacity;transition:background 1200ms ease,color 1200ms ease}
 .screen.off{display:none}
 
@@ -3433,7 +3433,7 @@ window.RUH_VERSES = [
 </script>
 <script id="ruh-v2-app">
 (function () {
-    const VERSION = '2026-05-19f';
+    const VERSION = '2026-05-19g';
     const $ = (sel) => document.querySelector(sel);
     const $$ = (sel) => Array.from(document.querySelectorAll(sel));
     const AR_NAMES = { Fajr:'الفجر', Dhuhr:'الظهر', Asr:'العصر', Maghrib:'المغرب', Isha:'العشاء' };
