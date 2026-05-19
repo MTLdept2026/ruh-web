@@ -19,7 +19,7 @@
     }
   })();
 </script>
-<link rel="manifest" href="ruh-manifest.json?v=2026-05-19n">
+<link rel="manifest" href="ruh-manifest.json?v=2026-05-19o">
 <meta name="theme-color" content="#0d0c0a" data-ruh-theme-color="default">
 <meta name="navigation-bar-color" content="#fff7ea">
 <meta name="color-scheme" content="light dark">
@@ -272,14 +272,14 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:1px soli
 .dhikr-ring{position:absolute;inset:0;transform:rotate(-90deg)}
 .ring-track{fill:none;stroke:var(--tx-06);stroke-width:1.4}
 .ring-fill{fill:none;stroke:var(--gold);stroke-width:2.05;stroke-linecap:round;stroke-dasharray:565.49;stroke-dashoffset:565.49;transition:stroke-dashoffset 420ms var(--ease-premium);filter:drop-shadow(0 0 4px rgba(168,123,50,.18))}
-.dhikr-count{font-family:'Cinzel',serif;font-size:72px;color:var(--tx);letter-spacing:-.02em;line-height:1;transition:color 400ms ease;position:relative;z-index:3}
+.dhikr-count{font-family:'Cinzel',serif;font-size:76px;font-weight:500;color:var(--tx);letter-spacing:-.01em;line-height:1;transition:color 400ms ease;position:relative;z-index:3}
 .dhikr-count.pop{animation:scale-pop .3s var(--ease-out)}
 .dhikr-ripple{position:absolute;inset:33px;border-radius:50%;border:1px solid var(--gold);background:radial-gradient(circle,rgba(168,123,50,.09),transparent 68%);opacity:0;pointer-events:none;z-index:2}
 .dhikr-ripple.strike{animation:bead-ripple 680ms var(--ease-premium)}
-.dhikr-arabic{margin-top:20px;text-align:center;font-family:'Amiri',serif;font-size:26px;font-weight:700;color:var(--mist);direction:rtl;line-height:1.4;transition:color 400ms ease}
+.dhikr-arabic{margin-top:20px;text-align:center;font-family:'Amiri',serif;font-size:29px;font-weight:700;color:var(--mist);direction:rtl;line-height:1.4;transition:color 400ms ease}
 .dhikr-arabic.received{animation:dhikr-settle 520ms var(--ease-premium);color:var(--gold)}
-.dhikr-roman{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--mist-lt);margin-top:4px;text-align:center;transition:color 400ms ease}
-.dhikr-total{position:relative;left:auto;right:auto;bottom:auto;text-align:center;font-family:'Cinzel',serif;font-size:8px;letter-spacing:.24em;text-transform:uppercase;color:var(--mist-lt);opacity:.82;white-space:nowrap;margin:0 auto 15px;z-index:3}
+.dhikr-roman{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16.5px;font-weight:500;color:var(--mist);margin-top:5px;text-align:center;transition:color 400ms ease}
+.dhikr-total{position:relative;left:auto;right:auto;bottom:auto;text-align:center;font-family:'Cinzel',serif;font-size:9.4px;font-weight:500;letter-spacing:.19em;text-transform:uppercase;color:var(--mist);opacity:.92;white-space:nowrap;margin:0 auto 15px;z-index:3}
 #dhikr-milestone{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0}
 #dhikr-milestone.flash{animation:milestone 2s var(--ease-out) forwards}
 .ms-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:var(--gold);text-align:center;white-space:pre-line}
@@ -290,10 +290,10 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:1px soli
 .dhikr-phrase-row{grid-template-columns:repeat(3,1fr)}
 .dhikr-target-row{grid-template-columns:repeat(3,62px)}
 .dhikr-step-row{grid-template-columns:58px 74px 104px}
-.dhikr-chip,.dhikr-step{height:46px;border:1px solid var(--tx-06);background:var(--surface-wash);color:var(--mist);font-family:'Cinzel',serif;font-size:7px;letter-spacing:.16em;text-transform:uppercase;padding:0 8px;cursor:pointer;min-width:0;display:flex;align-items:center;justify-content:center;text-align:center;box-shadow:var(--inner-rule);transition:background 320ms var(--ease-premium),border-color 320ms var(--ease-premium),color 320ms var(--ease-premium)}
+.dhikr-chip,.dhikr-step{height:46px;border:1px solid var(--tx-06);background:var(--surface-wash);color:var(--mist);font-family:'Cinzel',serif;font-size:8.4px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:0 8px;cursor:pointer;min-width:0;display:flex;align-items:center;justify-content:center;text-align:center;box-shadow:var(--inner-rule);transition:background 320ms var(--ease-premium),border-color 320ms var(--ease-premium),color 320ms var(--ease-premium)}
 .dhikr-target-row .dhikr-chip{height:36px;background:transparent}
 .dhikr-chip.on{color:var(--gold);border-color:var(--gold-dim);background:var(--surface-quiet)}
-.dhikr-step{font-size:15px;line-height:1;color:var(--gold)}
+.dhikr-step{font-size:17px;line-height:1;color:var(--gold)}
 
 
 /* ══════════════════════════════════════════
@@ -3505,7 +3505,7 @@ window.RUH_VERSES = [
 </script>
 <script id="ruh-v2-app">
 (function () {
-    const VERSION = '2026-05-19n';
+    const VERSION = '2026-05-19o';
     const $ = (sel) => document.querySelector(sel);
     const $$ = (sel) => Array.from(document.querySelectorAll(sel));
     const AR_NAMES = { Fajr:'الفجر', Dhuhr:'الظهر', Asr:'العصر', Maghrib:'المغرب', Isha:'العشاء' };
@@ -3676,12 +3676,39 @@ window.RUH_VERSES = [
     function formatShort(date) {
         return date.toLocaleDateString([], { weekday:'long', day:'numeric', month:'long' });
     }
+    const HIJRI_MONTHS = [
+        'Muharram', 'Safar', 'Rabi al-Awwal', 'Rabi al-Thani', 'Jumada al-Awwal', 'Jumada al-Thani',
+        'Rajab', 'Shaaban', 'Ramadan', 'Shawwal', 'Dhu al-Qadah', 'Dhu al-Hijjah'
+    ];
+    const LOCAL_DIGITS = {'٠':'0','١':'1','٢':'2','٣':'3','٤':'4','٥':'5','٦':'6','٧':'7','٨':'8','٩':'9','۰':'0','۱':'1','۲':'2','۳':'3','۴':'4','۵':'5','۶':'6','۷':'7','۸':'8','۹':'9'};
+    function parseLocaleNumber(value) {
+        const normalised = String(value || '').replace(/[٠-٩۰-۹]/g, digit => LOCAL_DIGITS[digit] || digit).replace(/[^\d]/g, '');
+        return Number(normalised);
+    }
+    function hijriMonthNumber(value) {
+        const numeric = parseLocaleNumber(value);
+        if (numeric >= 1 && numeric <= 12) return numeric;
+        const normalised = String(value || '').toLowerCase();
+        const gregorianAlias = ['january','february','march','april','may','june','july','august','september','october','november','december']
+            .findIndex(month => normalised.includes(month));
+        if (gregorianAlias >= 0) return gregorianAlias + 1;
+        if (normalised.includes('hij')) return 12;
+        if (normalised.includes('qad')) return 11;
+        if (normalised.includes('ram')) return 9;
+        if (normalised.includes('shaw')) return 10;
+        return 0;
+    }
     function hijriParts(date = new Date()) {
         try {
-            const parts = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', {
-                day:'numeric', month:'long', year:'numeric'
+            const parts = new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', {
+                day:'numeric', month:'numeric', year:'numeric'
             }).formatToParts(date).reduce((acc, p) => (acc[p.type] = p.value, acc), {});
-            return { day: Number(parts.day), month: parts.month || '', year: String(parts.year || '').replace(/[^\d]/g, '') };
+            const monthNumber = hijriMonthNumber(parts.month);
+            return {
+                day: parseLocaleNumber(parts.day),
+                month: HIJRI_MONTHS[monthNumber - 1] || 'Hijri',
+                year: String(parseLocaleNumber(parts.year) || '').replace(/[^\d]/g, '')
+            };
         } catch(e) {
             return { day: date.getDate(), month: 'Hijri', year: '' };
         }
@@ -3726,14 +3753,8 @@ window.RUH_VERSES = [
         return records.filter(Boolean);
     }
     function hijri(date = new Date(), compact = false) {
-        try {
-            const parts = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', {
-                day:'numeric', month: compact ? 'short' : 'long', year:'numeric'
-            }).formatToParts(date).reduce((acc, p) => (acc[p.type] = p.value, acc), {});
-            return compact ? `${parts.day} ${parts.month}` : `${parts.day} ${parts.month} · ${parts.year} AH`;
-        } catch(e) {
-            return '';
-        }
+        const p = hijriParts(date);
+        return compact ? `${p.day} ${p.month}` : `${p.day} ${p.month} · ${p.year} AH`;
     }
     function seedFor(date) {
         const n = Number(todayKey(date).replaceAll('-',''));
@@ -4083,14 +4104,22 @@ window.RUH_VERSES = [
         const buttons = moodButtons();
         return buttons.findIndex(btn => btn.dataset.mood === saved);
     }
-    function cycleMood(delta = 1) {
+    let moodMomentumTimers = [];
+    function cycleMood(delta = 1, steps = 1) {
         const buttons = moodButtons();
         if (!buttons.length) return;
+        moodMomentumTimers.forEach(clearTimeout);
+        moodMomentumTimers = [];
         const index = currentMoodIndex();
-        const nextIndex = index < 0
-            ? (delta >= 0 ? 0 : buttons.length - 1)
-            : (index + delta + buttons.length) % buttons.length;
-        selectMood(buttons[nextIndex].dataset.mood);
+        const startIndex = index < 0 ? (delta >= 0 ? -1 : buttons.length) : index;
+        const count = Math.max(1, Math.min(6, Math.round(Math.abs(steps))));
+        for (let step = 1; step <= count; step++) {
+            const timer = setTimeout(() => {
+                const nextIndex = (startIndex + delta * step + buttons.length * 8) % buttons.length;
+                selectMood(buttons[nextIndex].dataset.mood, { quiet: step < count });
+            }, (step - 1) * 92);
+            moodMomentumTimers.push(timer);
+        }
     }
     function bindHeartWordFlick() {
         const script = $('.heart-script');
@@ -4098,20 +4127,25 @@ window.RUH_VERSES = [
         script.dataset.flickBound = '1';
         let startX = 0;
         let startY = 0;
+        let startAt = 0;
         let pointerId = null;
         script.addEventListener('pointerdown', (e) => {
             pointerId = e.pointerId;
             startX = e.clientX;
             startY = e.clientY;
+            startAt = performance.now();
             script.setPointerCapture?.(pointerId);
         });
         script.addEventListener('pointerup', (e) => {
             if (pointerId !== null && e.pointerId !== pointerId) return;
             const dx = e.clientX - startX;
             const dy = e.clientY - startY;
+            const duration = Math.max(80, performance.now() - startAt);
+            const velocity = Math.abs(dx) / duration;
             pointerId = null;
             if (Math.abs(dx) > 42 && Math.abs(dx) > Math.abs(dy) * 1.25) {
-                cycleMood(dx < 0 ? 1 : -1);
+                const momentum = Math.min(6, Math.max(2, Math.round(Math.abs(dx) / 58 + velocity * 1.8)));
+                cycleMood(dx < 0 ? 1 : -1, momentum);
                 hapticPageTurn();
                 return;
             }
@@ -4145,7 +4179,7 @@ window.RUH_VERSES = [
         if (response && animate && matched) { void response.offsetWidth; response.classList.add('arrive'); }
         return matched;
     }
-    function selectMood(key) {
+    function selectMood(key, options = {}) {
         const verses = window.RUH_VERSES || [];
         if (!verses.length) return;
         verseIndex = pickMoodVerseIndex(key);
@@ -4155,7 +4189,7 @@ window.RUH_VERSES = [
         renderVerse();
         renderDailyThread(key);
         updateDailyRecord({ innerWeather: key, verseRef: `${verse.surah} ${verse.ayah}` });
-        playNeyBreath();
+        if (!options.quiet) playNeyBreath();
     }
     function updatePersonalCopy() {
         const name = getUserName();
