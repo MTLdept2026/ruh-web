@@ -19,7 +19,7 @@
     }
   })();
 </script>
-<link rel="manifest" href="ruh-manifest.json?v=2026-05-19g">
+<link rel="manifest" href="ruh-manifest.json?v=2026-05-19h">
 <meta name="theme-color" content="#fff7ea" data-ruh-theme-color="default">
 <meta name="navigation-bar-color" content="#fff7ea">
 <meta name="color-scheme" content="light dark">
@@ -1620,12 +1620,8 @@ function paintBrowserChrome(color) {
     document.body.style.backgroundColor = bg;
     document.documentElement.style.colorScheme = bg === '#0d0c0a' ? 'dark' : 'light';
 }
-function isDarkChromeScreen(screen = current) {
-    return screen === 's-launch' || screen === 's-welcome' || /^s-ob/.test(screen);
-}
 function chromeSurfaceForScreen(surfaceColor) {
-    if (isDarkChromeScreen()) return '#0d0c0a';
-    return surfaceColor || getComputedStyle(document.getElementById('device')).getPropertyValue('--bg').trim() || '#0d0c0a';
+    return surfaceColor || getComputedStyle(document.getElementById('device')).getPropertyValue('--bg').trim() || '#fff7ea';
 }
 function syncBrowserChrome(surfaceColor) {
     paintBrowserChrome(chromeSurfaceForScreen(surfaceColor));
@@ -3418,7 +3414,7 @@ window.RUH_VERSES = [
 </script>
 <script id="ruh-v2-app">
 (function () {
-    const VERSION = '2026-05-19g';
+    const VERSION = '2026-05-19h';
     const $ = (sel) => document.querySelector(sel);
     const $$ = (sel) => Array.from(document.querySelectorAll(sel));
     const AR_NAMES = { Fajr:'الفجر', Dhuhr:'الظهر', Asr:'العصر', Maghrib:'المغرب', Isha:'العشاء' };
