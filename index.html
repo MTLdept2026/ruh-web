@@ -9,7 +9,7 @@
 <title>Ruh · Quranic Reflection</title>
 <script>
   (function () {
-    var APP_VERSION = '2026-05-19b';
+    var APP_VERSION = '2026-05-19c';
     var stored = localStorage.getItem('ruh-app-version');
     if (stored !== APP_VERSION) {
       localStorage.setItem('ruh-app-version', APP_VERSION);
@@ -32,8 +32,9 @@
     }
   })();
 </script>
-<link rel="manifest" href="ruh-manifest.json?v=2026-05-19b">
-<meta name="theme-color" content="#fdfaf5" data-ruh-theme-color="default">
+<link rel="manifest" href="ruh-manifest.json?v=2026-05-19c">
+<meta name="theme-color" content="#0d0c0a" data-ruh-theme-color="default">
+<meta name="color-scheme" content="dark light">
 <link rel="apple-touch-icon" href="ruh-apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/web/icon-192.png">
 <link rel="stylesheet" href="vendor/fonts/google-fonts.css">
@@ -1622,6 +1623,14 @@ function getTimePeriod() {
     return 'isha';
 }
 let userOverrodeMode = false;
+function paintBrowserChrome(color) {
+    const bg = color || getComputedStyle(document.getElementById('device')).getPropertyValue('--bg').trim() || '#0d0c0a';
+    document.querySelectorAll('meta[name="theme-color"]').forEach(meta => {
+        meta.setAttribute('content', bg);
+    });
+    document.documentElement.style.backgroundColor = bg;
+    document.body.style.backgroundColor = bg;
+}
 function applyTonalShift() {
     const period = getTimePeriod();
     const tone = TONAL[period] || TONAL.dhuhr;
@@ -1632,6 +1641,7 @@ function applyTonalShift() {
     const activeTone = device.dataset.mode === 'dark' ? TONAL.isha : tone;
     Object.entries(activeTone.vars).forEach(([key, value]) => device.style.setProperty(key, value));
     if (veilEl) veilEl.style.background = activeTone.veil;
+    paintBrowserChrome(activeTone.vars['--bg']);
 }
 applyTonalShift();
 setInterval(applyTonalShift, 5*60*1000);
@@ -1651,6 +1661,7 @@ function setMode(mode) {
     if (veilEl) veilEl.style.background = tone.veil;
     if (sun)  sun.style.display  = mode==='light' ? 'block' : 'none';
     if (moon) moon.style.display = mode==='dark'  ? 'block' : 'none';
+    paintBrowserChrome(tone.vars['--bg']);
 }
 function toggleMode() {
     const dev  = document.getElementById('device');
@@ -3408,7 +3419,7 @@ window.RUH_VERSES = [
 </script>
 <script id="ruh-v2-app">
 (function () {
-    const VERSION = '2026-05-19b';
+    const VERSION = '2026-05-19c';
     const $ = (sel) => document.querySelector(sel);
     const $$ = (sel) => Array.from(document.querySelectorAll(sel));
     const AR_NAMES = { Fajr:'الفجر', Dhuhr:'الظهر', Asr:'العصر', Maghrib:'المغرب', Isha:'العشاء' };
@@ -4838,9 +4849,7 @@ window.RUH_VERSES = [
         originalSetMode(mode);
         try { localStorage.setItem('ruh_theme', mode); } catch(e) {}
         const bg = getComputedStyle(document.getElementById('device')).getPropertyValue('--bg').trim() || (mode === 'dark' ? '#0d0c0a' : '#fdfaf5');
-        document.querySelectorAll('meta[name="theme-color"]').forEach(meta => {
-            meta.setAttribute('content', bg);
-        });
+        if (typeof paintBrowserChrome === 'function') paintBrowserChrome(bg);
     };
     window.pickTheme = function (mode) {
         $('#sw-l')?.classList.toggle('chosen', mode === 'light');
