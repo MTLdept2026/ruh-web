@@ -9,7 +9,7 @@
 <title>Ruh · Quranic Reflection</title>
 <script>
   (function () {
-    var APP_VERSION = '2026-05-19h';
+    var APP_VERSION = '2026-05-19i';
     var stored = localStorage.getItem('ruh-app-version');
     if (stored !== APP_VERSION) {
       localStorage.setItem('ruh-app-version', APP_VERSION);
@@ -34,8 +34,8 @@
     }
   })();
 </script>
-<link rel="manifest" href="ruh-manifest.json?v=2026-05-19h">
-<meta name="theme-color" content="#fff7ea" data-ruh-theme-color="default">
+<link rel="manifest" href="ruh-manifest.json?v=2026-05-19i">
+<meta name="theme-color" content="#0d0c0a" data-ruh-theme-color="default">
 <meta name="navigation-bar-color" content="#fff7ea">
 <meta name="color-scheme" content="light dark">
 <link rel="apple-touch-icon" href="ruh-apple-touch-icon.png">
@@ -1625,21 +1625,27 @@ function getTimePeriod() {
     return 'isha';
 }
 let userOverrodeMode = false;
-function paintBrowserChrome(color) {
+function paintBrowserChrome(color, chrome = {}) {
     const bg = color || getComputedStyle(document.getElementById('device')).getPropertyValue('--bg').trim() || '#0d0c0a';
-    document.querySelectorAll('meta[name="theme-color"],meta[name="navigation-bar-color"]').forEach(meta => {
-        meta.setAttribute('content', bg);
-    });
+    const statusBg = chrome.status || bg;
+    const navBg = chrome.navigation || bg;
+    document.querySelectorAll('meta[name="theme-color"]').forEach(meta => meta.setAttribute('content', statusBg));
+    document.querySelectorAll('meta[name="navigation-bar-color"]').forEach(meta => meta.setAttribute('content', navBg));
     document.documentElement.style.setProperty('--app-chrome', bg);
     document.documentElement.style.backgroundColor = bg;
     document.body.style.backgroundColor = bg;
-    document.documentElement.style.colorScheme = bg === '#0d0c0a' ? 'dark' : 'light';
+    document.documentElement.style.colorScheme = statusBg === '#0d0c0a' ? 'dark' : 'light';
 }
 function chromeSurfaceForScreen(surfaceColor) {
     return surfaceColor || getComputedStyle(document.getElementById('device')).getPropertyValue('--bg').trim() || '#fff7ea';
 }
 function syncBrowserChrome(surfaceColor) {
-    paintBrowserChrome(chromeSurfaceForScreen(surfaceColor));
+    const surface = chromeSurfaceForScreen(surfaceColor);
+    if (current === 's-launch' || current === 's-welcome') {
+        paintBrowserChrome('#0d0c0a', { status:'#0d0c0a', navigation:surface });
+        return;
+    }
+    paintBrowserChrome(surface);
 }
 function applyTonalShift() {
     const period = getTimePeriod();
@@ -3429,7 +3435,7 @@ window.RUH_VERSES = [
 </script>
 <script id="ruh-v2-app">
 (function () {
-    const VERSION = '2026-05-19h';
+    const VERSION = '2026-05-19i';
     const $ = (sel) => document.querySelector(sel);
     const $$ = (sel) => Array.from(document.querySelectorAll(sel));
     const AR_NAMES = { Fajr:'الفجر', Dhuhr:'الظهر', Asr:'العصر', Maghrib:'المغرب', Isha:'العشاء' };
