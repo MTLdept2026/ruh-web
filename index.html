@@ -9,7 +9,7 @@
 <title>Ruh · Quranic Reflection</title>
 <script>
   (function () {
-    var APP_VERSION = '2026-05-19o';
+    var APP_VERSION = '2026-05-19p';
     var stored = localStorage.getItem('ruh-app-version');
     if (stored !== APP_VERSION) {
       localStorage.setItem('ruh-app-version', APP_VERSION);
@@ -34,7 +34,7 @@
     }
   })();
 </script>
-<link rel="manifest" href="ruh-manifest.json?v=2026-05-19o">
+<link rel="manifest" href="ruh-manifest.json?v=2026-05-19p">
 <meta name="theme-color" content="#0d0c0a" data-ruh-theme-color="default">
 <meta name="navigation-bar-color" content="#fff7ea">
 <meta name="color-scheme" content="light dark">
@@ -130,6 +130,8 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:1px soli
 @keyframes dome-pulse{0%,100%{opacity:.08}50%{opacity:.18}}
 @keyframes thread-sway{0%,100%{transform:translateX(-50%) translateY(0) rotate(-.6deg)}50%{transform:translateX(-50%) translateY(var(--float,3px)) rotate(.7deg)}}
 @keyframes heart-inscribe{0%{opacity:0;filter:blur(3px);transform:translateY(6px)}100%{opacity:1;filter:blur(0);transform:translateY(0)}}
+@keyframes heart-reel-next{0%{opacity:.28;filter:blur(4px);transform:translateX(22px)}100%{opacity:1;filter:blur(0);transform:translateX(0)}}
+@keyframes heart-reel-prev{0%{opacity:.28;filter:blur(4px);transform:translateX(-22px)}100%{opacity:1;filter:blur(0);transform:translateX(0)}}
 @keyframes heart-mark{0%{transform:scaleX(0);opacity:0}100%{transform:scaleX(1);opacity:1}}
 @keyframes response-arrive{from{opacity:0;transform:translateY(5px)}to{opacity:.84;transform:translateY(0)}}
 @keyframes page-resist{0%{transform:translateX(0) rotateY(0);filter:none}48%{transform:translateX(var(--page-x,10px)) rotateY(var(--page-r,2deg));filter:drop-shadow(-10px 8px 15px rgba(19,15,10,.06))}100%{transform:translateX(0) rotateY(0);filter:none}}
@@ -571,14 +573,16 @@ textarea.di-input::placeholder{color:var(--tx-30);font-style:italic}
 .fi-kicker{font-family:'Cinzel',serif;font-size:7.5px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);opacity:.78}
 .fi-question{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:var(--mist);margin-top:4px}
 .qibla-sigil svg,.insta-link svg{width:17px;height:17px}
-.heart-script{position:relative;margin-top:6px;padding:28px 0 25px;overflow:hidden;cursor:grab;touch-action:pan-y;-webkit-tap-highlight-color:transparent}
-.heart-script:active{cursor:grabbing}
+.heart-script{position:relative;margin-top:6px;padding:28px 0 25px;overflow:hidden;-webkit-tap-highlight-color:transparent}
 .heart-script::before{content:'';position:absolute;inset:2px 16px auto auto;width:132px;height:132px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='none' stroke='%23a87b32' stroke-width='.55' d='M50,6 L94,50 L50,94 L6,50 Z'/%3E%3Cpath fill='none' stroke='%23a87b32' stroke-width='.55' d='M78,22 L78,78 L22,78 L22,22 Z'/%3E%3C/svg%3E") center/contain no-repeat;opacity:.025;pointer-events:none}
 .heart-script::after{content:'';position:relative;z-index:1;display:block;margin-top:18px;width:64px;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent);opacity:.72}
 .heart-line{position:relative;z-index:1;font-family:'Cormorant Garamond',serif;font-size:32px;line-height:1.12;color:var(--tx);max-width:340px}
-.heart-word{position:relative;display:inline-block;color:var(--gold);font-style:italic;white-space:nowrap}
+.heart-word{position:relative;display:inline-block;color:var(--gold);font-style:italic;white-space:nowrap;cursor:grab;touch-action:none;-webkit-user-select:none;user-select:none;will-change:transform,filter,opacity}
+.heart-word:active{cursor:grabbing}
 .heart-word::after{content:'';position:absolute;left:0;right:0;bottom:1px;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);transform-origin:left center;animation:heart-mark 780ms var(--ease-premium) both}
 .heart-word.inscribing{animation:heart-inscribe 720ms var(--ease-premium) both}
+.heart-word.reel-next{animation:heart-reel-next 260ms cubic-bezier(.16,1,.3,1) both}
+.heart-word.reel-prev{animation:heart-reel-prev 260ms cubic-bezier(.16,1,.3,1) both}
 .heart-choices{display:none}
 .heart-state{position:relative;border:none;background:none;color:var(--mist-lt);font-family:'Cinzel',serif;font-size:7.8px;letter-spacing:.1em;text-transform:uppercase;padding:7px 0 8px;cursor:pointer;opacity:.9;text-align:center;min-width:0;transition:color 520ms var(--ease-premium),opacity 520ms var(--ease-premium);-webkit-tap-highlight-color:transparent}
 .heart-state::after{content:'';position:absolute;left:0;right:.17em;bottom:3px;height:1px;background:var(--gold);opacity:0;transform:scaleX(.2);transform-origin:left center;transition:opacity 520ms var(--ease-premium),transform 520ms var(--ease-premium)}
@@ -3520,7 +3524,7 @@ window.RUH_VERSES = [
 </script>
 <script id="ruh-v2-app">
 (function () {
-    const VERSION = '2026-05-19o';
+    const VERSION = '2026-05-19p';
     const $ = (sel) => document.querySelector(sel);
     const $$ = (sel) => Array.from(document.querySelectorAll(sel));
     const AR_NAMES = { Fajr:'الفجر', Dhuhr:'الظهر', Asr:'العصر', Maghrib:'المغرب', Isha:'العشاء' };
@@ -3777,7 +3781,20 @@ window.RUH_VERSES = [
     }
     function pickDailyVerse() {
         const verses = window.RUH_VERSES || [];
-        verseIndex = verses.length ? seedFor(new Date()) % verses.length : 0;
+        const todayVerseKey = `ruh_daily_verse_${hijriKey(new Date())}`;
+        const savedIndex = Number(localStorage.getItem(todayVerseKey));
+        if (verses.length && Number.isInteger(savedIndex) && savedIndex >= 0 && savedIndex < verses.length) {
+            verseIndex = savedIndex;
+        } else if (verses.length) {
+            const recent = recentVerseHistory().map(item => item.index);
+            const available = verses.map((_, index) => index).filter(index => !recent.includes(index));
+            const choices = available.length ? available : verses.map((_, index) => index);
+            verseIndex = choices[seedFor(new Date()) % choices.length];
+            localStorage.setItem(todayVerseKey, String(verseIndex));
+            rememberVerseIndex(verseIndex);
+        } else {
+            verseIndex = 0;
+        }
         verse = verses.length ? verses[verseIndex] : {
             surah:'Al-Baqarah', ayah:'2:186',
             arabic:'وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ',
@@ -3886,6 +3903,15 @@ window.RUH_VERSES = [
     function verseMoodKey(item) {
         return `${item?.surah || ''}|${item?.ayah || ''}`;
     }
+    function recentVerseHistory() {
+        const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+        return readJSON('ruh_recent_verse_history', [])
+            .filter(item => item && Number(item.at) >= weekAgo && Number.isInteger(item.index));
+    }
+    function rememberVerseIndex(index) {
+        const history = recentVerseHistory().filter(item => item.index !== index);
+        saveJSON('ruh_recent_verse_history', [...history, { index, at: Date.now() }].slice(-80));
+    }
     function pickMoodVerseIndex(key) {
         const verses = window.RUH_VERSES || [];
         if (!verses.length) return 0;
@@ -3896,11 +3922,15 @@ window.RUH_VERSES = [
         const choices = pool.length ? pool : verses.map((_, index) => index);
         const historyKey = `ruh_mood_history_${key}`;
         const history = readJSON(historyKey, []);
-        let fresh = choices.filter(index => !history.includes(index));
+        const recent = recentVerseHistory().map(item => item.index);
+        let fresh = choices.filter(index => !history.includes(index) && !recent.includes(index));
+        if (!fresh.length) fresh = verses.map((_, index) => index).filter(index => !recent.includes(index));
+        if (!fresh.length) fresh = choices.filter(index => !history.includes(index));
         if (!fresh.length) fresh = choices;
-        const seed = seedFor(new Date()) + Math.floor(Date.now() / 7000) + key.length;
+        const seed = seedFor(new Date()) + Math.floor(Date.now() / 60000) + key.length + recent.length * 17;
         const picked = fresh[Math.abs(seed) % fresh.length];
-        saveJSON(historyKey, [...history.slice(-5), picked]);
+        saveJSON(historyKey, [...history.filter(index => index !== picked).slice(-20), picked]);
+        rememberVerseIndex(picked);
         return picked;
     }
     function getSeasonThread(date = new Date()) {
@@ -4114,10 +4144,31 @@ window.RUH_VERSES = [
     function moodButtons() {
         return $$('#feeling-instrument [data-mood]');
     }
+    function moodButtonForKey(key) {
+        return moodButtons().find(btn => btn.dataset.mood === key) || null;
+    }
     function currentMoodIndex() {
         const saved = localStorage.getItem('ruh_focus') || '';
         const buttons = moodButtons();
         return buttons.findIndex(btn => btn.dataset.mood === saved);
+    }
+    function previewMoodWord(key, direction = 1, animate = true) {
+        const btn = moodButtonForKey(key);
+        const heartWord = $('#heart-word');
+        if (!btn || !heartWord) return false;
+        heartWord.classList.remove('inscribing','reel-next','reel-prev');
+        heartWord.textContent = btn.dataset.word || btn.textContent.trim().toLowerCase();
+        $$('#feeling-instrument [data-mood]').forEach(option => {
+            const active = option.dataset.mood === key;
+            option.classList.toggle('active', active);
+            option.setAttribute('aria-checked', active ? 'true' : 'false');
+        });
+        setText('#feeling-response', btn.dataset.line || 'The verse has shifted toward you.');
+        if (animate) {
+            void heartWord.offsetWidth;
+            heartWord.classList.add(direction < 0 ? 'reel-prev' : 'reel-next');
+        }
+        return true;
     }
     let moodMomentumTimers = [];
     function cycleMood(delta = 1, steps = 1) {
@@ -4127,39 +4178,57 @@ window.RUH_VERSES = [
         moodMomentumTimers = [];
         const index = currentMoodIndex();
         const startIndex = index < 0 ? (delta >= 0 ? -1 : buttons.length) : index;
-        const count = Math.max(1, Math.min(6, Math.round(Math.abs(steps))));
+        const count = Math.max(1, Math.min(9, Math.round(Math.abs(steps))));
+        let delay = 0;
         for (let step = 1; step <= count; step++) {
+            const isFinal = step === count;
+            const easingDelay = step === 1 ? 0 : 34 + Math.pow(step - 1, 1.72) * 24;
+            delay += easingDelay;
             const timer = setTimeout(() => {
                 const nextIndex = (startIndex + delta * step + buttons.length * 8) % buttons.length;
-                selectMood(buttons[nextIndex].dataset.mood, { quiet: step < count });
-            }, (step - 1) * 92);
+                const key = buttons[nextIndex].dataset.mood;
+                if (isFinal) selectMood(key, { direction: delta });
+                else previewMoodWord(key, delta, true);
+            }, delay);
             moodMomentumTimers.push(timer);
         }
     }
     function bindHeartWordFlick() {
-        const script = $('.heart-script');
-        if (!script || script.dataset.flickBound === '1') return;
-        script.dataset.flickBound = '1';
+        const word = $('#heart-word');
+        if (!word || word.dataset.flickBound === '1') return;
+        word.dataset.flickBound = '1';
         let startX = 0;
         let startY = 0;
         let startAt = 0;
         let pointerId = null;
-        script.addEventListener('pointerdown', (e) => {
+        let dragging = false;
+        word.addEventListener('pointerdown', (e) => {
             pointerId = e.pointerId;
             startX = e.clientX;
             startY = e.clientY;
             startAt = performance.now();
-            script.setPointerCapture?.(pointerId);
+            dragging = true;
+            word.setPointerCapture?.(pointerId);
+            e.preventDefault();
+            e.stopPropagation();
         });
-        script.addEventListener('pointerup', (e) => {
+        word.addEventListener('pointermove', (e) => {
+            if (!dragging || e.pointerId !== pointerId) return;
+            if (Math.abs(e.clientX - startX) > Math.abs(e.clientY - startY)) e.preventDefault();
+            e.stopPropagation();
+        });
+        word.addEventListener('pointerup', (e) => {
             if (pointerId !== null && e.pointerId !== pointerId) return;
             const dx = e.clientX - startX;
             const dy = e.clientY - startY;
             const duration = Math.max(80, performance.now() - startAt);
             const velocity = Math.abs(dx) / duration;
+            dragging = false;
             pointerId = null;
+            e.preventDefault();
+            e.stopPropagation();
             if (Math.abs(dx) > 42 && Math.abs(dx) > Math.abs(dy) * 1.25) {
-                const momentum = Math.min(6, Math.max(2, Math.round(Math.abs(dx) / 58 + velocity * 1.8)));
+                const momentum = Math.min(9, Math.max(3, Math.round(Math.abs(dx) / 44 + velocity * 4.8)));
                 cycleMood(dx < 0 ? 1 : -1, momentum);
                 hapticPageTurn();
                 return;
@@ -4169,8 +4238,12 @@ window.RUH_VERSES = [
                 hapticLight();
             }
         });
+        word.addEventListener('pointercancel', () => {
+            dragging = false;
+            pointerId = null;
+        });
     }
-    function paintMoodState(key, animate = true) {
+    function paintMoodState(key, animate = true, direction = 1) {
         const response = $('#feeling-response');
         const heartWord = $('#heart-word');
         let matched = false;
@@ -4182,11 +4255,11 @@ window.RUH_VERSES = [
             if (!active) return;
             matched = true;
             if (heartWord) {
-                heartWord.classList.remove('inscribing');
+                heartWord.classList.remove('inscribing','reel-next','reel-prev');
                 heartWord.textContent = btn.dataset.word || btn.textContent.trim().toLowerCase();
                 if (animate) {
                     void heartWord.offsetWidth;
-                    heartWord.classList.add('inscribing');
+                    heartWord.classList.add(direction < 0 ? 'reel-prev' : 'reel-next');
                 }
             }
             setText('#feeling-response', btn.dataset.line || 'The verse has shifted toward you.');
@@ -4200,7 +4273,7 @@ window.RUH_VERSES = [
         verseIndex = pickMoodVerseIndex(key);
         verse = verses[verseIndex];
         localStorage.setItem('ruh_focus', key);
-        paintMoodState(key, true);
+        paintMoodState(key, true, options.direction || 1);
         renderVerse();
         renderDailyThread(key);
         updateDailyRecord({ innerWeather: key, verseRef: `${verse.surah} ${verse.ayah}` });
