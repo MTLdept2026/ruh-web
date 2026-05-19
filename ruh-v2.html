@@ -19,7 +19,7 @@
     }
   })();
 </script>
-<link rel="manifest" href="ruh-manifest.json?v=2026-05-19l">
+<link rel="manifest" href="ruh-manifest.json?v=2026-05-19m">
 <meta name="theme-color" content="#0d0c0a" data-ruh-theme-color="default">
 <meta name="navigation-bar-color" content="#fff7ea">
 <meta name="color-scheme" content="light dark">
@@ -200,12 +200,12 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:1px soli
 .home-brand-mark{width:30px;height:30px;display:block;opacity:.9;overflow:visible}
 .home-brand-name{font-family:'Cormorant Garamond',Georgia,serif;font-size:30px;letter-spacing:.01em;line-height:1;color:var(--gold)}
 .home-welcome{grid-area:welcome;min-width:0;padding-top:18px;padding-bottom:16px;border-bottom:1px solid var(--tx-06)}
-.home-welcome-k{display:block;font-family:'Cinzel',serif;font-size:8.4px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold)}
+.home-welcome-k{display:block;font-family:'Cinzel',serif;font-size:10.8px;letter-spacing:.22em;word-spacing:.28em;text-transform:uppercase;color:var(--gold);line-height:1.7}
 .home-welcome-name{display:none}
 .home-meta{grid-area:meta;position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:baseline;gap:36px;padding-top:0;border-top:none}
 .home-date-left{min-width:0}
 .home-date-right{text-align:right}
-.hh-hijri,.hh-greg{font-family:'Cinzel',serif;font-size:8.2px;letter-spacing:.1em;text-transform:uppercase;color:var(--mist);line-height:1.45;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hh-hijri,.hh-greg{font-family:'Cinzel',serif;font-size:10.4px;letter-spacing:.08em;word-spacing:.2em;text-transform:uppercase;color:var(--mist);line-height:1.55;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .home-prayer{display:none}
 .hh-right{grid-area:actions;display:flex;align-items:center;justify-content:flex-end;gap:14px;flex-wrap:nowrap;width:auto;flex-shrink:0}
 .hh-chip{font-family:'Cinzel',serif;font-size:7.6px;letter-spacing:.14em;line-height:1.4;text-transform:uppercase;color:var(--gold);border:none;background:transparent;padding:0;min-width:0;text-align:left;box-shadow:none}
@@ -214,7 +214,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:1px soli
 .guide-toggle:hover,.mode-toggle:hover,.qibla-sigil:hover,.insta-link:hover{opacity:1;color:var(--gold)}
 .home-verse{min-height:380px;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;margin-top:20px;padding:32px 36px 34px;text-align:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .home-verse::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='none' stroke='%23a87b32' stroke-width='.45' d='M50,4 L96,50 L50,96 L4,50 Z'/%3E%3Cpath fill='none' stroke='%23a87b32' stroke-width='.45' d='M80,20 L80,80 L20,80 L20,20 Z'/%3E%3C/svg%3E") center/236px 236px no-repeat;opacity:.026;pointer-events:none}
-.v-eyebrow{font-family:'Cinzel',serif;font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;opacity:.82}
+.v-eyebrow{font-family:'Cinzel',serif;font-size:9.6px;letter-spacing:.26em;word-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;opacity:.86}
 .v-arabic{font-family:'Amiri',serif;font-size:28px;font-weight:700;color:var(--tx);line-height:1.68;direction:rtl;max-width:302px;transition:color 1200ms ease}
 .v-rule{display:none}
 .v-trans{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17.5px;color:var(--tx-55);line-height:1.74;max-width:278px;transition:color 1200ms ease}
@@ -556,46 +556,55 @@ textarea.di-input::placeholder{color:var(--tx-30);font-style:italic}
 .fi-kicker{font-family:'Cinzel',serif;font-size:7.5px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);opacity:.78}
 .fi-question{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:var(--mist);margin-top:4px}
 .qibla-sigil svg,.insta-link svg{width:17px;height:17px}
-.heart-script{position:relative;margin-top:6px;padding:25px 0 23px;border-top:1px solid var(--tx-06);border-bottom:1px solid var(--tx-06);overflow:hidden}
+.heart-script{position:relative;margin-top:6px;padding:28px 0 25px;overflow:hidden;cursor:grab;touch-action:pan-y;-webkit-tap-highlight-color:transparent}
+.heart-script:active{cursor:grabbing}
 .heart-script::before{content:'';position:absolute;inset:2px 16px auto auto;width:132px;height:132px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='none' stroke='%23a87b32' stroke-width='.55' d='M50,6 L94,50 L50,94 L6,50 Z'/%3E%3Cpath fill='none' stroke='%23a87b32' stroke-width='.55' d='M78,22 L78,78 L22,78 L22,22 Z'/%3E%3C/svg%3E") center/contain no-repeat;opacity:.025;pointer-events:none}
-.heart-line{position:relative;z-index:1;font-family:'Cormorant Garamond',serif;font-size:28px;line-height:1.16;color:var(--tx);max-width:318px}
+.heart-script::after{content:'';position:relative;z-index:1;display:block;margin-top:18px;width:64px;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent);opacity:.72}
+.heart-line{position:relative;z-index:1;font-family:'Cormorant Garamond',serif;font-size:32px;line-height:1.12;color:var(--tx);max-width:340px}
 .heart-word{position:relative;display:inline-block;color:var(--gold);font-style:italic;white-space:nowrap}
 .heart-word::after{content:'';position:absolute;left:0;right:0;bottom:1px;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);transform-origin:left center;animation:heart-mark 780ms var(--ease-premium) both}
 .heart-word.inscribing{animation:heart-inscribe 720ms var(--ease-premium) both}
-.heart-choices{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:14px;row-gap:8px;margin-top:20px;width:100%;max-width:336px}
+.heart-choices{display:none}
 .heart-state{position:relative;border:none;background:none;color:var(--mist-lt);font-family:'Cinzel',serif;font-size:7.8px;letter-spacing:.1em;text-transform:uppercase;padding:7px 0 8px;cursor:pointer;opacity:.9;text-align:center;min-width:0;transition:color 520ms var(--ease-premium),opacity 520ms var(--ease-premium);-webkit-tap-highlight-color:transparent}
 .heart-state::after{content:'';position:absolute;left:0;right:.17em;bottom:3px;height:1px;background:var(--gold);opacity:0;transform:scaleX(.2);transform-origin:left center;transition:opacity 520ms var(--ease-premium),transform 520ms var(--ease-premium)}
 .heart-state:hover,.heart-state.active{color:var(--gold);opacity:1}
 .heart-state.active::after{opacity:.72;transform:scaleX(1)}
-.feeling-response{position:relative;z-index:1;min-height:22px;margin-top:18px;text-align:left;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;line-height:1.45;color:var(--mist);opacity:.84;transform:translateY(0)}
+.feeling-response{display:none}
 .feeling-response.arrive{animation:response-arrive 900ms cubic-bezier(.16,1,.3,1) both}
 .home-verse.page-turning{transform-origin:50% 50%;animation:page-resist 620ms cubic-bezier(.16,1,.3,1)}
-.sunnah-card{position:relative;z-index:1;margin:15px 30px 0;padding:17px 0 15px;overflow:hidden}
-.sunnah-card::before{content:'';position:absolute;right:-34px;top:-26px;width:150px;height:150px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='none' stroke='%23a87b32' stroke-width='.48' d='M50,5 L95,50 L50,95 L5,50 Z'/%3E%3Cpath fill='none' stroke='%23a87b32' stroke-width='.38' d='M50,18 L82,50 L50,82 L18,50 Z'/%3E%3Ccircle fill='none' stroke='%23a87b32' stroke-width='.35' cx='50' cy='50' r='16'/%3E%3C/svg%3E") center/contain no-repeat;opacity:.032;pointer-events:none}
+.sunnah-card{position:relative;z-index:1;margin:18px 30px 0;padding:24px 0 20px;overflow:hidden}
+.sunnah-card::before{content:'';position:absolute;right:-16px;top:-18px;width:172px;height:172px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='none' stroke='%23a87b32' stroke-width='.48' d='M50,5 L95,50 L50,95 L5,50 Z'/%3E%3Cpath fill='none' stroke='%23a87b32' stroke-width='.38' d='M50,18 L82,50 L50,82 L18,50 Z'/%3E%3Ccircle fill='none' stroke='%23a87b32' stroke-width='.35' cx='50' cy='50' r='16'/%3E%3C/svg%3E") center/contain no-repeat;opacity:.05;pointer-events:none}
+.sunnah-card::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent);opacity:.9}
 .sunnah-card > *{position:relative;z-index:1}
-.sunnah-kicker{font-family:'Cinzel',serif;font-size:7.6px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
-.sunnah-title{font-family:'Cormorant Garamond',serif;font-size:24px;line-height:1.08;color:var(--tx);max-width:285px}
-.sunnah-source{font-family:'Cinzel',serif;font-size:7.4px;letter-spacing:.16em;text-transform:uppercase;color:var(--mist-lt);margin-top:7px}
-.sunnah-text{font-family:'Cormorant Garamond',serif;font-size:16px;line-height:1.45;color:var(--mist);margin:14px 0 0;max-width:316px}
-.sunnah-steps{display:grid;grid-template-columns:1fr;gap:11px;margin-top:15px}
-.sunnah-step{padding-top:0}
-.sunnah-label{font-family:'Cinzel',serif;font-size:7px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
-.sunnah-note{font-family:'Cormorant Garamond',serif;font-size:14px;line-height:1.42;color:var(--tx-55)}
-.sunnah-save{margin-top:15px;border:none;background:transparent;color:var(--gold);font-family:'Cinzel',serif;font-size:7.8px;letter-spacing:.16em;text-transform:uppercase;padding:0;cursor:pointer;transition:color 320ms var(--ease-premium),opacity 320ms var(--ease-premium)}
+.sunnah-kicker{font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.sunnah-title{font-family:'Cormorant Garamond',serif;font-size:31px;line-height:1.02;color:var(--tx);max-width:318px}
+.sunnah-source{font-family:'Cinzel',serif;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--mist-lt);margin-top:8px}
+.sunnah-text{font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.38;color:var(--mist);margin:20px 0 0;max-width:330px}
+.sunnah-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:22px}
+.sunnah-step{position:relative;padding-top:17px}
+.sunnah-step::before{content:'';position:absolute;left:0;top:0;width:22px;height:1px;background:var(--gold)}
+.sunnah-label{font-family:'Cinzel',serif;font-size:7.8px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+.sunnah-note{font-family:'Cormorant Garamond',serif;font-size:16px;line-height:1.42;color:var(--tx-55)}
+.sunnah-save{margin-top:21px;border:none;background:transparent;color:var(--gold);font-family:'Cinzel',serif;font-size:8.4px;letter-spacing:.16em;text-transform:uppercase;padding:0;cursor:pointer;transition:color 320ms var(--ease-premium),opacity 320ms var(--ease-premium)}
+.sunnah-save::before{content:'';display:inline-block;width:7px;height:7px;margin-right:10px;border:1px solid currentColor;border-radius:50%;vertical-align:1px}
 .sunnah-save:hover{color:var(--tx)}
 .home-library-row{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:13px 30px 0;position:relative;z-index:1}
 .home-library-btn{height:38px;border:1px solid var(--tx-06);background:var(--surface-wash);color:var(--mist);font-family:'Cinzel',serif;font-size:8.1px;letter-spacing:.13em;text-transform:uppercase;cursor:pointer;box-shadow:var(--inner-rule);transition:border-color 340ms var(--ease-premium),color 340ms var(--ease-premium),background 340ms var(--ease-premium)}
 .home-library-btn:hover{border-color:var(--gold-dim);color:var(--gold);background:var(--surface-quiet)}
-.daily-thread{position:relative;z-index:1;margin:13px 30px 0;padding:16px 17px 15px;border:1px solid var(--tx-06);background:var(--surface-wash);text-align:left;box-shadow:var(--inner-rule)}
+.daily-thread{position:relative;z-index:1;margin:18px 30px 0;padding:26px 0 22px;text-align:left;overflow:hidden}
+.daily-thread::before{content:'';position:absolute;right:-22px;top:10px;width:150px;height:150px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='none' stroke='%23a87b32' stroke-width='.44' d='M50,5 L95,50 L50,95 L5,50 Z'/%3E%3Cpath fill='none' stroke='%23a87b32' stroke-width='.35' d='M18,50 H82 M50,18 V82'/%3E%3C/svg%3E") center/contain no-repeat;opacity:.045;pointer-events:none}
+.daily-thread::after{content:'';position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)}
 .dt-top{display:block;margin-bottom:10px}
-.dt-kicker{font-family:'Cinzel',serif;font-size:7.8px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
-.dt-title{font-family:'Cormorant Garamond',serif;font-size:20px;line-height:1.08;color:var(--tx)}
-.dt-season{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;line-height:1.35;color:var(--mist-lt);text-align:left;max-width:none;margin-top:3px}
-.dt-carry{font-family:'Cormorant Garamond',serif;font-size:16px;line-height:1.42;color:var(--tx-55);margin:8px 0 10px}
-.dt-practice{font-family:'Cinzel',serif;font-size:7.8px;letter-spacing:.11em;text-transform:uppercase;color:var(--mist);line-height:1.7;overflow-wrap:anywhere}
-.dt-actions{display:flex;gap:8px;margin-top:12px}
-.dt-btn{height:34px;border:1px solid var(--gold-dim);background:transparent;color:var(--gold);font-family:'Cinzel',serif;font-size:7.8px;letter-spacing:.13em;text-transform:uppercase;padding:0 11px;cursor:pointer;transition:background 320ms var(--ease-premium),border-color 320ms var(--ease-premium),color 320ms var(--ease-premium)}
+.dt-kicker{font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+.dt-title{font-family:'Cormorant Garamond',serif;font-size:27px;line-height:1.04;color:var(--tx)}
+.dt-season{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;line-height:1.35;color:var(--mist-lt);text-align:left;max-width:none;margin-top:4px}
+.dt-carry{font-family:'Cormorant Garamond',serif;font-size:21px;line-height:1.34;color:var(--tx-55);margin:18px 0 13px;max-width:328px}
+.dt-practice{font-family:'Cinzel',serif;font-size:8.8px;letter-spacing:.12em;text-transform:uppercase;color:var(--mist);line-height:1.75;overflow-wrap:anywhere;max-width:310px}
+.dt-actions{display:flex;gap:10px;margin-top:19px;align-items:center;flex-wrap:wrap}
+.dt-btn{height:38px;border:1px solid var(--gold-dim);background:transparent;color:var(--gold);font-family:'Cinzel',serif;font-size:8.2px;letter-spacing:.13em;text-transform:uppercase;padding:0 13px;cursor:pointer;transition:background 320ms var(--ease-premium),border-color 320ms var(--ease-premium),color 320ms var(--ease-premium)}
 .dt-btn.secondary{border-color:var(--tx-06);color:var(--mist)}
+.dt-btn.secondary::before{content:'';display:inline-block;width:6px;height:6px;margin-right:8px;border:1px solid currentColor;border-radius:50%;vertical-align:1px}
+.dt-save-note{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13.5px;color:var(--mist-lt);line-height:1.35;max-width:178px}
 .qibla-modal{position:absolute;inset:0;z-index:130;display:flex;align-items:center;justify-content:center;background:rgba(13,12,10,.72);opacity:0;pointer-events:none;transition:opacity 280ms var(--ease-out);padding:34px}
 .qibla-modal.open{opacity:1;pointer-events:all}
 .qibla-panel{width:100%;background:linear-gradient(180deg,var(--surface-quiet),var(--bg));border:1px solid var(--gold-dim);padding:30px 24px;text-align:center;color:var(--tx);box-shadow:var(--inner-rule),var(--soft-shadow)}
@@ -945,7 +954,7 @@ textarea.di-input::placeholder{color:var(--tx-30);font-style:italic}
                 <div class="sunnah-note" id="sunnah-action">Smile sincerely at one person and make their interaction lighter.</div>
             </div>
         </div>
-        <button class="sunnah-save" id="sunnah-save" type="button">Save to Diary</button>
+        <button class="sunnah-save" id="sunnah-save" type="button">Add Sunnah to Diary</button>
     </section>
     <div class="home-library-row">
         <button class="home-library-btn" id="stories-open">Open Seerah</button>
@@ -963,7 +972,8 @@ textarea.di-input::placeholder{color:var(--tx-30);font-style:italic}
         <div class="dt-practice" id="dt-practice">33x SubhanAllah after the next prayer.</div>
         <div class="dt-actions">
             <button class="dt-btn" id="dt-start">Begin Wird</button>
-            <button class="dt-btn secondary" id="dt-save">Save Line</button>
+            <button class="dt-btn secondary" id="dt-save">Add to Diary</button>
+            <div class="dt-save-note">Keeps this reflection in today’s lunar record.</div>
         </div>
     </div>
     </div>
@@ -3499,7 +3509,7 @@ window.RUH_VERSES = [
 </script>
 <script id="ruh-v2-app">
 (function () {
-    const VERSION = '2026-05-19l';
+    const VERSION = '2026-05-19m';
     const $ = (sel) => document.querySelector(sel);
     const $$ = (sel) => Array.from(document.querySelectorAll(sel));
     const AR_NAMES = { Fajr:'الفجر', Dhuhr:'الظهر', Asr:'العصر', Maghrib:'المغرب', Isha:'العشاء' };
@@ -3824,7 +3834,7 @@ window.RUH_VERSES = [
         const btn = $('#sunnah-save');
         if (btn) {
             btn.textContent = 'Saved to Diary';
-            setTimeout(() => { btn.textContent = 'Save to Diary'; }, 1700);
+            setTimeout(() => { btn.textContent = 'Add Sunnah to Diary'; }, 1700);
         }
     }
     function turnVerse(delta) {
@@ -3926,8 +3936,8 @@ window.RUH_VERSES = [
         hapticLight();
         const btn = $('#dt-save');
         if (btn) {
-            btn.textContent = 'Saved';
-            setTimeout(() => { btn.textContent = 'Save Line'; }, 1600);
+            btn.textContent = 'Added';
+            setTimeout(() => { btn.textContent = 'Add to Diary'; }, 1600);
         }
         rememberDiaryMeta(new Date());
     }
@@ -4068,6 +4078,52 @@ window.RUH_VERSES = [
             e.stopPropagation();
             suppressClick = false;
         }, true);
+    }
+    function moodButtons() {
+        return $$('#feeling-instrument [data-mood]');
+    }
+    function currentMoodIndex() {
+        const saved = localStorage.getItem('ruh_focus') || '';
+        const buttons = moodButtons();
+        return buttons.findIndex(btn => btn.dataset.mood === saved);
+    }
+    function cycleMood(delta = 1) {
+        const buttons = moodButtons();
+        if (!buttons.length) return;
+        const index = currentMoodIndex();
+        const nextIndex = index < 0
+            ? (delta >= 0 ? 0 : buttons.length - 1)
+            : (index + delta + buttons.length) % buttons.length;
+        selectMood(buttons[nextIndex].dataset.mood);
+    }
+    function bindHeartWordFlick() {
+        const script = $('.heart-script');
+        if (!script || script.dataset.flickBound === '1') return;
+        script.dataset.flickBound = '1';
+        let startX = 0;
+        let startY = 0;
+        let pointerId = null;
+        script.addEventListener('pointerdown', (e) => {
+            pointerId = e.pointerId;
+            startX = e.clientX;
+            startY = e.clientY;
+            script.setPointerCapture?.(pointerId);
+        });
+        script.addEventListener('pointerup', (e) => {
+            if (pointerId !== null && e.pointerId !== pointerId) return;
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            pointerId = null;
+            if (Math.abs(dx) > 42 && Math.abs(dx) > Math.abs(dy) * 1.25) {
+                cycleMood(dx < 0 ? 1 : -1);
+                hapticPageTurn();
+                return;
+            }
+            if (e.target && e.target.id === 'heart-word') {
+                cycleMood(1);
+                hapticLight();
+            }
+        });
     }
     function paintMoodState(key, animate = true) {
         const response = $('#feeling-response');
@@ -5186,6 +5242,7 @@ window.RUH_VERSES = [
         renderSalawatLibrary();
         renderStoriesTab();
         bindVerseSwipe();
+        bindHeartWordFlick();
         bindDiaryWeekRailDrag();
         renderPatternReflection();
         setInterval(() => {
