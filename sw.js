@@ -41,7 +41,7 @@ self.addEventListener('push', event => {
   const title = payload.title || 'Ruh';
   const notificationOptions = {
     body: payload.body || '',
-    icon: payload.icon || '/ruh-icon-192.png',
+    icon: payload.icon || '/icons/web/icon-192.png',
     badge: payload.badge || '/icons/web/icon-192.png',
     tag: payload.tag || payload.id || 'ruh-reminder',
     renotify: true,

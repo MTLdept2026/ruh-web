@@ -3,23 +3,23 @@
   "short_name": "Ruh",
   "id": "/",
   "description": "A personal Islamic reflection and remembrance companion.",
-  "start_url": "/?v=2026-05-19r",
+  "start_url": "/?v=2026-05-20b",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#fff7ea",
   "theme_color": "#fff7ea",
   "icons": [
     {
-      "src": "icons/web/splash-title-192.png",
+      "src": "icons/web/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     },
     {
-      "src": "icons/web/splash-title-512.png",
+      "src": "icons/web/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     }
   ]
 }

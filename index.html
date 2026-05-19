@@ -9,7 +9,7 @@
 <title>Ruh · Quranic Reflection</title>
 <script>
   (function () {
-    var APP_VERSION = '2026-05-19r';
+    var APP_VERSION = '2026-05-20b';
     var stored = localStorage.getItem('ruh-app-version');
     if (stored !== APP_VERSION) {
       localStorage.setItem('ruh-app-version', APP_VERSION);
@@ -34,11 +34,11 @@
     }
   })();
 </script>
-<link rel="manifest" href="ruh-manifest.json?v=2026-05-19r">
+<link rel="manifest" href="ruh-manifest.json?v=2026-05-20b">
 <meta name="theme-color" content="#0d0c0a" data-ruh-theme-color="default">
 <meta name="navigation-bar-color" content="#fff7ea">
 <meta name="color-scheme" content="light dark">
-<link rel="apple-touch-icon" href="ruh-apple-touch-icon.png">
+<link rel="apple-touch-icon" href="ruh-apple-touch-icon.png?v=2026-05-20b">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/web/icon-192.png">
 <link rel="stylesheet" href="vendor/fonts/google-fonts.css">
 <script src="vendor/adhan.min.js"></script>
@@ -90,7 +90,7 @@ html,body{width:100%;height:100%;background:var(--app-chrome,#060504);display:fl
 button,input,textarea{font:inherit}
 button:focus-visible,input:focus-visible,textarea:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
 #device{position:relative;width:390px;height:844px;overflow:hidden;background:var(--deep);box-shadow:0 0 0 1px rgba(255,255,255,.06),0 60px 180px rgba(0,0,0,.9)}
-@media(max-width:430px){html,body{background:var(--app-chrome,#fff7ea);display:block;height:calc(var(--ruh-vh,1vh) * 100);min-height:calc(var(--ruh-vh,1vh) * 100);overflow:hidden;overscroll-behavior:none}#device{position:fixed;inset:0;width:100vw;height:calc(var(--ruh-vh,1vh) * 100);box-shadow:none}.tab-bar{padding:12px 4px max(18px,env(safe-area-inset-bottom));min-height:76px}.home-scroll{padding-bottom:18px}}
+@media(max-width:600px){html,body{background:var(--app-chrome,#fff7ea);display:block;height:calc(var(--ruh-vh,1vh) * 100);min-height:calc(var(--ruh-vh,1vh) * 100);overflow:hidden;overscroll-behavior:none}#device{position:fixed;inset:0;width:100vw;height:calc(var(--ruh-vh,1vh) * 100);box-shadow:none}.tab-bar{padding:12px 4px max(18px,env(safe-area-inset-bottom));min-height:76px}.home-scroll{padding-bottom:18px}}
 .screen{position:absolute;inset:0;display:flex;flex-direction:column;will-change:transform,opacity;transition:background 1200ms ease,color 1200ms ease}
 .screen.off{display:none}
 
@@ -640,7 +640,7 @@ textarea.di-input::placeholder{color:var(--tx-30);font-style:italic}
 .library-close{border:none;background:none;color:var(--mist);font-family:'Cinzel',serif;font-size:8px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;padding:5px}
 .library-list{flex:1;overflow:auto;padding:16px 16px 96px;-webkit-overflow-scrolling:touch}
 .library-card{border:1px solid var(--tx-06);background:var(--surface-wash);padding:16px;margin-bottom:12px;box-shadow:var(--inner-rule)}
-.library-card.story-card{position:relative;padding:2px 18px 18px;border:none;background:transparent;box-shadow:none;overflow:hidden;transform-origin:left center;animation:folio-turn 560ms var(--ease-premium)}
+.library-card.story-card{position:relative;width:100%;max-width:35rem;margin:0 auto;padding:2px 0 18px;border:none;background:transparent;box-shadow:none;overflow:hidden;transform-origin:left center;animation:folio-turn 560ms var(--ease-premium)}
 .library-card.story-card::before{content:'';position:absolute;inset:-40px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='none' stroke='%23a87b32' stroke-width='.5' d='M50,4 L96,50 L50,96 L4,50 Z'/%3E%3Cpath fill='none' stroke='%23a87b32' stroke-width='.5' d='M80,20 L80,80 L20,80 L20,20 Z'/%3E%3Ccircle fill='none' stroke='%23a87b32' stroke-width='.35' cx='50' cy='50' r='22'/%3E%3C/svg%3E") top center/210px 210px no-repeat;opacity:.035;pointer-events:none}
 .library-card.story-card > *{position:relative;z-index:1}
 .library-card.story-card.grand{border:none;background:transparent;box-shadow:none}
@@ -651,7 +651,8 @@ textarea.di-input::placeholder{color:var(--tx-30);font-style:italic}
 .library-arabic{font-family:'Amiri',serif;font-size:24px;font-weight:700;line-height:1.85;direction:rtl;text-align:right;color:var(--tx);margin-top:12px}
 .library-label{font-family:'Cinzel',serif;font-size:7.8px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-top:14px;margin-bottom:7px}
 .library-reflection{font-family:'Cormorant Garamond',serif;font-size:14px;line-height:1.45;color:var(--mist);border-left:1px solid var(--gold-dim);padding-left:12px;margin:8px 0}
-#stories-list{padding:0;overflow:hidden;display:grid;grid-template-rows:auto 1fr;min-height:0}
+#stories-list,
+#stories-tab-list{padding:0;overflow:hidden;display:grid;grid-template-rows:auto 1fr;min-height:0}
 .story-index{position:relative;display:flex;gap:20px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:11px 20px 18px;border-bottom:none;background:linear-gradient(180deg,var(--surface-quiet),transparent)}
 .story-index::-webkit-scrollbar{display:none}
 .story-index::before{display:none}
@@ -665,7 +666,7 @@ textarea.di-input::placeholder{color:var(--tx-30);font-style:italic}
 .story-index-title::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--gold-dim);opacity:0;transform:scaleX(.4);transform-origin:left center;transition:opacity 360ms var(--ease-premium),transform 420ms var(--ease-premium),background 360ms var(--ease-premium)}
 .story-index-card.active .story-index-title::after{opacity:.82;transform:scaleX(1)}
 .story-index-card.grand.active .story-index-title::after{background:var(--emerald)}
-.story-detail-scroll{min-height:0;overflow:auto;padding:20px 18px 96px;-webkit-overflow-scrolling:touch;background:linear-gradient(180deg,transparent,var(--surface-wash) 48%,transparent)}
+.story-detail-scroll{min-height:0;overflow:auto;padding:20px 28px 104px;-webkit-overflow-scrolling:touch;background:linear-gradient(180deg,transparent,var(--surface-wash) 48%,transparent)}
 .story-detail-nav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;margin:0 0 18px}
 .story-nav-btn{height:32px;border:none;background:transparent;color:var(--mist);font-family:'Cinzel',serif;font-size:7.6px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:color 320ms var(--ease-premium),opacity 320ms var(--ease-premium)}
 .story-nav-btn:hover{color:var(--gold)}
@@ -680,13 +681,18 @@ textarea.di-input::placeholder{color:var(--tx-30);font-style:italic}
 .story-ornament{width:46px;height:1px;margin:15px auto 0;background:linear-gradient(to right,transparent,var(--gold),transparent);opacity:.7}
 .story-stage{position:relative;border:none;background:transparent;padding:24px 0 0;margin:24px 0 0;box-shadow:none}
 .story-stage + .story-stage::before{content:'';display:block;width:54px;height:1px;margin:0 0 19px;background:linear-gradient(to right,var(--gold-dim),transparent);opacity:.58}
-.story-stage-title{font-family:'Cinzel',serif;font-size:7.8px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
-.story-stage-text{font-family:'Cormorant Garamond',serif;font-size:16px;line-height:1.68;color:var(--tx-55)}
-.story-stage-text p + p{margin-top:12px}
+.story-stage-title{font-family:'Cinzel',serif;font-size:7.8px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.story-stage-text{font-family:'Cormorant Garamond',serif;font-size:16.5px;line-height:1.78;color:var(--tx-55);max-width:34rem;text-align:left}
+.story-stage-text p{max-width:100%;text-align:justify;text-align-last:left;text-justify:inter-word;hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
+.story-stage-text p + p{margin-top:18px}
 .story-guide{display:grid;gap:18px;margin:22px 0 0;border-top:none}
 .story-guide-row{display:block;border:none;background:transparent;padding:0;box-shadow:none}
 .story-guide-k{font-family:'Cinzel',serif;font-size:7.6px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
 .story-guide-v{font-family:'Cormorant Garamond',serif;font-size:15.5px;line-height:1.52;color:var(--mist);margin-top:7px}
+.library-card.story-card .library-story,
+.library-card.story-card .library-sub,
+.library-card.story-card .library-reflection,
+.library-card.story-card .story-guide-v{max-width:34rem;text-align:justify;text-align-last:left;text-justify:inter-word;hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
 .story-lessons{counter-reset:lesson;display:grid;gap:15px;margin-top:14px;border-top:none}
 .story-lesson{counter-increment:lesson;display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:flex-start;border:none;background:transparent;padding:0;box-shadow:none}
 .story-lesson::before{content:counter(lesson);display:flex;align-items:flex-start;justify-content:center;font-family:'Cinzel',serif;font-size:8.5px;line-height:1.9;color:var(--gold);opacity:.9}
@@ -707,7 +713,7 @@ textarea.di-input::placeholder{color:var(--tx-30);font-style:italic}
 .protection-tab::after{content:'';position:absolute;left:0;bottom:0;width:28px;height:1px;background:var(--gold);opacity:0;transform:scaleX(.25);transform-origin:left center;transition:opacity 340ms var(--ease-premium),transform 340ms var(--ease-premium)}
 .protection-tab.active{color:var(--gold)}
 .protection-tab.active::after{opacity:1;transform:scaleX(1)}
-.protection-detail{position:relative;padding:25px 0 78px;background:transparent;border:none;box-shadow:none}
+.protection-detail{position:relative;padding:25px 0 78px;background:transparent;border:none;box-shadow:none;touch-action:pan-y;transition:transform 260ms var(--ease-premium),opacity 260ms var(--ease-premium)}
 .protection-detail::before{content:'';position:absolute;right:6px;top:38px;width:190px;height:190px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='none' stroke='%23a87b32' stroke-width='.45' d='M60,5 L115,60 L60,115 L5,60 Z'/%3E%3Cpath fill='none' stroke='%23a87b32' stroke-width='.35' d='M93,27 L93,93 L27,93 L27,27 Z'/%3E%3Ccircle fill='none' stroke='%23a87b32' stroke-width='.35' cx='60' cy='60' r='31'/%3E%3C/svg%3E") center/contain no-repeat;opacity:.035;pointer-events:none}
 .protection-detail > *{position:relative;z-index:1}
 .protection-turn{position:relative;z-index:2;display:grid;grid-template-columns:42px 1fr 42px;align-items:center;gap:12px;margin-bottom:18px}
@@ -1795,9 +1801,44 @@ const PHASES = [
     {name:'Tahmid', ar:'ٱلْحَمْدُ لِلَّٰهِ',   ro:'Alḥamdulillāh'},
     {name:'Takbir', ar:'ٱللَّٰهُ أَكْبَرُ',    ro:'Allāhu Akbar'},
 ];
-function getRuhTodayKey() {
-    const d = new Date();
-    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+function getRuhDateKey(date = new Date()) {
+    return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+}
+function readRuhJSON(key, fallback) {
+    try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch(e) { return fallback; }
+}
+function getRuhCounterCoords() {
+    return readRuhJSON('ruh_coords', null) || readRuhJSON('ruh_user_coords', null) || { lat:1.3521, lng:103.8198, label:'Singapore' };
+}
+function ruhCounterMuisFajr(date) {
+    const row = window.RUH_MUIS_2026 && window.RUH_MUIS_2026[`${date.getDate()}/${date.getMonth()+1}`];
+    if (!row) return null;
+    const raw = String(row[0]).padStart(4, '0');
+    const fajr = new Date(date);
+    fajr.setHours(Number(raw.slice(0, 2)), Number(raw.slice(2)), 0, 0);
+    return fajr;
+}
+function getRuhFajrBoundary(date = new Date()) {
+    const coords = getRuhCounterCoords();
+    const isSingapore = coords.lat > 1 && coords.lat < 1.6 && coords.lng > 103.5 && coords.lng < 104.1;
+    if (isSingapore) {
+        const official = ruhCounterMuisFajr(date);
+        if (official) return official;
+    }
+    try {
+        if (window.adhan) {
+            const method = isSingapore ? adhan.CalculationMethod.Singapore() : adhan.CalculationMethod.MuslimWorldLeague();
+            return new adhan.PrayerTimes(new adhan.Coordinates(coords.lat, coords.lng), date, method).fajr;
+        }
+    } catch(e) {}
+    const fallback = new Date(date);
+    fallback.setHours(5, 0, 0, 0);
+    return fallback;
+}
+function getRuhTodayKey(date = new Date()) {
+    const fajr = getRuhFajrBoundary(date);
+    const day = date < fajr ? new Date(date.getTime() - 86400000) : new Date(date);
+    return getRuhDateKey(day);
 }
 function loadDhikrState() {
     try {
@@ -1823,6 +1864,20 @@ function saveDhikrState() {
 const _dhikrInitial = loadDhikrState();
 let dTotal=_dhikrInitial.total, dPhase=_dhikrInitial.phase, dInPhase=_dhikrInitial.inPhase;
 let dTarget = [10,33,100].includes(_dhikrInitial.target) ? _dhikrInitial.target : 33;
+
+function ensureDhikrFreshDay() {
+    try {
+        if (localStorage.getItem('ruh_dhikr_date') === getRuhTodayKey()) return;
+        dTotal = 0;
+        dPhase = 0;
+        dInPhase = 0;
+        localStorage.setItem('ruh_dhikr_date', getRuhTodayKey());
+        localStorage.setItem('ruh_dhikr_total', '0');
+        localStorage.setItem('ruh_dhikr_phase', '0');
+        localStorage.setItem('ruh_dhikr_inphase', '0');
+        renderDhikrCount(false);
+    } catch(e) {}
+}
 
 function updateRing() {
     const r = document.getElementById('ring-fill');
@@ -1852,6 +1907,7 @@ function renderDhikrCount(pop = false) {
     updateRing(); updateLabels();
 }
 function changeDhikr(delta) {
+    ensureDhikrFreshDay();
     if (delta < 0 && dTotal <= 0 && dInPhase <= 0) return;
     dTotal = Math.max(0, dTotal + delta);
     dInPhase = Math.max(0, dInPhase + delta);
@@ -1937,6 +1993,20 @@ let salawatParticles = [];
 let salawatAnimId   = null;
 let salCanvas = null, salCtx = null;
 let DOME_X = 195, DOME_Y = 18; /* calibrated in initSalawatCanvas */
+
+function ensureSalawatFreshDay() {
+    try {
+        if (localStorage.getItem('ruh_salawat_date') === getRuhTodayKey()) return;
+        salawatCount = 0;
+        localStorage.setItem('ruh_salawat_date', getRuhTodayKey());
+        localStorage.setItem('ruh_salawat_today', '0');
+        localStorage.setItem('ruh_salawat_total_today', '0');
+        localStorage.setItem('ruh_salawat_counts_date', getRuhTodayKey());
+        localStorage.setItem('ruh_salawat_today_counts', '{}');
+        const el = document.getElementById('salawat-count');
+        if (el) el.textContent = '0';
+    } catch(e) {}
+}
 
 function initSalawatCanvas() {
     salCanvas = document.getElementById('salawat-canvas');
@@ -2067,6 +2137,7 @@ function tickSalawat() {
 /* ── Tap handler ── */
 function onSalawatTap(e) {
     if (e.target.closest('.t-btn')) return;
+    ensureSalawatFreshDay();
 
     const dev     = document.getElementById('device');
     const devRect = dev.getBoundingClientRect();
@@ -3527,7 +3598,7 @@ window.RUH_VERSES = [
 </script>
 <script id="ruh-v2-app">
 (function () {
-    const VERSION = '2026-05-19r';
+    const VERSION = '2026-05-20b';
     const $ = (sel) => document.querySelector(sel);
     const $$ = (sel) => Array.from(document.querySelectorAll(sel));
     const AR_NAMES = { Fajr:'الفجر', Dhuhr:'الظهر', Asr:'العصر', Maghrib:'المغرب', Isha:'العشاء' };
@@ -3663,6 +3734,22 @@ window.RUH_VERSES = [
     }
     function saveJSON(key, value) {
         try { localStorage.setItem(key, JSON.stringify(value)); } catch(e) {}
+    }
+    function counterDayKey() {
+        return typeof getRuhTodayKey === 'function' ? getRuhTodayKey() : todayKey();
+    }
+    function readDailyCounterMap(storageKey, dayKey) {
+        const currentKey = counterDayKey();
+        if (localStorage.getItem(dayKey) !== currentKey) {
+            saveJSON(storageKey, {});
+            localStorage.setItem(dayKey, currentKey);
+            return {};
+        }
+        return readJSON(storageKey, {});
+    }
+    function saveDailyCounterMap(storageKey, dayKey, counts) {
+        saveJSON(storageKey, counts);
+        localStorage.setItem(dayKey, counterDayKey());
     }
     function escapeHTML(value) {
         return String(value || '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -4376,6 +4463,19 @@ window.RUH_VERSES = [
     function prayerClock(prayer) {
         return new Date(prayer.time).toLocaleTimeString([], { hour:'numeric', minute:'2-digit' });
     }
+    function refreshFajrDailyCounters() {
+        const day = counterDayKey();
+        const salawatWasStale = localStorage.getItem('ruh_salawat_date') !== day || localStorage.getItem('ruh_salawat_counts_date') !== day;
+        const protectionWasStale = localStorage.getItem('ruh_protection_counts_date') !== day;
+        if (typeof ensureDhikrFreshDay === 'function') ensureDhikrFreshDay();
+        if (typeof ensureSalawatFreshDay === 'function') ensureSalawatFreshDay();
+        if (protectionWasStale) {
+            setProtectionCounts({});
+            if ($('#protection-modal')?.classList.contains('open')) renderProtectionLibrary();
+        }
+        if (salawatWasStale && current === 's-salawat') renderSalawatLibrary(localStorage.getItem('ruh_last_salawat') || undefined);
+        if (salawatWasStale && activeSalawatFocus) renderSalawatFocus();
+    }
     function prayerReminderId(kind, prayer) {
         return `${todayKey(new Date(prayer.time))}-${prayer.name}-${kind}-${prayer.time}`;
     }
@@ -4423,7 +4523,7 @@ window.RUH_VERSES = [
         const title = `${prayer.name} has entered`;
         const options = {
             body: `Make space for ${prayer.name}.`,
-            icon: '/icons/web/splash-title-192.png',
+            icon: '/icons/web/icon-192.png',
             badge: '/icons/web/icon-192.png',
             tag: `ruh-prayer-${prayerReminderId('exact', prayer)}`,
             renotify: true,
@@ -4677,6 +4777,7 @@ window.RUH_VERSES = [
         setText('#pr-next', nextPrayerChip());
         schedulePrayerReminderCards(prayerResult);
         syncPushReminders(prayerResult);
+        refreshFajrDailyCounters();
     }
     function diaryEntryKey(date = selectedDiaryDate) {
         return `ruh_diary_hijri_${hijriKey(date)}`;
@@ -4840,15 +4941,15 @@ window.RUH_VERSES = [
         updatePersonalCopy();
     }
     function getSalawatCounts() {
-        return readJSON('ruh_salawat_today_counts', {});
+        return readDailyCounterMap('ruh_salawat_today_counts', 'ruh_salawat_counts_date');
     }
     function getFavoriteSalawat() {
         return readJSON('ruh_fav_salawat', []);
     }
     function setSalawatCounts(counts) {
-        saveJSON('ruh_salawat_today_counts', counts);
+        saveDailyCounterMap('ruh_salawat_today_counts', 'ruh_salawat_counts_date', counts);
         const total = Object.values(counts).reduce((sum, n) => sum + Number(n || 0), 0);
-        localStorage.setItem('ruh_salawat_date', todayKey());
+        localStorage.setItem('ruh_salawat_date', counterDayKey());
         localStorage.setItem('ruh_salawat_today', String(total));
         localStorage.setItem('ruh_salawat_total_today', String(total));
         salawatCount = total;
@@ -5167,10 +5268,38 @@ window.RUH_VERSES = [
         renderStoriesLibrary(selectedId || activeProphetId, '#stories-tab-list');
     }
     function getProtectionCounts() {
-        return readJSON('ruh_protection_counts', {});
+        return readDailyCounterMap('ruh_protection_counts', 'ruh_protection_counts_date');
     }
     function setProtectionCounts(counts) {
-        saveJSON('ruh_protection_counts', counts);
+        saveDailyCounterMap('ruh_protection_counts', 'ruh_protection_counts_date', counts);
+    }
+    function selectProtectionByStep(step, activeIndex, duas) {
+        if (!duas.length) return;
+        const nextIndex = (activeIndex + step + duas.length) % duas.length;
+        activeProtectionId = duas[nextIndex].id;
+        localStorage.setItem('ruh_active_protection', activeProtectionId);
+        playSelectorTick();
+        hapticLight();
+        renderProtectionLibrary();
+    }
+    function bindProtectionSwipe(detail, activeIndex, duas) {
+        if (!detail || !duas.length) return;
+        let startX = 0, startY = 0, tracking = false;
+        detail.addEventListener('pointerdown', (event) => {
+            if (event.target.closest('button')) return;
+            tracking = true;
+            startX = event.clientX;
+            startY = event.clientY;
+        });
+        detail.addEventListener('pointerup', (event) => {
+            if (!tracking) return;
+            tracking = false;
+            const dx = event.clientX - startX;
+            const dy = event.clientY - startY;
+            if (Math.abs(dx) < 54 || Math.abs(dx) < Math.abs(dy) * 1.25) return;
+            selectProtectionByStep(dx < 0 ? 1 : -1, activeIndex, duas);
+        });
+        detail.addEventListener('pointercancel', () => { tracking = false; });
     }
     function renderProtectionLibrary() {
         const list = $('#protection-list');
@@ -5222,13 +5351,9 @@ window.RUH_VERSES = [
         }));
         list.querySelectorAll('[data-protection-step]').forEach(btn => btn.addEventListener('click', () => {
             const step = Number(btn.dataset.protectionStep || 0);
-            const nextIndex = (activeIndex + step + duas.length) % duas.length;
-            activeProtectionId = duas[nextIndex].id;
-            localStorage.setItem('ruh_active_protection', activeProtectionId);
-            playSelectorTick();
-            hapticLight();
-            renderProtectionLibrary();
+            selectProtectionByStep(step, activeIndex, duas);
         }));
+        bindProtectionSwipe(list.querySelector('.protection-detail'), activeIndex, duas);
         list.querySelectorAll('[data-inc-protection]').forEach(btn => btn.addEventListener('click', () => {
             const next = getProtectionCounts();
             const count = Number(next[btn.dataset.incProtection] || 0) + 1;
