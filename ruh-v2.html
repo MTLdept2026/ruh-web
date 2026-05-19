@@ -4,8 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Ruh · Quranic Reflection</title>
-<link rel="manifest" href="ruh-manifest.json?v=2026-05-19d">
+<script>
+  (function () {
+    function setViewportHeight() {
+      var viewportHeight = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
+      document.documentElement.style.setProperty('--ruh-vh', (viewportHeight * 0.01) + 'px');
+    }
+    setViewportHeight();
+    window.addEventListener('resize', setViewportHeight, { passive: true });
+    window.addEventListener('orientationchange', function () { setTimeout(setViewportHeight, 250); }, { passive: true });
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', setViewportHeight, { passive: true });
+      window.visualViewport.addEventListener('scroll', setViewportHeight, { passive: true });
+    }
+  })();
+</script>
+<link rel="manifest" href="ruh-manifest.json?v=2026-05-19e">
 <meta name="theme-color" content="#0d0c0a" data-ruh-theme-color="default">
+<meta name="navigation-bar-color" content="#0d0c0a">
 <meta name="color-scheme" content="dark light">
 <link rel="apple-touch-icon" href="ruh-apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/web/icon-192.png">
@@ -26,7 +42,7 @@
     --gold:     #a87b32; --gold-lt:  #c9973f; --gold-dim: rgba(168,123,50,.16);
     --emerald:  #2d7a56; --emerald-dim: rgba(45,122,86,.13);
     --mist:     #6d6253; --mist-lt:  #8c806f;
-    --deep:     #0d0c0a; --deep-w:   #181410;
+    --deep:     #0d0c0a; --deep-w:   #181410; --app-chrome: #0d0c0a;
     --ease-out: cubic-bezier(.22,1,.36,1);
     --ease-io:  cubic-bezier(.4,0,.2,1);
     --ease-premium: cubic-bezier(.16,1,.3,1);
@@ -54,12 +70,12 @@
    SHELL
 ══════════════════════════════════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{width:100%;height:100%;background:#060504;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',Georgia,serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+html,body{width:100%;height:100%;background:var(--app-chrome,#060504);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',Georgia,serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow:hidden}
 ::selection{background:var(--gold-dim);color:var(--tx)}
 button,input,textarea{font:inherit}
 button:focus-visible,input:focus-visible,textarea:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
 #device{position:relative;width:390px;height:844px;overflow:hidden;background:var(--deep);box-shadow:0 0 0 1px rgba(255,255,255,.06),0 60px 180px rgba(0,0,0,.9)}
-@media(max-width:430px){html,body{background:var(--deep);display:block}#device{width:100vw;height:100dvh;box-shadow:none}}
+@media(max-width:430px){html,body{background:var(--app-chrome,#0d0c0a);display:block;height:calc(var(--ruh-vh,1vh) * 100);min-height:calc(var(--ruh-vh,1vh) * 100);overflow:hidden;overscroll-behavior:none}#device{position:fixed;inset:0;width:100vw;height:calc(var(--ruh-vh,1vh) * 100);box-shadow:none}.tab-bar{padding:12px 4px max(18px,env(safe-area-inset-bottom));min-height:76px}.home-scroll{padding-bottom:18px}}
 .screen{position:absolute;inset:0;display:flex;flex-direction:column;will-change:transform,opacity;transition:background 1200ms ease,color 1200ms ease}
 .screen.off{display:none}
 
@@ -1596,11 +1612,13 @@ function getTimePeriod() {
 let userOverrodeMode = false;
 function paintBrowserChrome(color) {
     const bg = color || getComputedStyle(document.getElementById('device')).getPropertyValue('--bg').trim() || '#0d0c0a';
-    document.querySelectorAll('meta[name="theme-color"]').forEach(meta => {
+    document.querySelectorAll('meta[name="theme-color"],meta[name="navigation-bar-color"]').forEach(meta => {
         meta.setAttribute('content', bg);
     });
+    document.documentElement.style.setProperty('--app-chrome', bg);
     document.documentElement.style.backgroundColor = bg;
     document.body.style.backgroundColor = bg;
+    document.documentElement.style.colorScheme = bg === '#0d0c0a' ? 'dark' : 'light';
 }
 function isDarkChromeScreen(screen = current) {
     return screen === 's-launch' || screen === 's-welcome' || /^s-ob/.test(screen);
@@ -3400,7 +3418,7 @@ window.RUH_VERSES = [
 </script>
 <script id="ruh-v2-app">
 (function () {
-    const VERSION = '2026-05-19d';
+    const VERSION = '2026-05-19e';
     const $ = (sel) => document.querySelector(sel);
     const $$ = (sel) => Array.from(document.querySelectorAll(sel));
     const AR_NAMES = { Fajr:'الفجر', Dhuhr:'الظهر', Asr:'العصر', Maghrib:'المغرب', Isha:'العشاء' };

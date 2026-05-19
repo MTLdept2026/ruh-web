@@ -3,11 +3,11 @@
   "short_name": "Ruh",
   "id": "/",
   "description": "A personal Islamic reflection and remembrance companion.",
-  "start_url": "/?v=2026-05-19d",
+  "start_url": "/?v=2026-05-19e",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0d0c0a",
-  "theme_color": "#0d0c0a",
+  "theme_color": "#fff7ea",
   "icons": [
     {
       "src": "icons/web/splash-title-192.png",
