@@ -1,9 +1,9 @@
 {
-  "name": "Rūḥ — A Space for the Heart",
-  "short_name": "Rūḥ",
+  "name": "Ruh — A Space for the Heart",
+  "short_name": "Ruh",
   "id": "/",
   "description": "A personal Islamic reflection and remembrance companion.",
-  "start_url": "/?v=2026-04-25e",
+  "start_url": "/?v=2026-05-19b",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0f172a",

@@ -3,35 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
 <title>Ruh · Quranic Reflection</title>
-<script>
-  (function () {
-    var APP_VERSION = '2026-05-19b';
-    var stored = localStorage.getItem('ruh-app-version');
-    if (stored !== APP_VERSION) {
-      localStorage.setItem('ruh-app-version', APP_VERSION);
-      if (window.location.search.indexOf('v=' + APP_VERSION) === -1) {
-        window.location.replace(window.location.pathname + '?v=' + APP_VERSION);
-      }
-    }
-  })();
-</script>
-<script>
-  (function () {
-    function setViewportHeight() {
-      var viewportHeight = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
-      document.documentElement.style.setProperty('--ruh-vh', (viewportHeight * 0.01) + 'px');
-    }
-    setViewportHeight();
-    window.addEventListener('resize', setViewportHeight, { passive: true });
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', setViewportHeight, { passive: true });
-    }
-  })();
-</script>
 <link rel="manifest" href="ruh-manifest.json?v=2026-05-19b">
 <meta name="theme-color" content="#fdfaf5" data-ruh-theme-color="default">
 <link rel="apple-touch-icon" href="ruh-apple-touch-icon.png">
@@ -4936,34 +4908,6 @@ window.RUH_VERSES = [
         });
     });
 })();
-</script>
-<script>
-  (function () {
-    function checkVersion() {
-      fetch('/version.json?t=' + Date.now(), { cache: 'no-store' })
-        .then(function (r) { return r.json(); })
-        .then(function (data) {
-          var latest = data && data.v;
-          if (!latest) return;
-          var stored = localStorage.getItem('ruh-deploy-version');
-          if (stored !== latest) {
-            localStorage.setItem('ruh-deploy-version', latest);
-            if (window.location.search.indexOf('v=' + latest) === -1) {
-              window.location.replace(window.location.pathname + '?v=' + encodeURIComponent(latest));
-            }
-          }
-        })
-        .catch(function () {});
-    }
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', checkVersion);
-    else checkVersion();
-    document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState === 'visible') checkVersion();
-    });
-    window.addEventListener('pageshow', function (event) {
-      if (event.persisted) window.location.reload();
-    });
-  })();
 </script>
 </body>
 </html>
