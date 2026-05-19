@@ -45,6 +45,10 @@ self.addEventListener('push', event => {
     badge: payload.badge || '/icons/web/icon-192.png',
     tag: payload.tag || payload.id || 'ruh-reminder',
     renotify: true,
+    vibrate: payload.vibrate || [48, 40, 48],
+    actions: payload.actions || [
+      { action: 'open-prayer', title: 'Open Prayer' },
+    ],
     data: {
       url: payload.url || '/?screen=home',
       screen: payload.screen || 'home',

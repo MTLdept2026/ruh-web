@@ -19,7 +19,7 @@
     }
   })();
 </script>
-<link rel="manifest" href="ruh-manifest.json?v=2026-05-19j">
+<link rel="manifest" href="ruh-manifest.json?v=2026-05-19k">
 <meta name="theme-color" content="#0d0c0a" data-ruh-theme-color="default">
 <meta name="navigation-bar-color" content="#fff7ea">
 <meta name="color-scheme" content="light dark">
@@ -712,6 +712,18 @@ textarea.di-input::placeholder{color:var(--tx-30);font-style:italic}
 .counter-toast.show{visibility:visible;animation:counter-blessing 2600ms var(--ease-premium) both}
 .counter-toast-title{font-family:'Cormorant Garamond',serif;font-size:23px;line-height:1.05;color:var(--tx)}
 .counter-toast-text{font-family:'Cinzel',serif;font-size:7.8px;letter-spacing:.17em;text-transform:uppercase;color:var(--gold);line-height:1.65;margin-top:8px}
+.prayer-reminder-card{position:absolute;left:18px;right:18px;bottom:calc(90px + env(safe-area-inset-bottom));z-index:188;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(18px);transition:opacity 420ms var(--ease-premium),transform 520ms var(--ease-premium),visibility 0s linear 520ms}
+.prayer-reminder-card.open{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0);transition-delay:0s}
+.prayer-reminder-inner{position:relative;overflow:hidden;padding:19px 19px 16px;background:linear-gradient(180deg,var(--surface-quiet),color-mix(in srgb,var(--bg) 92%,var(--gold-dim)));border:1px solid var(--gold-dim);box-shadow:var(--inner-rule),0 24px 80px rgba(19,15,10,.16);color:var(--tx)}
+.prayer-reminder-inner::before{content:'';position:absolute;right:-34px;top:-40px;width:150px;height:150px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='none' stroke='%23a87b32' stroke-width='.44' d='M50,5 L95,50 L50,95 L5,50 Z'/%3E%3Cpath fill='none' stroke='%23a87b32' stroke-width='.34' d='M50,18 L82,50 L50,82 L18,50 Z'/%3E%3Ccircle fill='none' stroke='%23a87b32' stroke-width='.34' cx='50' cy='50' r='17'/%3E%3C/svg%3E") center/contain no-repeat;opacity:.048;pointer-events:none}
+.prayer-reminder-kicker{position:relative;font-family:'Cinzel',serif;font-size:7.6px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+.prayer-reminder-title{position:relative;font-family:'Cormorant Garamond',serif;font-size:27px;line-height:1.04;color:var(--tx);max-width:260px}
+.prayer-reminder-text{position:relative;font-family:'Cormorant Garamond',serif;font-size:15.5px;line-height:1.48;color:var(--tx-55);margin-top:10px;max-width:292px}
+.prayer-reminder-meta{position:relative;margin-top:13px;font-family:'Cinzel',serif;font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mist-lt)}
+.prayer-reminder-actions{position:relative;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;margin-top:16px}
+.prayer-reminder-open,.prayer-reminder-dismiss{height:34px;border:none;background:transparent;font-family:'Cinzel',serif;text-transform:uppercase;cursor:pointer;letter-spacing:.16em}
+.prayer-reminder-open{border-top:1px solid var(--gold-dim);border-bottom:1px solid var(--gold-dim);color:var(--gold);font-size:7.5px}
+.prayer-reminder-dismiss{color:var(--mist-lt);font-size:7px;padding:0 2px}
 
 @media (prefers-reduced-motion: reduce){
     *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
@@ -815,7 +827,7 @@ textarea.di-input::placeholder{color:var(--tx-30);font-style:italic}
         <div class="ob-step">— 03 of 04 —</div>
         <svg class="ob-motif" viewBox="0 0 100 100" fill="none"><path stroke="currentColor" stroke-width="1.2" d="M50,8 L92,50 L50,92 L8,50 Z"/><path stroke="currentColor" stroke-width="1.2" d="M79,21 L79,79 L21,79 L21,21 Z"/><circle fill="none" stroke="currentColor" stroke-width=".6" cx="50" cy="50" r="13"/></svg>
         <div class="ob-q">May we call you?</div>
-        <div class="ob-sub">A quiet word when each prayer time arrives — nothing more.</div>
+        <div class="ob-sub">A quiet card ten minutes before prayer, then a notification as the time enters.</div>
     </div>
     <div class="ob-foot">
         <div class="ob-dots"><div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot lit"></div><div class="ob-dot"></div></div>
@@ -1274,6 +1286,18 @@ textarea.di-input::placeholder{color:var(--tx-30);font-style:italic}
 <div class="counter-toast" id="counter-toast" aria-live="polite" aria-atomic="true">
     <div class="counter-toast-title" id="counter-toast-title">Beautifully carried</div>
     <div class="counter-toast-text" id="counter-toast-text">10 counted with care</div>
+</div>
+<div class="prayer-reminder-card" id="prayer-reminder-card" aria-live="polite" aria-atomic="true">
+    <div class="prayer-reminder-inner">
+        <div class="prayer-reminder-kicker" id="prayer-reminder-kicker">Prayer Soon</div>
+        <div class="prayer-reminder-title" id="prayer-reminder-title">Prepare for prayer.</div>
+        <div class="prayer-reminder-text" id="prayer-reminder-text">Step gently toward wudu and make space for the next prayer.</div>
+        <div class="prayer-reminder-meta" id="prayer-reminder-meta">10 minutes</div>
+        <div class="prayer-reminder-actions">
+            <button class="prayer-reminder-open" id="prayer-reminder-open" type="button">Open Prayer</button>
+            <button class="prayer-reminder-dismiss" id="prayer-reminder-dismiss" type="button">Close</button>
+        </div>
+    </div>
 </div>
 
 </div><!-- #device -->
@@ -3419,7 +3443,7 @@ window.RUH_VERSES = [
 </script>
 <script id="ruh-v2-app">
 (function () {
-    const VERSION = '2026-05-19j';
+    const VERSION = '2026-05-19k';
     const $ = (sel) => document.querySelector(sel);
     const $$ = (sel) => Array.from(document.querySelectorAll(sel));
     const AR_NAMES = { Fajr:'الفجر', Dhuhr:'الظهر', Asr:'العصر', Maghrib:'المغرب', Isha:'العشاء' };
@@ -3535,6 +3559,9 @@ window.RUH_VERSES = [
     ];
 
     let prayerResult = null;
+    let prayerReminderTimers = [];
+    let prayerReminderHideTimer = null;
+    let lastPushReminderSignature = '';
     let verse = null;
     let verseIndex = 0;
     let selectedDiaryDate = new Date();
@@ -4113,6 +4140,202 @@ window.RUH_VERSES = [
         if (!next) return 'Prayer times';
         return `${next.name} · ${durationTo(next.time - Date.now())}`;
     }
+    function prayerClock(prayer) {
+        return new Date(prayer.time).toLocaleTimeString([], { hour:'numeric', minute:'2-digit' });
+    }
+    function prayerReminderId(kind, prayer) {
+        return `${todayKey(new Date(prayer.time))}-${prayer.name}-${kind}-${prayer.time}`;
+    }
+    function reminderWasFired(kind, prayer) {
+        return localStorage.getItem(`ruh_prayer_reminder_${prayerReminderId(kind, prayer)}`) === '1';
+    }
+    function markReminderFired(kind, prayer) {
+        try { localStorage.setItem(`ruh_prayer_reminder_${prayerReminderId(kind, prayer)}`, '1'); } catch(e) {}
+    }
+    function dismissPrayerReminderCard() {
+        const card = $('#prayer-reminder-card');
+        if (!card) return;
+        card.classList.remove('open');
+        clearTimeout(prayerReminderHideTimer);
+    }
+    function showPrayerReminderCard(kind, prayer) {
+        const card = $('#prayer-reminder-card');
+        if (!card) return;
+        const isExact = kind === 'exact';
+        setText('#prayer-reminder-kicker', isExact ? 'Prayer Time' : 'Prayer Soon');
+        setText('#prayer-reminder-title', isExact ? `${prayer.name} has entered.` : `Prepare for ${prayer.name}.`);
+        setText(
+            '#prayer-reminder-text',
+            isExact
+                ? `Let the next few minutes belong to ${prayer.name}. Step away from the noise and answer the call.`
+                : 'Begin to loosen from what you are doing. Wudu, silence, then prayer.'
+        );
+        setText('#prayer-reminder-meta', isExact ? `${prayer.name} · now` : `${prayer.name} · ${prayerClock(prayer)}`);
+        card.dataset.prayerScreen = 'prayers';
+        card.classList.remove('open');
+        void card.offsetWidth;
+        card.classList.add('open');
+        clearTimeout(prayerReminderHideTimer);
+        prayerReminderHideTimer = setTimeout(dismissPrayerReminderCard, isExact ? 18000 : 14000);
+        if (isExact) {
+            playPrayerMark();
+            hapticMilestone();
+        } else {
+            playNeyBreath();
+            hapticLight();
+        }
+    }
+    async function showPrayerNotification(prayer) {
+        if (!('Notification' in window) || Notification.permission !== 'granted') return;
+        const title = `${prayer.name} has entered`;
+        const options = {
+            body: `Make space for ${prayer.name}.`,
+            icon: '/icons/web/splash-title-192.png',
+            badge: '/icons/web/icon-192.png',
+            tag: `ruh-prayer-${prayerReminderId('exact', prayer)}`,
+            renotify: true,
+            data: { url:'/?screen=prayers', screen:'prayers' },
+        };
+        try {
+            if ('serviceWorker' in navigator) {
+                const reg = await navigator.serviceWorker.ready;
+                await reg.showNotification(title, options);
+            } else {
+                new Notification(title, options);
+            }
+        } catch(e) {}
+    }
+    function firePrayerReminder(kind, prayer) {
+        if (!prayer || reminderWasFired(kind, prayer)) return;
+        if (current === 's-launch' || current === 's-welcome' || current.startsWith('s-ob')) {
+            if (kind === 'exact') {
+                markReminderFired(kind, prayer);
+                showPrayerNotification(prayer);
+            }
+            return;
+        }
+        markReminderFired(kind, prayer);
+        showPrayerReminderCard(kind, prayer);
+        if (kind === 'exact') showPrayerNotification(prayer);
+    }
+    function upcomingPrayerEvents(result) {
+        if (!result) return [];
+        const now = Date.now();
+        const tomorrow = calculatePrayers(getCoords(), new Date(now + 86400000));
+        return [...result.prayers, ...((tomorrow && tomorrow.prayers) || [])]
+            .filter(p => p.time > now - 60000 && p.time < now + 30 * 60 * 60 * 1000);
+    }
+    function schedulePrayerReminderCards(result) {
+        prayerReminderTimers.forEach(clearTimeout);
+        prayerReminderTimers = [];
+        const now = Date.now();
+        upcomingPrayerEvents(result).forEach(prayer => {
+            const prepAt = prayer.time - 10 * 60 * 1000;
+            const prepDelay = prepAt - now;
+            const exactDelay = prayer.time - now;
+            if (prepDelay > 0 && prepDelay < 30 * 60 * 60 * 1000) {
+                prayerReminderTimers.push(setTimeout(() => firePrayerReminder('prep', prayer), prepDelay));
+            } else if (prepDelay <= 0 && exactDelay > 0 && !reminderWasFired('prep', prayer)) {
+                firePrayerReminder('prep', prayer);
+            }
+            if (exactDelay > 0 && exactDelay < 30 * 60 * 60 * 1000) {
+                prayerReminderTimers.push(setTimeout(() => firePrayerReminder('exact', prayer), exactDelay));
+            } else if (exactDelay <= 0 && exactDelay > -60000 && !reminderWasFired('exact', prayer)) {
+                firePrayerReminder('exact', prayer);
+            }
+        });
+    }
+    function routeScreenId(screen) {
+        return ({ home:'s-home', prayers:'s-prayers', prayer:'s-prayers', dhikr:'s-dhikr', seerah:'s-stories', stories:'s-stories', salawat:'s-salawat', diary:'s-diary' })[screen] || null;
+    }
+    function requestedScreen() {
+        try { return routeScreenId(new URLSearchParams(location.search).get('screen') || ''); } catch(e) { return null; }
+    }
+    function openRequestedScreen(screen = 'prayers') {
+        const target = routeScreenId(screen) || 's-prayers';
+        if (current === 's-launch' || current.startsWith('s-ob') || current === 's-welcome') return;
+        transitionTo(target, 'fade');
+    }
+    function urlBase64ToUint8Array(base64String) {
+        const padding = '='.repeat((4 - base64String.length % 4) % 4);
+        const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+        const rawData = atob(base64);
+        return Uint8Array.from([...rawData].map(char => char.charCodeAt(0)));
+    }
+    function buildPushReminders(result) {
+        const now = Date.now();
+        const reminders = [];
+        upcomingPrayerEvents(result).forEach(prayer => {
+            const prepId = prayerReminderId('prep', prayer);
+            const exactId = prayerReminderId('exact', prayer);
+            const prepAt = prayer.time - 10 * 60 * 1000;
+            if (prepAt > now + 30000) {
+                reminders.push({
+                    id: prepId,
+                    title: `10 minutes to ${prayer.name}`,
+                    body: 'Begin to make room for prayer.',
+                    timeMs: prepAt,
+                    screen: 'prayers',
+                    tag: `ruh-${prepId}`,
+                    url: `/?screen=prayers&reminder=${encodeURIComponent(prepId)}`,
+                });
+            }
+            if (prayer.time > now + 30000) {
+                reminders.push({
+                    id: exactId,
+                    title: `${prayer.name} has entered`,
+                    body: `Make space for ${prayer.name}.`,
+                    timeMs: prayer.time,
+                    screen: 'prayers',
+                    tag: `ruh-${exactId}`,
+                    url: `/?screen=prayers&reminder=${encodeURIComponent(exactId)}`,
+                });
+            }
+        });
+        return reminders;
+    }
+    async function syncPushReminders(result, options = {}) {
+        if (!result || localStorage.getItem('ruh_prayer_notifications_enabled') !== '1') return;
+        if (!('Notification' in window) || Notification.permission !== 'granted') return;
+        if (!('serviceWorker' in navigator) || !('PushManager' in window) || location.protocol === 'file:') return;
+        const reminders = buildPushReminders(result);
+        const signature = reminders.map(r => `${r.id}:${r.timeMs}`).join('|');
+        if (!options.force && signature && signature === lastPushReminderSignature) return;
+        lastPushReminderSignature = signature;
+        try {
+            const config = await fetch('/.netlify/functions/push-config', { cache:'no-store' }).then(r => r.json());
+            if (!config?.configured || !config?.vapidPublicKey) {
+                setText('#reminder-status', 'Reminders allowed while Ruh is open.');
+                return;
+            }
+            const reg = await navigator.serviceWorker.ready;
+            let subscription = await reg.pushManager.getSubscription();
+            if (!subscription) {
+                subscription = await reg.pushManager.subscribe({
+                    userVisibleOnly: true,
+                    applicationServerKey: urlBase64ToUint8Array(config.vapidPublicKey),
+                });
+            }
+            await fetch('/.netlify/functions/push-subscription', {
+                method: 'POST',
+                headers: { 'content-type':'application/json' },
+                body: JSON.stringify({
+                    subscription: subscription.toJSON(),
+                    enabled: true,
+                    permission: Notification.permission,
+                    reminders,
+                    origin: location.origin,
+                    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                    locationLabel: getCoords().label || '',
+                    standalone: window.matchMedia('(display-mode: standalone)').matches || !!navigator.standalone,
+                    platform: { userAgent:navigator.userAgent, language:navigator.language },
+                }),
+            });
+            setText('#reminder-status', 'Prayer reminders are ready.');
+        } catch(e) {
+            setText('#reminder-status', 'Reminders allowed while Ruh is open.');
+        }
+    }
     function arcPoint(progress) {
         const t = Math.max(0, Math.min(1, progress));
         const x = 10 + t * 306;
@@ -4217,6 +4440,8 @@ window.RUH_VERSES = [
         renderArc(prayerResult);
         renderPrayerRows(prayerResult);
         setText('#pr-next', nextPrayerChip());
+        schedulePrayerReminderCards(prayerResult);
+        syncPushReminders(prayerResult);
     }
     function diaryEntryKey(date = selectedDiaryDate) {
         return `ruh_diary_hijri_${hijriKey(date)}`;
@@ -4863,7 +5088,8 @@ window.RUH_VERSES = [
             } else {
                 const result = await Notification.requestPermission();
                 localStorage.setItem('ruh_prayer_notifications_enabled', result === 'granted' ? '1' : '0');
-                if (status) status.textContent = result === 'granted' ? 'Reminders allowed.' : 'No reminders for now.';
+                if (status) status.textContent = result === 'granted' ? 'Preparing prayer reminders...' : 'No reminders for now.';
+                if (result === 'granted') await syncPushReminders(prayerResult, { force:true });
             }
         } catch(e) {
             if (status) status.textContent = 'No reminders for now.';
@@ -4880,7 +5106,12 @@ window.RUH_VERSES = [
     }
     function registerServiceWorker() {
         if ('serviceWorker' in navigator && location.protocol !== 'file:') {
-            navigator.serviceWorker.register('/sw.js', { scope:'/' }).catch(() => {});
+            navigator.serviceWorker.register('/sw.js', { scope:'/' }).then(() => {
+                syncPushReminders(prayerResult, { force:true });
+            }).catch(() => {});
+            navigator.serviceWorker.addEventListener('message', (event) => {
+                if (event.data?.type === 'OPEN_SCREEN') openRequestedScreen(event.data.screen || 'prayers');
+            });
         }
     }
     function initAppData() {
@@ -4921,7 +5152,7 @@ window.RUH_VERSES = [
         try { localStorage.setItem('ruh_onboarded', '1'); } catch(e) {}
         playNeyBreath();
         initAppData();
-        fadeTo('s-home');
+        fadeTo(requestedScreen() || 's-home');
         applyTonalShift();
         offerGuideOnce();
     };
@@ -4931,7 +5162,7 @@ window.RUH_VERSES = [
         launchUsed = true;
         playLaunchTone();
         initAppData();
-        const destination = localStorage.getItem('ruh_onboarded') === '1' ? 's-home' : 's-welcome';
+        const destination = localStorage.getItem('ruh_onboarded') === '1' ? (requestedScreen() || 's-home') : 's-welcome';
         setTimeout(() => fadeTo(destination), 200);
         if (destination === 's-home') offerGuideOnce();
     };
@@ -4988,6 +5219,11 @@ window.RUH_VERSES = [
         $('#guide-close')?.addEventListener('click', closeGuide);
         $('#guide-modal')?.addEventListener('click', (e) => {
             if (e.target.id === 'guide-modal') closeGuide();
+        });
+        $('#prayer-reminder-dismiss')?.addEventListener('click', dismissPrayerReminderCard);
+        $('#prayer-reminder-open')?.addEventListener('click', () => {
+            dismissPrayerReminderCard();
+            transitionTo('s-prayers', 'fade');
         });
         $$('[data-close-library]').forEach(btn => btn.addEventListener('click', () => closeLibrary(btn.dataset.closeLibrary)));
         $$('.library-modal').forEach(modal => {
