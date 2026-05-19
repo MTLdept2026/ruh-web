@@ -9,7 +9,7 @@
 <title>Ruh · Quranic Reflection</title>
 <script>
   (function () {
-    var APP_VERSION = '2026-05-20d';
+    var APP_VERSION = '2026-05-20e';
     var stored = localStorage.getItem('ruh-app-version');
     if (stored !== APP_VERSION) {
       localStorage.setItem('ruh-app-version', APP_VERSION);
@@ -34,11 +34,11 @@
     }
   })();
 </script>
-<link rel="manifest" href="ruh-manifest.json?v=2026-05-20d">
+<link rel="manifest" href="ruh-manifest.json?v=2026-05-20e">
 <meta name="theme-color" content="#0d0c0a" data-ruh-theme-color="default">
 <meta name="navigation-bar-color" content="#fff7ea">
 <meta name="color-scheme" content="light dark">
-<link rel="apple-touch-icon" href="ruh-apple-touch-icon.png?v=2026-05-20d">
+<link rel="apple-touch-icon" href="ruh-apple-touch-icon.png?v=2026-05-20e">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/web/icon-192.png">
 <link rel="stylesheet" href="vendor/fonts/google-fonts.css">
 <script src="vendor/adhan.min.js"></script>
@@ -118,8 +118,6 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:1px soli
 @keyframes draw-path {to{stroke-dashoffset:0}}
 @keyframes rise      {from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 @keyframes appear    {to{opacity:var(--to-op,1)}}
-@keyframes launch-mark{from{opacity:0;transform:translate3d(0,10px,0) scale(.94)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
-@keyframes launch-copy{from{opacity:0;transform:translate3d(0,12px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
 @keyframes slow-spin {to{transform:rotate(360deg)}}
 @keyframes scale-pop {0%{transform:scale(1)}42%{transform:scale(1.045)}100%{transform:scale(1)}}
 @keyframes milestone {0%{opacity:0;transform:scale(.6) translateY(18px)}28%{opacity:1;transform:scale(1.03) translateY(0)}68%{opacity:1;transform:scale(1) translateY(0)}100%{opacity:0;transform:scale(.9) translateY(-8px)}}
@@ -145,19 +143,19 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:1px soli
    1 · LAUNCH
 ══════════════════════════════════════════ */
 #s-launch{background:var(--deep);align-items:center;justify-content:center;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
-#s-launch::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 54% 36% at 50% 47%,rgba(168,123,50,.075) 0%,transparent 72%);opacity:0;animation:appear 900ms var(--ease-premium) 120ms forwards;pointer-events:none}
-.launch-star{width:108px;height:108px;margin-bottom:46px;position:relative;z-index:1;overflow:visible;opacity:0;transform:translate3d(0,10px,0) scale(.94);animation:launch-mark 900ms var(--ease-premium) 180ms forwards}
-.ls-orbit{fill:none;stroke:var(--gold);stroke-linecap:round;stroke-width:1.9;pathLength:1;stroke-dasharray:1;stroke-dashoffset:0;transform-origin:50% 50%;opacity:.92}
-.ls-orbit.outer{stroke-width:1.1;stroke-dasharray:.02 .055;opacity:.62;animation:slow-spin 22s linear 1s infinite}
-.ls-orbit.r1{stroke-width:3.6;opacity:.96}
-.ls-orbit.r2{stroke-width:3;opacity:.9}
-.ls-orbit.r3{stroke-width:2.4;opacity:.84}
-.ls-orbit.r4{stroke-width:2;opacity:.76}
-.ls-dot{fill:var(--gold);opacity:.94}
+#s-launch::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 38% at 50% 47%,rgba(168,123,50,.09) 0%,transparent 70%);pointer-events:none}
+.launch-star{width:108px;height:108px;margin-bottom:48px;position:relative;z-index:1;overflow:visible}
+.ls-orbit{fill:none;stroke:var(--gold);stroke-linecap:round;stroke-width:1.9;pathLength:1;stroke-dasharray:1;stroke-dashoffset:1;transform-origin:50% 50%}
+.ls-orbit.outer{stroke-width:1.1;stroke-dasharray:.02 .055;stroke-dashoffset:0;opacity:0;animation:appear .75s ease .35s forwards,slow-spin 18s linear .35s infinite}
+.ls-orbit.r1{animation:draw-path 1.35s var(--ease-io) .55s forwards}
+.ls-orbit.r2{animation:draw-path 1.35s var(--ease-io) .9s forwards}
+.ls-orbit.r3{animation:draw-path 1.35s var(--ease-io) 1.25s forwards}
+.ls-orbit.r4{animation:draw-path 1.15s var(--ease-io) 1.58s forwards}
+.ls-dot{fill:var(--gold);opacity:0;animation:appear .5s ease 2.15s forwards}
 .launch-arabic{display:none}
-.launch-roman{font-family:'Cormorant Garamond',Georgia,serif;font-size:68px;font-weight:500;letter-spacing:.01em;color:#f4efe5;margin-top:0;opacity:0;position:relative;z-index:1;animation:launch-copy 760ms var(--ease-premium) 720ms forwards}
-.launch-tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;font-weight:500;color:rgba(240,236,228,.76);margin-top:8px;opacity:0;position:relative;z-index:1;animation:launch-copy 680ms var(--ease-premium) 920ms forwards}
-.launch-cue{position:absolute;bottom:54px;font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.34em;text-transform:uppercase;color:rgba(240,236,228,.48);--to-op:.72;opacity:0;animation:appear 700ms ease 1.45s forwards}
+.launch-roman{font-family:'Cormorant Garamond',Georgia,serif;font-size:68px;font-weight:500;letter-spacing:.01em;color:#f4efe5;margin-top:0;opacity:0;position:relative;z-index:1;animation:rise 1.1s var(--ease-out) 2.1s forwards}
+.launch-tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;font-weight:500;color:rgba(240,236,228,.76);margin-top:8px;opacity:0;position:relative;z-index:1;animation:rise .9s ease 2.8s forwards}
+.launch-cue{position:absolute;bottom:54px;font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.34em;text-transform:uppercase;color:rgba(240,236,228,.48);--to-op:.72;opacity:0;animation:appear .8s ease 4s forwards}
 
 
 /* ══════════════════════════════════════════
@@ -3599,7 +3597,7 @@ window.RUH_VERSES = [
 </script>
 <script id="ruh-v2-app">
 (function () {
-    const VERSION = '2026-05-20d';
+    const VERSION = '2026-05-20e';
     const $ = (sel) => document.querySelector(sel);
     const $$ = (sel) => Array.from(document.querySelectorAll(sel));
     const AR_NAMES = { Fajr:'الفجر', Dhuhr:'الظهر', Asr:'العصر', Maghrib:'المغرب', Isha:'العشاء' };
