@@ -9,7 +9,7 @@
 <title>Ruh · Quranic Reflection</title>
 <script>
   (function () {
-    var APP_VERSION = '2026-05-19i';
+    var APP_VERSION = '2026-05-19j';
     var stored = localStorage.getItem('ruh-app-version');
     if (stored !== APP_VERSION) {
       localStorage.setItem('ruh-app-version', APP_VERSION);
@@ -34,7 +34,7 @@
     }
   })();
 </script>
-<link rel="manifest" href="ruh-manifest.json?v=2026-05-19i">
+<link rel="manifest" href="ruh-manifest.json?v=2026-05-19j">
 <meta name="theme-color" content="#0d0c0a" data-ruh-theme-color="default">
 <meta name="navigation-bar-color" content="#fff7ea">
 <meta name="color-scheme" content="light dark">
@@ -231,7 +231,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:1px soli
 .home-verse::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='none' stroke='%23a87b32' stroke-width='.45' d='M50,4 L96,50 L50,96 L4,50 Z'/%3E%3Cpath fill='none' stroke='%23a87b32' stroke-width='.45' d='M80,20 L80,80 L20,80 L20,20 Z'/%3E%3C/svg%3E") center/236px 236px no-repeat;opacity:.026;pointer-events:none}
 .v-eyebrow{font-family:'Cinzel',serif;font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;opacity:.82}
 .v-arabic{font-family:'Amiri',serif;font-size:28px;font-weight:700;color:var(--tx);line-height:1.68;direction:rtl;max-width:302px;transition:color 1200ms ease}
-.v-rule{width:1px;height:32px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);margin:24px auto}
+.v-rule{display:none}
 .v-trans{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17.5px;color:var(--tx-55);line-height:1.74;max-width:278px;transition:color 1200ms ease}
 .v-ref{margin-top:18px;font-family:'Cinzel',serif;font-size:8.2px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
 .v-hint{margin-top:26px;font-family:'Cinzel',serif;font-size:7.4px;letter-spacing:.24em;text-transform:uppercase;color:var(--mist-lt);opacity:.62}
@@ -585,7 +585,7 @@ textarea.di-input::placeholder{color:var(--tx-30);font-style:italic}
 .feeling-response{position:relative;z-index:1;min-height:22px;margin-top:18px;text-align:left;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;line-height:1.45;color:var(--mist);opacity:.84;transform:translateY(0)}
 .feeling-response.arrive{animation:response-arrive 900ms cubic-bezier(.16,1,.3,1) both}
 .home-verse.page-turning{transform-origin:50% 50%;animation:page-resist 620ms cubic-bezier(.16,1,.3,1)}
-.sunnah-card{position:relative;z-index:1;margin:15px 30px 0;padding:17px 0 15px;border-top:1px solid var(--tx-06);border-bottom:1px solid var(--tx-06);overflow:hidden}
+.sunnah-card{position:relative;z-index:1;margin:15px 30px 0;padding:17px 0 15px;overflow:hidden}
 .sunnah-card::before{content:'';position:absolute;right:-34px;top:-26px;width:150px;height:150px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='none' stroke='%23a87b32' stroke-width='.48' d='M50,5 L95,50 L50,95 L5,50 Z'/%3E%3Cpath fill='none' stroke='%23a87b32' stroke-width='.38' d='M50,18 L82,50 L50,82 L18,50 Z'/%3E%3Ccircle fill='none' stroke='%23a87b32' stroke-width='.35' cx='50' cy='50' r='16'/%3E%3C/svg%3E") center/contain no-repeat;opacity:.032;pointer-events:none}
 .sunnah-card > *{position:relative;z-index:1}
 .sunnah-kicker{font-family:'Cinzel',serif;font-size:7.6px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
@@ -593,11 +593,11 @@ textarea.di-input::placeholder{color:var(--tx-30);font-style:italic}
 .sunnah-source{font-family:'Cinzel',serif;font-size:7.4px;letter-spacing:.16em;text-transform:uppercase;color:var(--mist-lt);margin-top:7px}
 .sunnah-text{font-family:'Cormorant Garamond',serif;font-size:16px;line-height:1.45;color:var(--mist);margin:14px 0 0;max-width:316px}
 .sunnah-steps{display:grid;grid-template-columns:1fr;gap:11px;margin-top:15px}
-.sunnah-step{padding-top:10px;border-top:1px solid var(--tx-06)}
+.sunnah-step{padding-top:0}
 .sunnah-label{font-family:'Cinzel',serif;font-size:7px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
 .sunnah-note{font-family:'Cormorant Garamond',serif;font-size:14px;line-height:1.42;color:var(--tx-55)}
-.sunnah-save{margin-top:15px;border:none;border-bottom:1px solid var(--gold-dim);background:transparent;color:var(--gold);font-family:'Cinzel',serif;font-size:7.8px;letter-spacing:.16em;text-transform:uppercase;padding:0 0 7px;cursor:pointer;transition:color 320ms var(--ease-premium),border-color 320ms var(--ease-premium),opacity 320ms var(--ease-premium)}
-.sunnah-save:hover{border-color:var(--gold);color:var(--tx)}
+.sunnah-save{margin-top:15px;border:none;background:transparent;color:var(--gold);font-family:'Cinzel',serif;font-size:7.8px;letter-spacing:.16em;text-transform:uppercase;padding:0;cursor:pointer;transition:color 320ms var(--ease-premium),opacity 320ms var(--ease-premium)}
+.sunnah-save:hover{color:var(--tx)}
 .home-library-row{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:13px 30px 0;position:relative;z-index:1}
 .home-library-btn{height:38px;border:1px solid var(--tx-06);background:var(--surface-wash);color:var(--mist);font-family:'Cinzel',serif;font-size:8.1px;letter-spacing:.13em;text-transform:uppercase;cursor:pointer;box-shadow:var(--inner-rule);transition:border-color 340ms var(--ease-premium),color 340ms var(--ease-premium),background 340ms var(--ease-premium)}
 .home-library-btn:hover{border-color:var(--gold-dim);color:var(--gold);background:var(--surface-quiet)}
@@ -1095,20 +1095,19 @@ textarea.di-input::placeholder{color:var(--tx-30);font-style:italic}
                 <linearGradient id="g-arc" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#c9973f" stop-opacity=".22"/><stop offset="100%" stop-color="#a87b32"/></linearGradient>
                 <linearGradient id="g-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a87b32" stop-opacity=".06"/><stop offset="100%" stop-color="#a87b32" stop-opacity="0"/></linearGradient>
             </defs>
-            <path d="M 8,48 Q 163,0 318,48 L 318,58 L 8,58 Z" fill="url(#g-sky)"/>
-            <path d="M 8,48 Q 163,0 318,48" stroke="#e0d8c8" stroke-width=".8"/>
-            <path d="M 8,48 Q 163,0 318,48" stroke="url(#g-arc)" stroke-width="1.5" stroke-dasharray="376" stroke-dashoffset="150"/>
-            <circle cx="40" cy="39" r="2.8" fill="#d8d0be"/>
-            <circle cx="163" cy="19" r="2.8" fill="#d8d0be"/>
-            <circle cx="198" cy="21" r="4.2" fill="#a87b32"/>
-            <circle cx="198" cy="21" r="8.5" fill="none" stroke="#a87b32" stroke-width=".8" opacity=".35"/>
-            <circle cx="261" cy="35" r="2.8" fill="#d8d0be"/>
-            <circle cx="296" cy="44" r="2.8" fill="#d8d0be"/>
-            <text x="40"  y="55" font-size="7.2" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".25" class="arc-lbl-m">Fajr</text>
-            <text x="163" y="55" font-size="7.2" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".25" class="arc-lbl-m">Dhuhr</text>
-            <text x="198" y="55" font-size="7.2" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".25" class="arc-lbl-g">Asr</text>
-            <text x="261" y="55" font-size="7.2" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".25" class="arc-lbl-m">Maghrib</text>
-            <text x="296" y="55" font-size="7.2" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".25" class="arc-lbl-m">Isha</text>
+            <path d="M 10,47 C 58,35 111,20 163,14 C 193,15 218,18 238,24 C 257,29 273,35 286,38 C 298,41 307,44 316,47 L 316,58 L 10,58 Z" fill="url(#g-sky)"/>
+            <path d="M 10,47 C 58,35 111,20 163,14 C 193,15 218,18 238,24 C 257,29 273,35 286,38 C 298,41 307,44 316,47" stroke="#e0d8c8" stroke-width=".85" fill="none"/>
+            <path d="M 10,47 C 58,35 111,20 163,14 C 193,15 218,18 238,24 C 257,29 273,35 286,38 C 298,41 307,44 316,47" stroke="url(#g-arc)" stroke-width="1.6" stroke-dasharray="1" stroke-dashoffset=".38" pathLength="1" stroke-linecap="round" fill="none"/>
+            <circle cx="10" cy="47" r="2.7" fill="#d8d0be"/>
+            <circle cx="163" cy="14" r="2.7" fill="#d8d0be"/>
+            <circle cx="238" cy="24" r="2.7" fill="#d8d0be"/>
+            <circle cx="286" cy="38" r="2.7" fill="#d8d0be"/>
+            <circle cx="316" cy="47" r="2.7" fill="#d8d0be"/>
+            <text x="18"  y="55" font-size="6.5" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".18" class="arc-lbl-m">Fajr</text>
+            <text x="163" y="55" font-size="6.5" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".18" class="arc-lbl-m">Dhuhr</text>
+            <text x="238" y="55" font-size="6.5" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".18" class="arc-lbl-m">Asr</text>
+            <text x="258" y="55" font-size="6.5" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".18" class="arc-lbl-m">Maghrib</text>
+            <text x="312" y="55" font-size="6.5" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".18" class="arc-lbl-m">Isha</text>
         </svg>
     </div>
     <div class="pr-list" id="pr-list">
@@ -3435,7 +3434,7 @@ window.RUH_VERSES = [
 </script>
 <script id="ruh-v2-app">
 (function () {
-    const VERSION = '2026-05-19i';
+    const VERSION = '2026-05-19j';
     const $ = (sel) => document.querySelector(sel);
     const $$ = (sel) => Array.from(document.querySelectorAll(sel));
     const AR_NAMES = { Fajr:'الفجر', Dhuhr:'الظهر', Asr:'العصر', Maghrib:'المغرب', Isha:'العشاء' };
@@ -4129,9 +4128,58 @@ window.RUH_VERSES = [
         if (!next) return 'Prayer times';
         return `${next.name} · ${durationTo(next.time - Date.now())}`;
     }
-    function parabolaY(x) {
-        const t = (x - 8) / 310;
-        return 48 - Math.sin(Math.PI * t) * 34;
+    function arcPoint(progress) {
+        const t = Math.max(0, Math.min(1, progress));
+        const x = 10 + t * 306;
+        const y = 47 - Math.sin(Math.PI * t) * 33;
+        return { x, y };
+    }
+    function pathThrough(points) {
+        if (!points.length) return '';
+        if (points.length === 1) return `M ${points[0].x.toFixed(1)},${points[0].y.toFixed(1)}`;
+        let d = `M ${points[0].x.toFixed(1)},${points[0].y.toFixed(1)}`;
+        for (let i = 0; i < points.length - 1; i++) {
+            const p0 = points[Math.max(0, i - 1)];
+            const p1 = points[i];
+            const p2 = points[i + 1];
+            const p3 = points[Math.min(points.length - 1, i + 2)];
+            const c1x = p1.x + (p2.x - p0.x) / 6;
+            const c1y = p1.y + (p2.y - p0.y) / 6;
+            const c2x = p2.x - (p3.x - p1.x) / 6;
+            const c2y = p2.y - (p3.y - p1.y) / 6;
+            d += ` C ${c1x.toFixed(1)},${c1y.toFixed(1)} ${c2x.toFixed(1)},${c2y.toFixed(1)} ${p2.x.toFixed(1)},${p2.y.toFixed(1)}`;
+        }
+        return d;
+    }
+    function labelPositions(points) {
+        const labels = points.map(p => ({ ...p, labelX: Math.max(18, Math.min(308, p.x)) }));
+        const minGap = 48;
+        for (let i = labels.length - 2; i >= 0; i--) {
+            if (labels[i + 1].labelX - labels[i].labelX < minGap) labels[i].labelX = labels[i + 1].labelX - minGap;
+        }
+        if (labels[0].labelX < 18) {
+            const under = 18 - labels[0].labelX;
+            labels.forEach(l => { l.labelX += under; });
+        }
+        for (let i = 1; i < labels.length; i++) {
+            if (labels[i].labelX - labels[i - 1].labelX < minGap) labels[i].labelX = labels[i - 1].labelX + minGap;
+        }
+        const overflow = labels[labels.length - 1].labelX - 308;
+        if (overflow > 0) labels.forEach(l => { l.labelX -= overflow; });
+        return labels;
+    }
+    function pointOnArc(points, progress) {
+        if (!points.length) return arcPoint(progress);
+        const targetX = 10 + Math.max(0, Math.min(1, progress)) * 306;
+        for (let i = 0; i < points.length - 1; i++) {
+            const a = points[i];
+            const b = points[i + 1];
+            if (targetX >= a.x && targetX <= b.x) {
+                const t = (targetX - a.x) / Math.max(1, b.x - a.x);
+                return { x: targetX, y: a.y + (b.y - a.y) * t };
+            }
+        }
+        return points[targetX < points[0].x ? 0 : points.length - 1];
     }
     function renderArc(result) {
         const wrap = $('#arc-wrap');
@@ -4141,20 +4189,32 @@ window.RUH_VERSES = [
         const span = Math.max(1, last - first);
         const nowProgress = Math.max(0, Math.min(1, (Date.now() - first) / span));
         const state = getPrayerState(result);
-        const dots = result.prayers.map((p, i) => {
+        const nextName = state.next && state.next.name;
+        const points = result.prayers.map(p => {
             const progress = Math.max(0, Math.min(1, (p.time - first) / span));
-            const x = 8 + progress * 310;
-            const y = parabolaY(x);
-            const active = i === state.current;
+            return { ...p, progress, ...arcPoint(progress) };
+        });
+        const labels = labelPositions(points);
+        const path = pathThrough(points);
+        const nowPoint = pointOnArc(points, nowProgress);
+        const dots = points.map(p => {
+            const active = p.name === nextName;
             const fill = active ? '#a87b32' : '#d8d0be';
-            return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${active ? 4.2 : 2.8}" fill="${fill}"/>${active ? `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="8.5" fill="none" stroke="#a87b32" stroke-width=".8" opacity=".35"/>` : ''}<text x="${x.toFixed(1)}" y="55" font-size="7.2" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".25" class="${active ? 'arc-lbl-g' : 'arc-lbl-m'}">${p.name}</text>`;
+            return `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${active ? 3.3 : 2.7}" fill="${fill}" opacity="${active ? '.9' : '.82'}"/>`;
+        }).join('');
+        const labelText = labels.map(p => {
+            const active = p.name === nextName;
+            return `<text x="${p.labelX.toFixed(1)}" y="55" font-size="6.5" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".18" class="${active ? 'arc-lbl-g' : 'arc-lbl-m'}">${p.name}</text>`;
         }).join('');
         wrap.innerHTML = `<svg viewBox="0 0 326 58" fill="none" style="width:100%;display:block">
-            <defs><linearGradient id="g-arc" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#c9973f" stop-opacity=".22"/><stop offset="100%" stop-color="#a87b32"/></linearGradient><linearGradient id="g-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a87b32" stop-opacity=".06"/><stop offset="100%" stop-color="#a87b32" stop-opacity="0"/></linearGradient></defs>
-            <path d="M 8,48 Q 163,0 318,48 L 318,58 L 8,58 Z" fill="url(#g-sky)"/>
-            <path d="M 8,48 Q 163,0 318,48" stroke="#e0d8c8" stroke-width=".8"/>
-            <path d="M 8,48 Q 163,0 318,48" stroke="url(#g-arc)" stroke-width="1.5" stroke-dasharray="376" stroke-dashoffset="${(376 * (1 - nowProgress)).toFixed(1)}"/>
+            <defs><linearGradient id="g-arc" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#c9973f" stop-opacity=".22"/><stop offset="100%" stop-color="#a87b32"/></linearGradient><linearGradient id="g-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a87b32" stop-opacity=".05"/><stop offset="100%" stop-color="#a87b32" stop-opacity="0"/></linearGradient></defs>
+            <path d="${path} L 316,58 L 10,58 Z" fill="url(#g-sky)"/>
+            <path d="${path}" stroke="#e0d8c8" stroke-width=".85" fill="none"/>
+            <path d="${path}" pathLength="1" stroke="url(#g-arc)" stroke-width="1.6" stroke-dasharray="1" stroke-dashoffset="${(1 - nowProgress).toFixed(3)}" stroke-linecap="round" fill="none"/>
             ${dots}
+            <circle cx="${nowPoint.x.toFixed(1)}" cy="${nowPoint.y.toFixed(1)}" r="4.4" fill="#a87b32"/>
+            <circle cx="${nowPoint.x.toFixed(1)}" cy="${nowPoint.y.toFixed(1)}" r="9" fill="none" stroke="#a87b32" stroke-width=".85" opacity=".38"/>
+            ${labelText}
         </svg>`;
     }
     function renderPrayerRows(result) {
