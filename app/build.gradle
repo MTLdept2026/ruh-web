@@ -23,7 +23,7 @@ plugins {
 def twaManifest = [
     applicationId: 'com.alruh.app',
     hostName: 'ruh-app.netlify.app', // The domain being opened in the TWA.
-    launchUrl: '/?v=2026-05-19q', // The start path for the TWA. Must be relative to the domain.
+    launchUrl: '/?v=2026-05-19r', // The start path for the TWA. Must be relative to the domain.
     name: 'Ruh — A Space for the Heart', // The application name.
     launcherName: 'Ruh', // The name shown on the Android Launcher.
     themeColor: '#FFF7EA', // The color used for the status bar.
