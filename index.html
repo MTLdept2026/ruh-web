@@ -9,7 +9,7 @@
 <title>Ruh · Quranic Reflection</title>
 <script>
   (function () {
-    var APP_VERSION = '2026-05-19m';
+    var APP_VERSION = '2026-05-19n';
     var stored = localStorage.getItem('ruh-app-version');
     if (stored !== APP_VERSION) {
       localStorage.setItem('ruh-app-version', APP_VERSION);
@@ -34,7 +34,7 @@
     }
   })();
 </script>
-<link rel="manifest" href="ruh-manifest.json?v=2026-05-19m">
+<link rel="manifest" href="ruh-manifest.json?v=2026-05-19n">
 <meta name="theme-color" content="#0d0c0a" data-ruh-theme-color="default">
 <meta name="navigation-bar-color" content="#fff7ea">
 <meta name="color-scheme" content="light dark">
@@ -208,7 +208,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:1px soli
 .stories-tab-sheet .library-top{padding:22px 26px 12px}
 .stories-tab-sheet .library-kicker{font-size:7.8px;letter-spacing:.24em;margin-bottom:3px}
 .stories-tab-sheet .library-title{font-size:27px;line-height:1.02}
-#tonal-veil{position:absolute;inset:0;pointer-events:none;z-index:0;transition:background 120s linear}
+#tonal-veil{display:none}
 .home-scroll{flex:1;min-height:0;position:relative;z-index:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:28px}
 .home-head{flex-shrink:0;position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"brand actions" "welcome welcome" "meta meta";column-gap:18px;row-gap:18px;padding:58px 38px 0}
 .home-brand{grid-area:brand;display:flex;align-items:center;gap:13px;color:var(--gold)}
@@ -869,7 +869,7 @@ textarea.di-input::placeholder{color:var(--tx-30);font-style:italic}
         <div class="ob-step">— 04 of 04 —</div>
         <svg class="ob-motif" viewBox="0 0 100 100" fill="none"><path stroke="currentColor" stroke-width="1.2" d="M50,8 L92,50 L50,92 L8,50 Z"/><path stroke="currentColor" stroke-width="1.2" d="M79,21 L79,79 L21,79 L21,21 Z"/><circle fill="none" stroke="currentColor" stroke-width=".6" cx="50" cy="50" r="13"/></svg>
         <div class="ob-q">How would you like to read?</div>
-        <div class="ob-sub">The app shifts gently with the arc of the day.</div>
+        <div class="ob-sub">Choose parchment or nightfall. Ruh will keep the page clear.</div>
         <div class="theme-row">
             <div class="th-opt" onclick="pickTheme('light')"><div class="th-swatch light chosen" id="sw-l"><svg width="22" height="22" viewBox="0 0 100 100" fill="none" opacity=".2"><path stroke="#130f0a" stroke-width="3" d="M50,8 L92,50 L50,92 L8,50 Z"/><path stroke="#130f0a" stroke-width="3" d="M79,21 L79,79 L21,79 L21,21 Z"/></svg></div><div class="th-name">Parchment</div></div>
             <div class="th-opt" onclick="pickTheme('dark')"><div class="th-swatch dark" id="sw-d"><svg width="22" height="22" viewBox="0 0 100 100" fill="none" opacity=".38"><path stroke="#f0ece4" stroke-width="3" d="M50,8 L92,50 L50,92 L8,50 Z"/><path stroke="#f0ece4" stroke-width="3" d="M79,21 L79,79 L21,79 L21,21 Z"/></svg></div><div class="th-name" style="color:var(--mist)">Nightfall</div></div>
@@ -1092,7 +1092,7 @@ textarea.di-input::placeholder{color:var(--tx-30);font-style:italic}
             <div class="guide-item"><div class="guide-num">04</div><div><div class="guide-name">Mark Prayer Notes</div><div class="guide-text">In Diary, tap a prayer name when that prayer mattered that day. It is a mark of remembrance, not a score.</div></div></div>
             <div class="guide-item"><div class="guide-num">05</div><div><div class="guide-name">Read the Lunar Record</div><div class="guide-text">An open circle is an untouched day. A gold circle has reflection. A small dot below means prayer was noted. A soft halo marks today.</div></div></div>
             <div class="guide-item"><div class="guide-num">06</div><div><div class="guide-name">Return Over Time</div><div class="guide-text">As the record gathers, Ruh returns gentle patterns: what themes keep appearing, which prayers became doorways, and what you may want to carry again.</div></div></div>
-            <div class="guide-item"><div class="guide-num">07</div><div><div class="guide-name">Light, Dark, and the Day</div><div class="guide-text">Tap the sun or moon in the top corner to switch mode. In light mode, Ruh’s parchment tone shifts with Fajr, Ishraq, Dhuhr, Asr, and Maghrib. In dark mode, the adaptive color stays night-soft for reading.</div></div></div>
+            <div class="guide-item"><div class="guide-num">07</div><div><div class="guide-name">Light and Dark</div><div class="guide-text">Tap the sun or moon in the top corner to switch between parchment and nightfall. Ruh keeps the chosen mode steady until you change it.</div></div></div>
             <div class="guide-foot">Nothing here is a streak. Blank days remain open.</div>
         </div>
     </div>
@@ -1610,7 +1610,7 @@ function onLaunchTap() {
 /* ══════════════════════════════════════════
    ENTER APP
 ══════════════════════════════════════════ */
-function enterApp() { playNeyBreath(); fadeTo('s-home'); applyTonalShift(); }
+function enterApp() { playNeyBreath(); fadeTo('s-home'); syncBrowserChrome(); }
 
 
 /* ══════════════════════════════════════════
@@ -1714,7 +1714,14 @@ function getPrayerAnchoredTone() {
     if (isha && now >= isha.time) return TONAL.isha;
     return TONAL[getTimePeriod()] || TONAL.dhuhr;
 }
+const THEME_INLINE_VARS = ['--bg','--bg-2','--bg-3','--tx','--tx-55','--tx-30','--tx-12','--tx-06','--mist','--mist-lt','--gold','--gold-lt','--gold-dim'];
 let userOverrodeMode = false;
+function clearAdaptiveTone() {
+    const device = document.getElementById('device');
+    if (device) THEME_INLINE_VARS.forEach(key => device.style.removeProperty(key));
+    const veilEl = document.getElementById('tonal-veil');
+    if (veilEl) veilEl.style.background = 'transparent';
+}
 function paintBrowserChrome(color, chrome = {}) {
     const bg = color || getComputedStyle(document.getElementById('device')).getPropertyValue('--bg').trim() || '#0d0c0a';
     const statusBg = chrome.status || bg;
@@ -1732,24 +1739,16 @@ function chromeSurfaceForScreen(surfaceColor) {
 function syncBrowserChrome(surfaceColor) {
     const surface = chromeSurfaceForScreen(surfaceColor);
     if (current === 's-launch' || current === 's-welcome') {
-        paintBrowserChrome('#0d0c0a', { status:'#0d0c0a', navigation:surface });
+        paintBrowserChrome('#0d0c0a', { status:'#0d0c0a', navigation:'#0d0c0a' });
         return;
     }
     paintBrowserChrome(surface);
 }
 function applyTonalShift() {
-    const tone = getPrayerAnchoredTone();
-    const device = document.getElementById('device');
-    const veilEl = document.getElementById('tonal-veil');
-    if (tone.nightfall && device.dataset.mode !== 'dark' && !userOverrodeMode) setMode('dark');
-    else if (!tone.nightfall && device.dataset.mode !== 'light' && !userOverrodeMode) setMode('light');
-    const activeTone = device.dataset.mode === 'dark' ? TONAL.isha : tone;
-    Object.entries(activeTone.vars).forEach(([key, value]) => device.style.setProperty(key, value));
-    if (veilEl) veilEl.style.background = activeTone.veil;
-    syncBrowserChrome(activeTone.vars['--bg']);
+    clearAdaptiveTone();
+    syncBrowserChrome();
 }
 applyTonalShift();
-setInterval(applyTonalShift, 5*60*1000);
 
 
 /* ══════════════════════════════════════════
@@ -1760,13 +1759,10 @@ function setMode(mode) {
     const sun  = document.getElementById('mode-icon-sun');
     const moon = document.getElementById('mode-icon-moon');
     dev.dataset.mode = mode;
-    const tone = mode === 'dark' ? TONAL.isha : getPrayerAnchoredTone();
-    Object.entries(tone.vars).forEach(([key, value]) => dev.style.setProperty(key, value));
-    const veilEl = document.getElementById('tonal-veil');
-    if (veilEl) veilEl.style.background = tone.veil;
+    clearAdaptiveTone();
     if (sun)  sun.style.display  = mode==='light' ? 'block' : 'none';
     if (moon) moon.style.display = mode==='dark'  ? 'block' : 'none';
-    syncBrowserChrome(tone.vars['--bg']);
+    syncBrowserChrome();
 }
 function toggleMode() {
     const dev  = document.getElementById('device');
@@ -3524,7 +3520,7 @@ window.RUH_VERSES = [
 </script>
 <script id="ruh-v2-app">
 (function () {
-    const VERSION = '2026-05-19m';
+    const VERSION = '2026-05-19n';
     const $ = (sel) => document.querySelector(sel);
     const $$ = (sel) => Array.from(document.querySelectorAll(sel));
     const AR_NAMES = { Fajr:'الفجر', Dhuhr:'الظهر', Asr:'العصر', Maghrib:'المغرب', Isha:'العشاء' };
@@ -5283,7 +5279,7 @@ window.RUH_VERSES = [
         playNeyBreath();
         initAppData();
         fadeTo(requestedScreen() || 's-home');
-        applyTonalShift();
+        syncBrowserChrome();
         offerGuideOnce();
     };
     let launchUsed = false;
