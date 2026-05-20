@@ -561,8 +561,10 @@ textarea.di-input::placeholder{color:var(--tx-30);font-style:italic}
 .heart-script{position:relative;margin-top:6px;padding:28px 0 25px;overflow:hidden;-webkit-tap-highlight-color:transparent}
 .heart-script::before{content:'';position:absolute;inset:2px 16px auto auto;width:132px;height:132px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='none' stroke='%23a87b32' stroke-width='.55' d='M50,6 L94,50 L50,94 L6,50 Z'/%3E%3Cpath fill='none' stroke='%23a87b32' stroke-width='.55' d='M78,22 L78,78 L22,78 L22,22 Z'/%3E%3C/svg%3E") center/contain no-repeat;opacity:.025;pointer-events:none}
 .heart-script::after{content:'';position:relative;z-index:1;display:block;margin-top:18px;width:64px;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent);opacity:.72}
-.heart-line{position:relative;z-index:1;font-family:'Cormorant Garamond',serif;font-size:32px;line-height:1.12;color:var(--tx);max-width:340px}
-.heart-word{position:relative;display:inline-block;color:var(--gold);font-style:italic;white-space:nowrap;cursor:grab;touch-action:none;-webkit-user-select:none;user-select:none;will-change:transform,filter,opacity}
+.heart-line{position:relative;z-index:1;font-family:'Cormorant Garamond',serif;font-size:32px;line-height:1.12;color:var(--tx);max-width:340px;margin:0 auto;text-align:center}
+.heart-stem,.heart-word-line{display:block}
+.heart-word-line{margin-top:2px;color:var(--gold);font-style:italic}
+.heart-word{position:relative;display:inline-block;max-width:calc(100% - .28em);color:var(--gold);font-style:italic;white-space:normal;overflow-wrap:break-word;cursor:grab;touch-action:none;-webkit-user-select:none;user-select:none;will-change:transform,filter,opacity}
 .heart-word:active{cursor:grabbing}
 .heart-word::after{content:'';position:absolute;left:0;right:0;bottom:1px;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);transform-origin:left center;animation:heart-mark 780ms var(--ease-premium) both}
 .heart-word.inscribing{animation:heart-inscribe 720ms var(--ease-premium) both}
@@ -928,7 +930,7 @@ textarea.di-input::placeholder{color:var(--tx-30);font-style:italic}
     </div>
     <div class="feeling-instrument" id="feeling-instrument">
         <div class="heart-script" aria-label="Choose the state of your heart">
-            <div class="heart-line">Today I bring <span class="heart-word" id="heart-word">my heart</span>.</div>
+            <div class="heart-line"><span class="heart-stem">Today I bring </span><span class="heart-word-line"><span class="heart-word" id="heart-word">my heart</span>.</span></div>
             <div class="heart-choices" role="radiogroup" aria-label="Choose what is present in your heart">
                 <button class="heart-state" data-mood="grateful" data-word="gratitude" data-line="Let the verse meet what is already lit.">Gratitude</button>
                 <button class="heart-state" data-mood="hopeful" data-word="hope" data-line="Let the verse protect the small light.">Hope</button>
