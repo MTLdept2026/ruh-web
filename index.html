@@ -496,7 +496,7 @@ textarea.di-input::placeholder{color:var(--tx-30);font-style:italic}
    PRODUCTION OVERLAYS
 ══════════════════════════════════════════ */
 .pr-source{padding:0 32px 14px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:var(--mist-lt);text-align:center}
-.city-modal{position:absolute;inset:0;z-index:120;display:flex;align-items:flex-end;background:rgba(13,12,10,.55);opacity:0;pointer-events:none;transition:opacity 280ms var(--ease-out)}
+.city-modal{position:absolute;inset:0;z-index:145;display:flex;align-items:flex-end;background:rgba(13,12,10,.55);opacity:0;pointer-events:none;transition:opacity 280ms var(--ease-out)}
 .city-modal.open{opacity:1;pointer-events:all}
 .city-sheet{width:100%;max-height:72%;overflow:auto;background:linear-gradient(180deg,var(--surface-quiet),var(--bg));border-top:1px solid var(--gold-dim);padding:28px 28px 34px;box-shadow:0 -24px 80px rgba(0,0,0,.28),var(--inner-rule)}
 .city-top{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:18px}
@@ -631,6 +631,9 @@ textarea.di-input::placeholder{color:var(--tx-30);font-style:italic}
 .qibla-kicker{font-family:'Cinzel',serif;font-size:7.5px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
 .qibla-bearing{font-family:'Cinzel',serif;font-size:58px;color:var(--tx);line-height:1;margin:22px 0 8px}
 .qibla-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;line-height:1.5;color:var(--mist)}
+.qibla-status{min-height:18px;margin-top:10px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--mist-lt);line-height:1.35}
+.qibla-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+.qibla-actions .btn-rim{flex:1;min-width:132px;width:auto;padding:13px 12px}
 .qibla-close{margin-top:24px}
 .library-modal{position:absolute;inset:0;z-index:132;background:rgba(13,12,10,.74);opacity:0;pointer-events:none;transition:opacity 280ms var(--ease-out);padding:28px 18px 24px}
 .library-modal.open{opacity:1;pointer-events:all}
@@ -1060,6 +1063,11 @@ textarea.di-input::placeholder{color:var(--tx-30);font-style:italic}
         </svg>
         <div class="qibla-bearing" id="qibla-bearing">—</div>
         <div class="qibla-sub" id="qibla-sub">Calculated from your saved location.</div>
+        <div class="qibla-status" id="qibla-status"></div>
+        <div class="qibla-actions">
+            <button class="btn-rim" id="qibla-location">Use My Location</button>
+            <button class="btn-rim" id="qibla-city">Choose City</button>
+        </div>
         <button class="btn-rim qibla-close" id="qibla-close">Close</button>
     </div>
 </div>
@@ -4384,8 +4392,11 @@ window.RUH_VERSES = [
         const input = $('#name-input');
         if (input && !input.value) input.value = name;
     }
+    function getSavedCoords() {
+        return readJSON('ruh_coords', null) || readJSON('ruh_user_coords', null);
+    }
     function getCoords() {
-        return readJSON('ruh_coords', null) || readJSON('ruh_user_coords', null) || CITIES[0];
+        return getSavedCoords() || CITIES[0];
     }
     function saveCoords(coords) {
         saveJSON('ruh_coords', coords);
@@ -5419,29 +5430,116 @@ window.RUH_VERSES = [
             renderProtectionLibrary();
         }));
     }
-    function openQibla() {
+    let qiblaHeading = null;
+    let qiblaOrientationListening = false;
+    let qiblaOrientationAllowed = false;
+    function normalizeDegrees(value) {
+        return ((value % 360) + 360) % 360;
+    }
+    function qiblaTurnLabel(relative) {
+        const angle = Math.round(normalizeDegrees(relative));
+        if (angle <= 5 || angle >= 355) return 'Qibla is ahead.';
+        if (angle <= 180) return `Turn right ${angle}°.`;
+        return `Turn left ${360 - angle}°.`;
+    }
+    function headingFromOrientation(event) {
+        if (Number.isFinite(event.webkitCompassHeading)) return normalizeDegrees(event.webkitCompassHeading);
+        if (Number.isFinite(event.alpha)) return normalizeDegrees(360 - event.alpha);
+        return null;
+    }
+    function handleQiblaOrientation(event) {
+        const modal = $('#qibla-modal');
+        if (!modal?.classList.contains('open')) return;
+        const heading = headingFromOrientation(event);
+        if (!Number.isFinite(heading)) return;
+        qiblaHeading = heading;
+        renderQibla();
+    }
+    async function startQiblaOrientation() {
+        const status = $('#qibla-status');
+        if (!('DeviceOrientationEvent' in window)) {
+            if (status) status.textContent = 'Static bearing shown. Compass is unavailable on this device.';
+            return;
+        }
+        try {
+            if (typeof DeviceOrientationEvent.requestPermission === 'function' && !qiblaOrientationAllowed) {
+                const permission = await DeviceOrientationEvent.requestPermission();
+                qiblaOrientationAllowed = permission === 'granted';
+                if (!qiblaOrientationAllowed) {
+                    if (status) status.textContent = 'Static bearing shown. Motion access was not allowed.';
+                    return;
+                }
+            }
+            if (!qiblaOrientationListening) {
+                window.addEventListener('deviceorientationabsolute', handleQiblaOrientation, true);
+                window.addEventListener('deviceorientation', handleQiblaOrientation, true);
+                qiblaOrientationListening = true;
+            }
+            if (status) status.textContent = 'Compass ready.';
+        } catch(e) {
+            if (status) status.textContent = 'Static bearing shown. Compass access is unavailable here.';
+        }
+    }
+    function stopQiblaOrientation() {
+        if (!qiblaOrientationListening) return;
+        window.removeEventListener('deviceorientationabsolute', handleQiblaOrientation, true);
+        window.removeEventListener('deviceorientation', handleQiblaOrientation, true);
+        qiblaOrientationListening = false;
+    }
+    function renderQibla() {
         const coords = getCoords();
         let bearing = null;
         try {
             bearing = window.adhan ? adhan.Qibla(new adhan.Coordinates(coords.lat, coords.lng)) : null;
         } catch(e) {}
         if (Number.isFinite(bearing)) {
-            const rounded = Math.round(bearing);
+            const compassActive = Number.isFinite(qiblaHeading);
+            const relative = compassActive ? normalizeDegrees(bearing - qiblaHeading) : normalizeDegrees(bearing);
+            const rounded = Math.round(compassActive ? relative : bearing);
+            const northBearing = Math.round(bearing);
             setText('#qibla-bearing', `${rounded}°`);
-            setText('#qibla-sub', `${coords.label || 'Current location'} · face ${rounded}° from north toward Makkah.`);
+            setText(
+                '#qibla-sub',
+                compassActive
+                    ? `${coords.label || 'Current location'} · ${northBearing}° from north. ${qiblaTurnLabel(relative)}`
+                    : `${coords.label || 'Current location'} · face ${northBearing}° from north toward Makkah.`
+            );
             const needle = $('#qibla-needle');
-            if (needle) needle.style.transformOrigin = '85px 85px';
-            if (needle) needle.style.transform = `rotate(${bearing}deg)`;
+            if (needle) {
+                needle.style.transform = '';
+                needle.setAttribute('transform', `rotate(${relative} 85 85)`);
+            }
         } else {
             setText('#qibla-bearing', '—');
             setText('#qibla-sub', 'Choose a city or allow location first.');
+            setText('#qibla-status', '');
         }
+    }
+    function openQibla() {
+        const hasStoredLocation = !!getSavedCoords();
+        qiblaHeading = null;
+        renderQibla();
         $('#qibla-modal')?.classList.add('open');
+        startQiblaOrientation();
+        if (!hasStoredLocation) {
+            requestLocation({
+                statusSelector: '#qibla-status',
+                advanceOnboarding: false,
+                onSuccess: () => renderQibla(),
+                cityOptions: {
+                    onSelect: (city) => {
+                        setText('#qibla-status', `${city.label} selected.`);
+                        renderQibla();
+                    },
+                },
+            });
+        }
     }
     function closeQibla() {
         $('#qibla-modal')?.classList.remove('open');
+        stopQiblaOrientation();
     }
-    function openCityModal() {
+    function openCityModal(options = {}) {
         const list = $('#city-list');
         if (list) {
             list.innerHTML = CITIES.map((c, i) => `<button class="city-choice" data-city="${i}">${c.label}</button>`).join('');
@@ -5451,6 +5549,7 @@ window.RUH_VERSES = [
                     saveCoords(city);
                     closeCityModal();
                     updatePrayers();
+                    if (typeof options.onSelect === 'function') options.onSelect(city);
                     if (current === 's-ob2') transitionTo('s-ob3','right');
                 });
             });
@@ -5460,11 +5559,11 @@ window.RUH_VERSES = [
     function closeCityModal() {
         $('#city-modal')?.classList.remove('open');
     }
-    function requestLocation() {
-        const status = $('#loc-status');
+    function requestLocation(options = {}) {
+        const status = $(options.statusSelector || '#loc-status');
         if (!navigator.geolocation) {
             if (status) status.textContent = 'Location is unavailable here. Choose a city instead.';
-            openCityModal();
+            openCityModal(options.cityOptions || {});
             return;
         }
         if (status) status.textContent = 'Listening for your location...';
@@ -5477,10 +5576,13 @@ window.RUH_VERSES = [
             saveCoords(coords);
             if (status) status.textContent = 'Location saved.';
             updatePrayers();
-            setTimeout(() => transitionTo('s-ob3','right'), 250);
+            if (typeof options.onSuccess === 'function') options.onSuccess(coords);
+            if (options.advanceOnboarding !== false && current === 's-ob2') {
+                setTimeout(() => transitionTo('s-ob3','right'), 250);
+            }
         }, () => {
             if (status) status.textContent = 'No problem. Choose a city instead.';
-            openCityModal();
+            openCityModal(options.cityOptions || {});
         }, { enableHighAccuracy:false, timeout:9000, maximumAge:3600000 });
     }
     async function requestReminders() {
@@ -5609,6 +5711,27 @@ window.RUH_VERSES = [
             resetSalawatFocus();
         });
         $('#qibla-open')?.addEventListener('click', openQibla);
+        $('#qibla-location')?.addEventListener('click', () => {
+            requestLocation({
+                statusSelector: '#qibla-status',
+                advanceOnboarding: false,
+                onSuccess: () => renderQibla(),
+                cityOptions: {
+                    onSelect: (city) => {
+                        setText('#qibla-status', `${city.label} selected.`);
+                        renderQibla();
+                    },
+                },
+            });
+        });
+        $('#qibla-city')?.addEventListener('click', () => {
+            openCityModal({
+                onSelect: (city) => {
+                    setText('#qibla-status', `${city.label} selected.`);
+                    renderQibla();
+                },
+            });
+        });
         $('#qibla-close')?.addEventListener('click', closeQibla);
         $('#qibla-modal')?.addEventListener('click', (e) => {
             if (e.target.id === 'qibla-modal') closeQibla();
