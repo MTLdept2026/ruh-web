@@ -9,7 +9,7 @@
 <title>Ruh · Quranic Reflection</title>
 <script>
   (function () {
-    var APP_VERSION = '2026-05-20f';
+    var APP_VERSION = '2026-05-22a';
     var stored = localStorage.getItem('ruh-app-version');
     if (stored !== APP_VERSION) {
       localStorage.setItem('ruh-app-version', APP_VERSION);
@@ -34,11 +34,11 @@
     }
   })();
 </script>
-<link rel="manifest" href="ruh-manifest.json?v=2026-05-20f">
+<link rel="manifest" href="ruh-manifest.json?v=2026-05-22a">
 <meta name="theme-color" content="#0d0c0a" data-ruh-theme-color="default">
 <meta name="navigation-bar-color" content="#fff7ea">
 <meta name="color-scheme" content="light dark">
-<link rel="apple-touch-icon" href="ruh-apple-touch-icon.png?v=2026-05-20f">
+<link rel="apple-touch-icon" href="ruh-apple-touch-icon.png?v=2026-05-22a">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/web/icon-192.png">
 <link rel="stylesheet" href="vendor/fonts/google-fonts.css">
 <script src="vendor/adhan.min.js"></script>
@@ -137,6 +137,9 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:1px soli
 @keyframes page-resist{0%{transform:translateX(0) rotateY(0);filter:none}48%{transform:translateX(var(--page-x,10px)) rotateY(var(--page-r,2deg));filter:drop-shadow(-10px 8px 15px rgba(19,15,10,.06))}100%{transform:translateX(0) rotateY(0);filter:none}}
 @keyframes folio-turn{0%{opacity:0;transform:translateX(18px) rotateY(-7deg);filter:drop-shadow(-18px 12px 24px rgba(19,15,10,.08))}100%{opacity:1;transform:translateX(0) rotateY(0);filter:none}}
 @keyframes motif-breathe{0%,100%{opacity:.035;transform:translate(-50%,-50%) scale(1)}50%{opacity:.07;transform:translate(-50%,-50%) scale(1.018)}}
+@keyframes qibla-compass-throb{0%,100%{filter:drop-shadow(0 0 16px rgba(60,163,110,.30)) drop-shadow(0 0 4px rgba(60,163,110,.26))}50%{filter:drop-shadow(0 0 30px rgba(60,163,110,.62)) drop-shadow(0 0 10px rgba(60,163,110,.50))}}
+@keyframes qibla-ring-throb{0%,100%{opacity:.82;stroke-width:2.1}50%{opacity:1;stroke-width:3.2}}
+@keyframes qibla-signal-throb{0%,100%{background:rgba(60,163,110,.14);box-shadow:var(--inner-rule),0 0 0 2px rgba(60,163,110,.10),0 8px 22px rgba(45,122,86,.14)}50%{background:rgba(60,163,110,.24);box-shadow:var(--inner-rule),0 0 0 5px rgba(60,163,110,.18),0 10px 34px rgba(45,122,86,.24)}}
 
 
 /* ══════════════════════════════════════════
@@ -630,13 +633,13 @@ textarea.di-input::placeholder{color:var(--tx-30);font-style:italic}
 .qibla-panel{width:100%;background:linear-gradient(180deg,var(--surface-quiet),var(--bg));border:1px solid var(--gold-dim);padding:30px 24px;text-align:center;color:var(--tx);box-shadow:var(--inner-rule),var(--soft-shadow)}
 .qibla-kicker{font-family:'Cinzel',serif;font-size:7.5px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
 .qibla-compass{margin:8px auto 0;display:block;transition:filter 240ms var(--ease-out)}
-.qibla-compass.aligned{filter:drop-shadow(0 0 18px rgba(45,122,86,.2))}
-.qibla-align-ring{opacity:0;transition:opacity 240ms var(--ease-out),stroke 240ms var(--ease-out)}
-.qibla-compass.aligned .qibla-align-ring{opacity:.88;stroke:var(--emerald)}
+.qibla-compass.aligned{animation:qibla-compass-throb 1.45s ease-in-out infinite}
+.qibla-align-ring{opacity:0;transition:opacity 240ms var(--ease-out),stroke 240ms var(--ease-out),stroke-width 240ms var(--ease-out)}
+.qibla-compass.aligned .qibla-align-ring{opacity:1;stroke:#3ca36e;stroke-width:2.4;animation:qibla-ring-throb 1.45s ease-in-out infinite}
 .qibla-bearing{font-family:'Cinzel',serif;font-size:58px;color:var(--tx);line-height:1;margin:22px 0 8px}
 .qibla-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;line-height:1.5;color:var(--mist)}
-.qibla-signal{display:inline-flex;align-items:center;justify-content:center;min-height:28px;margin-top:14px;padding:0 14px;border:1px solid var(--tx-06);border-radius:999px;font-family:'Cinzel',serif;font-size:7.8px;letter-spacing:.19em;text-transform:uppercase;color:var(--mist);background:var(--surface-wash);box-shadow:var(--inner-rule);transition:color 240ms var(--ease-out),border-color 240ms var(--ease-out),background 240ms var(--ease-out),opacity 240ms var(--ease-out)}
-.qibla-signal.aligned{color:var(--emerald);border-color:rgba(45,122,86,.42);background:rgba(45,122,86,.08)}
+.qibla-signal{display:inline-flex;align-items:center;justify-content:center;min-height:28px;margin-top:14px;padding:0 14px;border:1px solid var(--tx-06);border-radius:999px;font-family:'Cinzel',serif;font-size:7.8px;letter-spacing:.19em;text-transform:uppercase;color:var(--mist);background:var(--surface-wash);box-shadow:var(--inner-rule);transition:color 240ms var(--ease-out),border-color 240ms var(--ease-out),background 240ms var(--ease-out),box-shadow 240ms var(--ease-out),opacity 240ms var(--ease-out)}
+.qibla-signal.aligned{color:#2f8c62;border-color:rgba(60,163,110,.72);background:rgba(60,163,110,.16);box-shadow:var(--inner-rule),0 0 0 3px rgba(60,163,110,.12),0 8px 26px rgba(45,122,86,.16);animation:qibla-signal-throb 1.45s ease-in-out infinite}
 .qibla-status{min-height:18px;margin-top:10px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--mist-lt);line-height:1.35}
 .qibla-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
 .qibla-actions .btn-rim{flex:1;min-width:132px;width:auto;padding:13px 12px}
@@ -1555,6 +1558,7 @@ function hapticBead()     { try { navigator.vibrate([5,18,7]);  } catch(e) {} }
 function hapticPageTurn() { try { navigator.vibrate([4,22,9]);  } catch(e) {} }
 function hapticLight()    { try { navigator.vibrate(4);         } catch(e) {} }
 function hapticMilestone(){ try { navigator.vibrate([8,35,13]); } catch(e) {} }
+function hapticQiblaAligned(){ try { navigator.vibrate([12,42,18]); } catch(e) {} }
 
 function showCounterMessage(title, detail) {
     const toast = document.getElementById('counter-toast');
@@ -3615,7 +3619,7 @@ window.RUH_VERSES = [
 </script>
 <script id="ruh-v2-app">
 (function () {
-    const VERSION = '2026-05-20f';
+    const VERSION = '2026-05-22a';
     const $ = (sel) => document.querySelector(sel);
     const $$ = (sel) => Array.from(document.querySelectorAll(sel));
     const AR_NAMES = { Fajr:'الفجر', Dhuhr:'الظهر', Asr:'العصر', Maghrib:'المغرب', Isha:'العشاء' };
@@ -5444,6 +5448,8 @@ window.RUH_VERSES = [
     let qiblaLastHeadingAt = 0;
     let qiblaOrientationListening = false;
     let qiblaOrientationAllowed = false;
+    let qiblaWasAligned = false;
+    let qiblaLastAlignedHapticAt = 0;
     function normalizeDegrees(value) {
         return ((value % 360) + 360) % 360;
     }
@@ -5455,6 +5461,14 @@ window.RUH_VERSES = [
         if (!signal) return;
         signal.textContent = text;
         signal.classList.toggle('aligned', aligned);
+    }
+    function handleQiblaAlignmentFeedback(aligned) {
+        const now = Date.now();
+        if (aligned && !qiblaWasAligned && now - qiblaLastAlignedHapticAt > 1400) {
+            hapticQiblaAligned();
+            qiblaLastAlignedHapticAt = now;
+        }
+        qiblaWasAligned = aligned;
     }
     function qiblaTurnLabel(relative) {
         const angle = Math.round(normalizeDegrees(relative));
@@ -5548,6 +5562,7 @@ window.RUH_VERSES = [
                     ? `${coords.label || 'Current location'} · ${northBearing}° from north. ${qiblaTurnLabel(relative)}`
                     : `${coords.label || 'Current location'} · face ${northBearing}° from north toward Makkah.`
             );
+            handleQiblaAlignmentFeedback(aligned);
             setQiblaSignal(compassActive ? (aligned ? 'Facing Qibla' : 'Keep Turning') : 'Use Compass', aligned);
             $('#qibla-compass')?.classList.toggle('aligned', aligned);
             const needle = $('#qibla-needle');
@@ -5558,6 +5573,7 @@ window.RUH_VERSES = [
         } else {
             setText('#qibla-bearing', '—');
             setText('#qibla-sub', 'Choose a city or allow location first.');
+            handleQiblaAlignmentFeedback(false);
             setQiblaSignal('Awaiting Location', false);
             $('#qibla-compass')?.classList.remove('aligned');
             setText('#qibla-status', '');
@@ -5569,6 +5585,8 @@ window.RUH_VERSES = [
         qiblaHeadingSource = null;
         qiblaHeadingPriority = 0;
         qiblaLastHeadingAt = 0;
+        qiblaWasAligned = false;
+        qiblaLastAlignedHapticAt = 0;
         renderQibla();
         $('#qibla-modal')?.classList.add('open');
         startQiblaOrientation();
@@ -5589,6 +5607,7 @@ window.RUH_VERSES = [
     function closeQibla() {
         $('#qibla-modal')?.classList.remove('open');
         stopQiblaOrientation();
+        qiblaWasAligned = false;
     }
     function openCityModal(options = {}) {
         const list = $('#city-list');
