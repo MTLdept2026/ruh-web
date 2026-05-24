@@ -4544,38 +4544,50 @@ window.RUH_VERSES = [
             hapticLight();
         }
     }
-    async function showPrayerNotification(prayer) {
+    function prayerNotificationPayload(kind, prayer) {
+        const isExact = kind === 'exact';
+        const id = prayerReminderId(kind, prayer);
+        return {
+            id,
+            title: isExact ? `${prayer.name} has entered` : `10 minutes to ${prayer.name}`,
+            body: isExact
+                ? `Make space for ${prayer.name}.`
+                : `A gentle nudge to begin preparing for ${prayer.name}. Wudu, quiet, then prayer.`,
+            screen: 'prayers',
+            tag: `ruh-${id}`,
+            url: `/?screen=prayers&reminder=${encodeURIComponent(id)}`,
+        };
+    }
+    async function showPrayerNotification(kind, prayer) {
         if (!('Notification' in window) || Notification.permission !== 'granted') return;
-        const title = `${prayer.name} has entered`;
+        const payload = prayerNotificationPayload(kind, prayer);
         const options = {
-            body: `Make space for ${prayer.name}.`,
+            body: payload.body,
             icon: '/icons/web/icon-192.png',
             badge: '/icons/web/icon-192.png',
-            tag: `ruh-prayer-${prayerReminderId('exact', prayer)}`,
+            tag: payload.tag,
             renotify: true,
-            data: { url:'/?screen=prayers', screen:'prayers' },
+            data: { url:payload.url, screen:payload.screen, reminderId:payload.id },
         };
         try {
             if ('serviceWorker' in navigator) {
                 const reg = await navigator.serviceWorker.ready;
-                await reg.showNotification(title, options);
+                await reg.showNotification(payload.title, options);
             } else {
-                new Notification(title, options);
+                new Notification(payload.title, options);
             }
         } catch(e) {}
     }
     function firePrayerReminder(kind, prayer) {
         if (!prayer || reminderWasFired(kind, prayer)) return;
         if (current === 's-launch' || current === 's-welcome' || current.startsWith('s-ob')) {
-            if (kind === 'exact') {
-                markReminderFired(kind, prayer);
-                showPrayerNotification(prayer);
-            }
+            markReminderFired(kind, prayer);
+            showPrayerNotification(kind, prayer);
             return;
         }
         markReminderFired(kind, prayer);
         showPrayerReminderCard(kind, prayer);
-        if (kind === 'exact') showPrayerNotification(prayer);
+        showPrayerNotification(kind, prayer);
     }
     function upcomingPrayerEvents(result) {
         if (!result) return [];
@@ -4615,6 +4627,26 @@ window.RUH_VERSES = [
         if (current === 's-launch' || current.startsWith('s-ob') || current === 's-welcome') return;
         transitionTo(target, 'fade');
     }
+    function isAppleMobileDevice() {
+        return /iPad|iPhone|iPod/.test(navigator.userAgent)
+            || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    }
+    function isStandaloneApp() {
+        return window.matchMedia('(display-mode: standalone)').matches || !!navigator.standalone;
+    }
+    function pushUnavailableMessage() {
+        if (isAppleMobileDevice() && !isStandaloneApp()) {
+            return 'On iPhone and iPad, add Ruh to the Home Screen first, then open it there to enable phone notifications.';
+        }
+        if (location.protocol === 'file:') return 'Phone notifications need the hosted app, not the local file preview.';
+        return 'Phone notifications are unavailable here. Ruh can still remind you while the app is open.';
+    }
+    function canUsePrayerPush() {
+        return 'serviceWorker' in navigator
+            && 'PushManager' in window
+            && location.protocol !== 'file:'
+            && (!isAppleMobileDevice() || isStandaloneApp());
+    }
     function urlBase64ToUint8Array(base64String) {
         const padding = '='.repeat((4 - base64String.length % 4) % 4);
         const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
@@ -4627,27 +4659,29 @@ window.RUH_VERSES = [
         upcomingPrayerEvents(result).forEach(prayer => {
             const prepId = prayerReminderId('prep', prayer);
             const exactId = prayerReminderId('exact', prayer);
+            const prepPayload = prayerNotificationPayload('prep', prayer);
+            const exactPayload = prayerNotificationPayload('exact', prayer);
             const prepAt = prayer.time - 10 * 60 * 1000;
             if (prepAt > now + 30000) {
                 reminders.push({
                     id: prepId,
-                    title: `10 minutes to ${prayer.name}`,
-                    body: 'Begin to make room for prayer.',
+                    title: prepPayload.title,
+                    body: prepPayload.body,
                     timeMs: prepAt,
-                    screen: 'prayers',
-                    tag: `ruh-${prepId}`,
-                    url: `/?screen=prayers&reminder=${encodeURIComponent(prepId)}`,
+                    screen: prepPayload.screen,
+                    tag: prepPayload.tag,
+                    url: prepPayload.url,
                 });
             }
             if (prayer.time > now + 30000) {
                 reminders.push({
                     id: exactId,
-                    title: `${prayer.name} has entered`,
-                    body: `Make space for ${prayer.name}.`,
+                    title: exactPayload.title,
+                    body: exactPayload.body,
                     timeMs: prayer.time,
-                    screen: 'prayers',
-                    tag: `ruh-${exactId}`,
-                    url: `/?screen=prayers&reminder=${encodeURIComponent(exactId)}`,
+                    screen: exactPayload.screen,
+                    tag: exactPayload.tag,
+                    url: exactPayload.url,
                 });
             }
         });
@@ -4656,7 +4690,10 @@ window.RUH_VERSES = [
     async function syncPushReminders(result, options = {}) {
         if (!result || localStorage.getItem('ruh_prayer_notifications_enabled') !== '1') return;
         if (!('Notification' in window) || Notification.permission !== 'granted') return;
-        if (!('serviceWorker' in navigator) || !('PushManager' in window) || location.protocol === 'file:') return;
+        if (!canUsePrayerPush()) {
+            setText('#reminder-status', pushUnavailableMessage());
+            return;
+        }
         const reminders = buildPushReminders(result);
         const signature = reminders.map(r => `${r.id}:${r.timeMs}`).join('|');
         if (!options.force && signature && signature === lastPushReminderSignature) return;
@@ -4664,7 +4701,7 @@ window.RUH_VERSES = [
         try {
             const config = await fetch('/.netlify/functions/push-config', { cache:'no-store' }).then(r => r.json());
             if (!config?.configured || !config?.vapidPublicKey) {
-                setText('#reminder-status', 'Reminders allowed while Ruh is open.');
+                setText('#reminder-status', 'Phone reminders need Web Push setup. Ruh can remind you while open.');
                 return;
             }
             const reg = await navigator.serviceWorker.ready;
@@ -4686,13 +4723,13 @@ window.RUH_VERSES = [
                     origin: location.origin,
                     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
                     locationLabel: getCoords().label || '',
-                    standalone: window.matchMedia('(display-mode: standalone)').matches || !!navigator.standalone,
+                    standalone: isStandaloneApp(),
                     platform: { userAgent:navigator.userAgent, language:navigator.language },
                 }),
             });
             setText('#reminder-status', 'Prayer reminders are ready.');
         } catch(e) {
-            setText('#reminder-status', 'Reminders allowed while Ruh is open.');
+            setText('#reminder-status', 'Phone reminders need Web Push setup. Ruh can remind you while open.');
         }
     }
     function arcPoint(progress) {
@@ -5660,6 +5697,10 @@ window.RUH_VERSES = [
         try {
             if (!('Notification' in window)) {
                 if (status) status.textContent = 'Reminders are not supported here.';
+            } else if (!canUsePrayerPush()) {
+                localStorage.setItem('ruh_prayer_notifications_enabled', '0');
+                if (status) status.textContent = pushUnavailableMessage();
+                return;
             } else {
                 const result = await Notification.requestPermission();
                 localStorage.setItem('ruh_prayer_notifications_enabled', result === 'granted' ? '1' : '0');
