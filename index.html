@@ -9,7 +9,7 @@
 <title>Ruh · Quranic Reflection</title>
 <script>
   (function () {
-    var APP_VERSION = '2026-05-22a';
+    var APP_VERSION = '2026-05-24a';
     var stored = localStorage.getItem('ruh-app-version');
     if (stored !== APP_VERSION) {
       localStorage.setItem('ruh-app-version', APP_VERSION);
@@ -34,11 +34,11 @@
     }
   })();
 </script>
-<link rel="manifest" href="ruh-manifest.json?v=2026-05-22a">
+<link rel="manifest" href="ruh-manifest.json?v=2026-05-24a">
 <meta name="theme-color" content="#0d0c0a" data-ruh-theme-color="default">
 <meta name="navigation-bar-color" content="#fff7ea">
 <meta name="color-scheme" content="light dark">
-<link rel="apple-touch-icon" href="ruh-apple-touch-icon.png?v=2026-05-22a">
+<link rel="apple-touch-icon" href="ruh-apple-touch-icon.png?v=2026-05-24a">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/web/icon-192.png">
 <link rel="stylesheet" href="vendor/fonts/google-fonts.css">
 <script src="vendor/adhan.min.js"></script>
@@ -3619,7 +3619,7 @@ window.RUH_VERSES = [
 </script>
 <script id="ruh-v2-app">
 (function () {
-    const VERSION = '2026-05-22a';
+    const VERSION = '2026-05-24a';
     const $ = (sel) => document.querySelector(sel);
     const $$ = (sel) => Array.from(document.querySelectorAll(sel));
     const AR_NAMES = { Fajr:'الفجر', Dhuhr:'الظهر', Asr:'العصر', Maghrib:'المغرب', Isha:'العشاء' };
@@ -4019,30 +4019,80 @@ window.RUH_VERSES = [
     function recentVerseHistory() {
         const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
         return readJSON('ruh_recent_verse_history', [])
-            .filter(item => item && Number(item.at) >= weekAgo && Number.isInteger(item.index));
+            .map(item => {
+                if (Number.isInteger(item)) return { index:item, at:0, ref:verseMoodKey((window.RUH_VERSES || [])[item]) };
+                if (!item || !Number.isInteger(item.index)) return null;
+                return {
+                    index:item.index,
+                    at:Number(item.at) || 0,
+                    ref:item.ref || verseMoodKey((window.RUH_VERSES || [])[item.index]),
+                };
+            })
+            .filter(item => item && Number(item.at) >= weekAgo);
     }
     function rememberVerseIndex(index) {
-        const history = recentVerseHistory().filter(item => item.index !== index);
-        saveJSON('ruh_recent_verse_history', [...history, { index, at: Date.now() }].slice(-80));
+        const verses = window.RUH_VERSES || [];
+        const ref = verseMoodKey(verses[index]);
+        const history = recentVerseHistory().filter(item => item.index !== index && item.ref !== ref);
+        saveJSON('ruh_recent_verse_history', [...history, { index, ref, at: Date.now() }].slice(-80));
+    }
+    function moodVerseHistory(key) {
+        const monthAgo = Date.now() - 30 * 24 * 60 * 60 * 1000;
+        const verses = window.RUH_VERSES || [];
+        return readJSON(`ruh_mood_history_${key}`, [])
+            .map(item => {
+                if (Number.isInteger(item)) return { index:item, ref:verseMoodKey(verses[item]), at:0 };
+                if (!item || !Number.isInteger(item.index)) return null;
+                return {
+                    index:item.index,
+                    ref:item.ref || verseMoodKey(verses[item.index]),
+                    at:Number(item.at) || 0,
+                };
+            })
+            .filter(item => item && (!item.at || item.at >= monthAgo));
+    }
+    function rememberMoodVerseIndex(key, index) {
+        const verses = window.RUH_VERSES || [];
+        const ref = verseMoodKey(verses[index]);
+        const history = moodVerseHistory(key).filter(item => item.index !== index && item.ref !== ref);
+        saveJSON(`ruh_mood_history_${key}`, [...history, { index, ref, at:Date.now() }].slice(-60));
+    }
+    function indicesForVerseRef(ref) {
+        const verses = window.RUH_VERSES || [];
+        return verses
+            .map((item, index) => verseMoodKey(item) === ref ? index : -1)
+            .filter(index => index >= 0);
     }
     function pickMoodVerseIndex(key) {
         const verses = window.RUH_VERSES || [];
         if (!verses.length) return 0;
         const refs = MOOD_VERSE_MAP[key] || [];
         const pool = refs
-            .map(ref => verses.findIndex(item => verseMoodKey(item) === ref))
-            .filter(index => index >= 0);
+            .flatMap(indicesForVerseRef)
+            .filter((index, position, list) => list.indexOf(index) === position);
         const choices = pool.length ? pool : verses.map((_, index) => index);
-        const historyKey = `ruh_mood_history_${key}`;
-        const history = readJSON(historyKey, []);
-        const recent = recentVerseHistory().map(item => item.index);
-        let fresh = choices.filter(index => !history.includes(index) && !recent.includes(index));
-        if (!fresh.length) fresh = verses.map((_, index) => index).filter(index => !recent.includes(index));
-        if (!fresh.length) fresh = choices.filter(index => !history.includes(index));
+        const history = moodVerseHistory(key);
+        const historyRefs = new Set(history.map(item => item.ref).filter(Boolean));
+        const recent = recentVerseHistory();
+        const recentRefs = new Set(recent.map(item => item.ref).filter(Boolean));
+        const currentRef = verseMoodKey(verse);
+        let fresh = choices.filter(index => {
+            const ref = verseMoodKey(verses[index]);
+            return ref !== currentRef && !historyRefs.has(ref) && !recentRefs.has(ref);
+        });
+        if (!fresh.length) {
+            fresh = choices.filter(index => {
+                const ref = verseMoodKey(verses[index]);
+                return ref !== currentRef && !recentRefs.has(ref);
+            });
+        }
+        if (!fresh.length) {
+            fresh = choices.filter(index => verseMoodKey(verses[index]) !== currentRef);
+        }
         if (!fresh.length) fresh = choices;
-        const seed = seedFor(new Date()) + Math.floor(Date.now() / 60000) + key.length + recent.length * 17;
+        const seed = seedFor(new Date()) + Math.floor(Date.now() / 60000) + key.length + recent.length * 17 + history.length * 31;
         const picked = fresh[Math.abs(seed) % fresh.length];
-        saveJSON(historyKey, [...history.filter(index => index !== picked).slice(-20), picked]);
+        rememberMoodVerseIndex(key, picked);
         rememberVerseIndex(picked);
         return picked;
     }
