@@ -4646,6 +4646,21 @@ window.RUH_VERSES = [
         return [...result.prayers, ...((tomorrow && tomorrow.prayers) || [])]
             .filter(p => p.time > now - 60000 && p.time < now + 30 * 60 * 60 * 1000);
     }
+    function pushPrayerEvents(result, days = 30) {
+        if (!result) return [];
+        const now = Date.now();
+        const horizon = now + days * 24 * 60 * 60 * 1000;
+        const coords = getCoords();
+        const events = [];
+        for (let offset = 0; offset < days; offset += 1) {
+            const date = new Date(now + offset * 24 * 60 * 60 * 1000);
+            const dayResult = offset === 0 ? result : calculatePrayers(coords, date);
+            if (dayResult?.prayers?.length) events.push(...dayResult.prayers);
+        }
+        return events
+            .filter(p => p.time > now + 30000 && p.time < horizon)
+            .sort((a, b) => a.time - b.time);
+    }
     function schedulePrayerReminderCards(result) {
         prayerReminderTimers.forEach(clearTimeout);
         prayerReminderTimers = [];
@@ -4706,7 +4721,7 @@ window.RUH_VERSES = [
     function buildPushReminders(result) {
         const now = Date.now();
         const reminders = [];
-        upcomingPrayerEvents(result).forEach(prayer => {
+        pushPrayerEvents(result).forEach(prayer => {
             const prepId = prayerReminderId('prep', prayer);
             const exactId = prayerReminderId('exact', prayer);
             const prepPayload = prayerNotificationPayload('prep', prayer);
@@ -4746,10 +4761,11 @@ window.RUH_VERSES = [
         }
         const reminders = buildPushReminders(result);
         const signature = reminders.map(r => `${r.id}:${r.timeMs}`).join('|');
-        if (!options.force && signature && signature === lastPushReminderSignature) return;
-        lastPushReminderSignature = signature;
+        if (!options.force && signature === lastPushReminderSignature) return;
         try {
-            const config = await fetch('/.netlify/functions/push-config', { cache:'no-store' }).then(r => r.json());
+            const configResponse = await fetch('/.netlify/functions/push-config', { cache:'no-store' });
+            if (!configResponse.ok) throw new Error(`Push config failed: ${configResponse.status}`);
+            const config = await configResponse.json();
             if (!config?.configured || !config?.vapidPublicKey) {
                 setText('#reminder-status', 'Phone reminders need Web Push setup. Ruh can remind you while open.');
                 return;
@@ -4762,7 +4778,7 @@ window.RUH_VERSES = [
                     applicationServerKey: urlBase64ToUint8Array(config.vapidPublicKey),
                 });
             }
-            await fetch('/.netlify/functions/push-subscription', {
+            const subscriptionResponse = await fetch('/.netlify/functions/push-subscription', {
                 method: 'POST',
                 headers: { 'content-type':'application/json' },
                 body: JSON.stringify({
@@ -4777,8 +4793,14 @@ window.RUH_VERSES = [
                     platform: { userAgent:navigator.userAgent, language:navigator.language },
                 }),
             });
+            if (!subscriptionResponse.ok) throw new Error(`Push subscription failed: ${subscriptionResponse.status}`);
+            const subscriptionResult = await subscriptionResponse.json().catch(() => null);
+            if (!subscriptionResult?.ok) throw new Error(subscriptionResult?.error || 'Push subscription was not accepted.');
+            lastPushReminderSignature = signature;
             setText('#reminder-status', 'Prayer reminders are ready.');
         } catch(e) {
+            lastPushReminderSignature = '';
+            console.warn('Prayer reminder sync failed', e);
             setText('#reminder-status', 'Phone reminders need Web Push setup. Ruh can remind you while open.');
         }
     }
