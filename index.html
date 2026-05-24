@@ -263,6 +263,24 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:1px soli
 .pr-countdown{margin-top:18px;padding-top:17px;border-top:1px solid var(--tx-06);display:flex;align-items:baseline;justify-content:space-between;gap:22px}
 .pr-countdown-label{font-family:'Cinzel',serif;font-size:8px;letter-spacing:.24em;text-transform:uppercase;color:var(--mist-lt)}
 .pr-countdown-time{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);text-align:right}
+.pr-reminder-panel{margin-top:14px;padding-top:12px;border-top:1px solid var(--tx-06);display:grid;gap:10px}
+.pr-reminder-toggle,.pr-prep-toggle{width:100%;border:0;background:transparent;color:inherit;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.pr-reminder-copy{min-width:0}
+.pr-reminder-k{font-family:'Cinzel',serif;font-size:7.8px;letter-spacing:.24em;text-transform:uppercase;color:var(--mist-lt);transition:color 280ms var(--ease-premium)}
+.pr-reminder-status{margin-top:4px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13.5px;line-height:1.35;color:var(--tx-55);transition:color 280ms var(--ease-premium)}
+.pr-reminder-switch{position:relative;width:42px;height:24px;border:1px solid var(--tx-12);border-radius:999px;background:var(--surface-wash);box-shadow:var(--inner-rule);transition:background 280ms var(--ease-premium),border-color 280ms var(--ease-premium)}
+.pr-reminder-switch::after{content:'';position:absolute;left:4px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--mist-lt);transition:transform 280ms var(--ease-premium),background 280ms var(--ease-premium)}
+.pr-prep-toggle{padding-top:2px;opacity:.88}
+.pr-prep-toggle:disabled{opacity:.38;cursor:default}
+.pr-prep-toggle .pr-reminder-k{font-size:7px;letter-spacing:.2em}
+.pr-prep-toggle .pr-reminder-status{font-size:12.5px}
+.pr-prep-toggle .pr-reminder-switch{width:34px;height:20px}
+.pr-prep-toggle .pr-reminder-switch::after{width:12px;height:12px}
+.pr-reminder-toggle.on .pr-reminder-k,.pr-reminder-toggle.on .pr-reminder-status,.pr-prep-toggle.on .pr-reminder-k,.pr-prep-toggle.on .pr-reminder-status{color:var(--gold)}
+.pr-reminder-toggle.on .pr-reminder-switch,.pr-prep-toggle.on .pr-reminder-switch{border-color:var(--gold-dim);background:color-mix(in srgb,var(--gold-dim) 62%,transparent)}
+.pr-reminder-toggle.on .pr-reminder-switch::after{transform:translateX(18px);background:var(--gold)}
+.pr-prep-toggle.on .pr-reminder-switch::after{transform:translateX(14px);background:var(--gold)}
+.pr-reminder-toggle:focus-visible,.pr-prep-toggle:focus-visible{outline:1px solid var(--gold-dim);outline-offset:4px}
 .arc-wrap{flex-shrink:0;padding:4px 28px 12px}
 .pr-list{flex:1;overflow:hidden;padding:0 32px;display:flex;flex-direction:column;justify-content:center}
 .pr-row{display:flex;align-items:center;justify-content:space-between;padding:17px 0;border-bottom:1px solid var(--tx-06);position:relative;transition:opacity 300ms ease,border-color 1200ms ease}
@@ -1142,6 +1160,22 @@ textarea.di-input::placeholder{color:var(--tx-30);font-style:italic}
         <div class="pr-countdown">
             <div class="pr-countdown-label">Next Prayer</div>
             <div class="pr-countdown-time" id="pr-next">Asr · 2h 14m</div>
+        </div>
+        <div class="pr-reminder-panel">
+            <button class="pr-reminder-toggle" id="pr-reminder-toggle" type="button" aria-pressed="false">
+                <span class="pr-reminder-copy">
+                    <span class="pr-reminder-k">Phone Reminders</span>
+                    <span class="pr-reminder-status" id="pr-reminder-status">Not enabled</span>
+                </span>
+                <span class="pr-reminder-switch" aria-hidden="true"></span>
+            </button>
+            <button class="pr-prep-toggle" id="pr-prep-toggle" type="button" aria-pressed="true">
+                <span class="pr-reminder-copy">
+                    <span class="pr-reminder-k">10 Min Before</span>
+                    <span class="pr-reminder-status" id="pr-prep-status">On when reminders are on</span>
+                </span>
+                <span class="pr-reminder-switch" aria-hidden="true"></span>
+            </button>
         </div>
     </div>
     <div class="arc-wrap" id="arc-wrap">
@@ -4561,6 +4595,39 @@ window.RUH_VERSES = [
     function markReminderFired(kind, prayer) {
         try { localStorage.setItem(`ruh_prayer_reminder_${prayerReminderId(kind, prayer)}`, '1'); } catch(e) {}
     }
+    function prayerRemindersEnabled() {
+        return localStorage.getItem('ruh_prayer_notifications_enabled') === '1'
+            && 'Notification' in window
+            && Notification.permission === 'granted';
+    }
+    function prepRemindersEnabled() {
+        return localStorage.getItem('ruh_prayer_prep_notifications_enabled') !== '0';
+    }
+    function setReminderStatus(message) {
+        setText('#reminder-status', message);
+        setText('#pr-reminder-status', message);
+    }
+    function updatePrayerReminderControls(message) {
+        const canPush = canUsePrayerPush();
+        const enabled = prayerRemindersEnabled() && canPush;
+        const prepEnabled = prepRemindersEnabled();
+        const main = $('#pr-reminder-toggle');
+        const prep = $('#pr-prep-toggle');
+        main?.classList.toggle('on', enabled);
+        main?.setAttribute('aria-pressed', enabled ? 'true' : 'false');
+        prep?.classList.toggle('on', enabled && prepEnabled);
+        prep?.setAttribute('aria-pressed', enabled && prepEnabled ? 'true' : 'false');
+        prep?.toggleAttribute('disabled', !enabled);
+        if (message) setReminderStatus(message);
+        else if (enabled) setReminderStatus('Prayer-time notifications are on.');
+        else if ('Notification' in window && Notification.permission === 'denied') setReminderStatus('Notifications are blocked in phone settings.');
+        else if (!canPush) setReminderStatus(pushUnavailableMessage());
+        else setReminderStatus('Not enabled');
+        setText(
+            '#pr-prep-status',
+            !enabled ? 'Available after phone reminders.' : (prepEnabled ? '10-minute heads-up is on.' : 'Only at prayer time.')
+        );
+    }
     function dismissPrayerReminderCard() {
         const card = $('#prayer-reminder-card');
         if (!card) return;
@@ -4669,9 +4736,9 @@ window.RUH_VERSES = [
             const prepAt = prayer.time - 10 * 60 * 1000;
             const prepDelay = prepAt - now;
             const exactDelay = prayer.time - now;
-            if (prepDelay > 0 && prepDelay < 30 * 60 * 60 * 1000) {
+            if (prepRemindersEnabled() && prepDelay > 0 && prepDelay < 30 * 60 * 60 * 1000) {
                 prayerReminderTimers.push(setTimeout(() => firePrayerReminder('prep', prayer), prepDelay));
-            } else if (prepDelay <= 0 && exactDelay > 0 && !reminderWasFired('prep', prayer)) {
+            } else if (prepRemindersEnabled() && prepDelay <= 0 && exactDelay > 0 && !reminderWasFired('prep', prayer)) {
                 firePrayerReminder('prep', prayer);
             }
             if (exactDelay > 0 && exactDelay < 30 * 60 * 60 * 1000) {
@@ -4727,7 +4794,7 @@ window.RUH_VERSES = [
             const prepPayload = prayerNotificationPayload('prep', prayer);
             const exactPayload = prayerNotificationPayload('exact', prayer);
             const prepAt = prayer.time - 10 * 60 * 1000;
-            if (prepAt > now + 30000) {
+            if (prepRemindersEnabled() && prepAt > now + 30000) {
                 reminders.push({
                     id: prepId,
                     title: prepPayload.title,
@@ -4756,7 +4823,7 @@ window.RUH_VERSES = [
         if (!result || localStorage.getItem('ruh_prayer_notifications_enabled') !== '1') return;
         if (!('Notification' in window) || Notification.permission !== 'granted') return;
         if (!canUsePrayerPush()) {
-            setText('#reminder-status', pushUnavailableMessage());
+            updatePrayerReminderControls(pushUnavailableMessage());
             return;
         }
         const reminders = buildPushReminders(result);
@@ -4767,7 +4834,7 @@ window.RUH_VERSES = [
             if (!configResponse.ok) throw new Error(`Push config failed: ${configResponse.status}`);
             const config = await configResponse.json();
             if (!config?.configured || !config?.vapidPublicKey) {
-                setText('#reminder-status', 'Phone reminders need Web Push setup. Ruh can remind you while open.');
+                updatePrayerReminderControls('Phone reminders need Web Push setup.');
                 return;
             }
             const reg = await navigator.serviceWorker.ready;
@@ -4797,12 +4864,46 @@ window.RUH_VERSES = [
             const subscriptionResult = await subscriptionResponse.json().catch(() => null);
             if (!subscriptionResult?.ok) throw new Error(subscriptionResult?.error || 'Push subscription was not accepted.');
             lastPushReminderSignature = signature;
-            setText('#reminder-status', 'Prayer reminders are ready.');
+            updatePrayerReminderControls('Prayer reminders are ready.');
         } catch(e) {
             lastPushReminderSignature = '';
             console.warn('Prayer reminder sync failed', e);
-            setText('#reminder-status', 'Phone reminders need Web Push setup. Ruh can remind you while open.');
+            updatePrayerReminderControls('Phone reminders need Web Push setup.');
         }
+    }
+    async function disablePushReminders() {
+        localStorage.setItem('ruh_prayer_notifications_enabled', '0');
+        lastPushReminderSignature = '';
+        updatePrayerReminderControls('Reminders are off.');
+        try {
+            if (!canUsePrayerPush()) return;
+            const reg = await navigator.serviceWorker.ready;
+            const subscription = await reg.pushManager.getSubscription();
+            if (!subscription) return;
+            await fetch('/.netlify/functions/push-subscription', {
+                method: 'DELETE',
+                headers: { 'content-type':'application/json' },
+                body: JSON.stringify({ subscription: subscription.toJSON() }),
+            });
+        } catch(e) {
+            console.warn('Prayer reminder unsubscribe failed', e);
+        }
+    }
+    async function handlePrayerReminderToggle() {
+        if (prayerRemindersEnabled()) {
+            await disablePushReminders();
+            return;
+        }
+        await requestReminders({ advanceOnboarding:false });
+    }
+    function handlePrepReminderToggle() {
+        if (!prayerRemindersEnabled()) return;
+        const nextEnabled = !prepRemindersEnabled();
+        localStorage.setItem('ruh_prayer_prep_notifications_enabled', nextEnabled ? '1' : '0');
+        lastPushReminderSignature = '';
+        schedulePrayerReminderCards(prayerResult);
+        updatePrayerReminderControls(nextEnabled ? '10-minute heads-up is on.' : 'Only prayer-time reminders are on.');
+        syncPushReminders(prayerResult, { force:true });
     }
     function arcPoint(progress) {
         const t = Math.max(0, Math.min(1, progress));
@@ -4912,6 +5013,7 @@ window.RUH_VERSES = [
         setText('#pr-next', nextPrayerChip());
         schedulePrayerReminderCards(prayerResult);
         syncPushReminders(prayerResult);
+        updatePrayerReminderControls();
         refreshFajrDailyCounters();
     }
     function diaryEntryKey(date = selectedDiaryDate) {
@@ -5764,25 +5866,24 @@ window.RUH_VERSES = [
             openCityModal(options.cityOptions || {});
         }, { enableHighAccuracy:false, timeout:9000, maximumAge:3600000 });
     }
-    async function requestReminders() {
-        const status = $('#reminder-status');
+    async function requestReminders(options = {}) {
         try {
             if (!('Notification' in window)) {
-                if (status) status.textContent = 'Reminders are not supported here.';
+                updatePrayerReminderControls('Reminders are not supported here.');
             } else if (!canUsePrayerPush()) {
                 localStorage.setItem('ruh_prayer_notifications_enabled', '0');
-                if (status) status.textContent = pushUnavailableMessage();
+                updatePrayerReminderControls(pushUnavailableMessage());
                 return;
             } else {
                 const result = await Notification.requestPermission();
                 localStorage.setItem('ruh_prayer_notifications_enabled', result === 'granted' ? '1' : '0');
-                if (status) status.textContent = result === 'granted' ? 'Preparing prayer reminders...' : 'No reminders for now.';
+                updatePrayerReminderControls(result === 'granted' ? 'Preparing prayer reminders...' : 'No reminders for now.');
                 if (result === 'granted') await syncPushReminders(prayerResult, { force:true });
             }
         } catch(e) {
-            if (status) status.textContent = 'No reminders for now.';
+            updatePrayerReminderControls('No reminders for now.');
         }
-        setTimeout(() => transitionTo('s-ob4','right'), 250);
+        if (options.advanceOnboarding !== false) setTimeout(() => transitionTo('s-ob4','right'), 250);
     }
     function applySavedTheme() {
         const saved = localStorage.getItem('ruh_theme');
@@ -5870,6 +5971,8 @@ window.RUH_VERSES = [
         $('#allow-location')?.addEventListener('click', requestLocation);
         $('#choose-city')?.addEventListener('click', openCityModal);
         $('#allow-reminders')?.addEventListener('click', requestReminders);
+        $('#pr-reminder-toggle')?.addEventListener('click', handlePrayerReminderToggle);
+        $('#pr-prep-toggle')?.addEventListener('click', handlePrepReminderToggle);
         $('#no-reminders')?.addEventListener('click', () => transitionTo('s-ob4','right'));
         $('#salawat-reset')?.addEventListener('click', () => {
             setSalawatCounts({});
